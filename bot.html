@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FiveM Player Checker</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f1f5f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #4CAF50;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        select, input, button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        select, input {
+            background-color: #fafafa;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border: 1px solid #d1f8d5;
+            border-radius: 5px;
+        }
+
+        #result h3 {
+            font-size: 1.4em;
+            color: #388e3c;
+        }
+
+        #result p {
+            font-size: 1.1em;
+            margin: 10px 0;
+        }
+
+        #result p strong {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 ค้นหาผู้เล่นในเซิร์ฟเวอร์ FiveM</h1>
+        <label for="server">เลือกเซิร์ฟเวอร์:</label>
+        <select id="server">
+            <option value="141.98.19.62">Starcommunity 1</option>
+            <option value="43.229.76.102">Starcommunity 2</option>
+            <option value="141.98.19.46">Starcommunity 3</option>
+            <option value="45.154.27">Starcommunity 4</option>
+            <option value="43.229.151.105">Starcommunity 5</option>
+            <option value="31.56.79.17">LAST STUDIO</option>
+            <option value="146.19.69.171">WHAT TRAINING 1</option>
+            <option value="146.19.69.172">WHAT TRAINING 2</option>
+            <option value="89.38.101.60">Summer</option>
+            <option value="191.96.93.37">Winter</option>
+            <option value="89.38.101.50">Hyper</option>
+        </select>
+
+        <label for="playerId">กรอก Player ID:</label>
+        <input type="text" id="playerId" placeholder="ใส่เลข ID ผู้เล่น">
+
+        <button onclick="checkPlayer()">🔍 ค้นหา</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function checkPlayer() {
+            const serverIp = document.getElementById("server").value;
+            const playerId = document.getElementById("playerId").value;
+
+            if (!playerId) {
+                alert("กรุณากรอก Player ID");
+                return;
+            }
+
+            // ส่งคำขอไปยัง Backend ที่เราได้ตั้งค่าไว้
+            fetch(`http://localhost:5000/check-player?server=${serverIp}&player=${playerId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.name) {
+                        document.getElementById("result").innerHTML = `
+                            <h3>🔎 ผลลัพธ์การค้นหา</h3>
+                            <p><strong>ชื่อผู้เล่น:</strong> ${data.name}</p>
+                            <p><strong>Steam Hex:</strong> ${data.steam || "ไม่พบข้อมูล"}</p>
+                            <p><strong>Ping:</strong> ${data.ping || "ไม่พบข้อมูล"} ms</p>
+                            <p><strong>Discord:</strong> ${data.discord || "ไม่พบข้อมูล"}</p>
+                            <p><strong>สถานะ:</strong> ${data.status || "ไม่พบข้อมูล"}</p>
+                        `;
+                    } else {
+                        document.getElementById("result").innerHTML = `<p>❌ ไม่พบข้อมูลผู้เล่น</p>`;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById("result").innerHTML = `<p>❌ ไม่สามารถดึงข้อมูลจากเซิร์ฟเวอร์ได้</p>`;
+                });
+        }
+    </script>
+</body>
+</html>
