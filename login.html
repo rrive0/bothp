@@ -198,7 +198,7 @@
             }
 
             // ส่งคำขอไปยัง Backend
-            fetch(`http://localhost:5000/check-player?server=${serverIp}&player=${playerId}`)
+            fetch(`https://bothp.onrender.com/check-player?server=${serverIp}&player=${playerId}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.name) {
