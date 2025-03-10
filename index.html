@@ -130,7 +130,6 @@
 
     <!-- Page Heading -->
     <h1 class="glow-text">JUTI STORY IS KING</h1>
-    <p class="mt-3 text-lg">ใครแจกเว็บกูโบก</p>
 
     <!-- Login Form -->
     <div id="loginForm" class="form-container">
@@ -165,7 +164,7 @@
             const storedPassword = localStorage.getItem(username);
             if (storedPassword === password) {
                 alert("เข้าสู่ระบบสำเร็จ!");
-                window.location.href = "index.html"; // เปลี่ยนเป็นหน้าโปรไฟล์
+                window.location.href = "login.html"; // เปลี่ยนเป็นหน้าโปรไฟล์
             } else {
                 document.getElementById("errorMessage").classList.remove("hidden");
             }
