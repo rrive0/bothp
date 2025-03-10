@@ -121,7 +121,7 @@
             }
 
             // ส่งคำขอไปยัง Backend ที่เราได้ตั้งค่าไว้
-            fetch(`https://fivem-checker.onrender.com/check-player?server=${serverIp}&player=${playerId}`)
+            fetch(`https://bothp.onrender.com/check-player?server=${serverIp}&player=${playerId}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.name) {
