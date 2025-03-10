@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUTISTORY.COM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: rgb(18, 18, 18);
+            color: #fff;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+        .glow-text {
+            font-size: 3rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #00ffcc;
+            text-shadow: 0 0 20px #00ffcc;
+            animation: glow 0.7s infinite alternate;
+        }
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #00ffcc; }
+            to { text-shadow: 0 0 30px #00ffcc; }
+        }
+        .input-field {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 2px solid #00ffcc;
+            border-radius: 10px;
+            padding: 12px 16px;
+            color: white;
+            width: 100%;
+            max-width: 300px;
+            margin-top: 10px;
+        }
+        .button {
+            background-color: #777777;
+            padding: 12px 30px;
+            color: #fff;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button:hover { background-color: #00b3b3; }
+        .toggle-btn { color: #00ffcc; cursor: pointer; font-size: 0.9rem; }
+        @keyframes pulse {
+            from { opacity: 0.7; }
+            to { opacity: 1; }
+        }
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: white;
+            opacity: 0.8;
+            font-size: 10px;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+        .dropdown {
+            position: absolute;
+            top: 60px;
+            right: 10px;
+            background: white;
+            color: black;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 180px;
+            display: none;
+            flex-direction: column;
+        }
+        .dropdown a {
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+            display: block;
+            transition: 0.3s;
+        }
+        .dropdown a:hover {
+            background: #ddd;
+        }
+        .form-container {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 400px;
+            width: 100%;
+            margin-top: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+        .form-container h2 {
+            color: #00ffcc;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen">
+
+    <!-- Snowflakes -->
+    <script>
+        function createSnowflake() {
+            const snowflake = document.createElement("div");
+            snowflake.classList.add("snowflake");
+            snowflake.innerHTML = "❄";
+            document.body.appendChild(snowflake);
+
+            let size = Math.random() * 20 + 5;
+            let left = Math.random() * window.innerWidth;
+            let duration = Math.random() * 5 + 3;
+
+            snowflake.style.left = `${left}px`;
+            snowflake.style.fontSize = `${size}px`;
+            snowflake.style.animationDuration = `${duration}s`;
+
+            setTimeout(() => {
+                snowflake.remove();
+            }, duration * 1000);
+        }
+
+        setInterval(createSnowflake, 150);
+    </script>
+
+    <!-- Page Heading -->
+    <h1 class="glow-text">JUTI STORY IS KING</h1>
+    <p class="mt-3 text-lg">ใครแจกเว็บกูโบก</p>
+
+    <!-- Login Form -->
+    <div id="loginForm" class="form-container">
+        <input id="usernameInput" type="text" placeholder="Username" class="input-field">
+        <input id="passwordInput" type="password" placeholder="Password" class="input-field">
+        <button onclick="checkLogin()" class="button mt-4">เข้าสู่ระบบ</button>
+        <p id="errorMessage" class="text-red-500 mt-2 hidden">ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง!</p>
+        <p class="toggle-btn" onclick="toggleForm('signup')">ยังไม่ได้สมัครสมาชิก? สมัครที่นี่</p>
+    </div>
+
+    <!-- Signup Form -->
+    <div id="signupForm" class="form-container hidden">
+        <h2 class="text-2xl mb-4">สมัครสมาชิก</h2>
+        <input id="signupUsernameInput" type="text" placeholder="Username" class="input-field">
+        <input id="signupPasswordInput" type="password" placeholder="Password" class="input-field">
+        <input id="signupConfirmPasswordInput" type="password" placeholder="ยืนยันรหัสผ่าน" class="input-field">
+        <button onclick="checkSignup()" class="button mt-4">สมัครสมาชิก</button>
+        <p id="signupErrorMessage" class="text-red-500 mt-2 hidden">กรุณากรอกข้อมูลให้ครบถ้วนและตรงกัน</p>
+        <p class="toggle-btn" onclick="toggleForm('login')">มีบัญชีอยู่แล้ว? เข้าสู่ระบบที่นี่</p>
+    </div>
+
+    <!-- JavaScript for Form Toggle and Validation -->
+    <script>
+        function toggleForm(form) {
+            document.getElementById('loginForm').classList.toggle('hidden', form !== 'login');
+            document.getElementById('signupForm').classList.toggle('hidden', form !== 'signup');
+        }
+
+        function checkLogin() {
+            const username = document.getElementById("usernameInput").value;
+            const password = document.getElementById("passwordInput").value;
+            const storedPassword = localStorage.getItem(username);
+            if (storedPassword === password) {
+                alert("เข้าสู่ระบบสำเร็จ!");
+                window.location.href = "index.html"; // เปลี่ยนเป็นหน้าโปรไฟล์
+            } else {
+                document.getElementById("errorMessage").classList.remove("hidden");
+            }
+        }
+
+        function checkSignup() {
+            const username = document.getElementById("signupUsernameInput").value;
+            const password = document.getElementById("signupPasswordInput").value;
+            const confirmPassword = document.getElementById("signupConfirmPasswordInput").value;
+            if (username && password && password === confirmPassword) {
+                localStorage.setItem(username, password); // บันทึกรหัสผ่านใน localStorage
+                alert("สมัครสมาชิกสำเร็จ! กรุณาเข้าสู่ระบบ");
+                toggleForm('login');
+            } else {
+                document.getElementById("signupErrorMessage").classList.remove("hidden");
+            }
+        }
+    </script>
+</body>
+</html>
