@@ -11,16 +11,19 @@
             padding: 0;
             height: 100vh;
             overflow: hidden;
-            background-color: black; /* เปลี่ยนเป็นสีดำ */
+            background-color: black;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .container {
             width: 100%;
             max-width: 800px;
-            margin: 50px auto;
             padding: 20px;
-            background-color: rgba(255, 255, 255, 0.8); /* เพิ่มความโปร่งแสง */
+            background-color: rgba(255, 255, 255, 0.8);
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             text-align: center;
@@ -38,27 +41,25 @@
             margin-bottom: 5px;
         }
 
-        /* ปรับให้ช่องเลือกเซิร์ฟเวอร์และช่องกรอก Player ID เท่ากัน */
         select, input {
-            width: 48%; /* ปรับความกว้างเป็น 48% เพื่อให้ช่องทั้งสองเท่ากัน */
-            padding: 8px; /* ลดขนาด padding */
-            font-size: 0.9em; /* ลดขนาดตัวอักษร */
+            width: 48%;
+            padding: 8px;
+            font-size: 0.9em;
             margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
 
-        /* ปรับขนาดปุ่มค้นหาให้เล็กลง */
         button {
-            width: 48%; /* ปรับความกว้างของปุ่มให้เล็กลง */
-            padding: 8px; /* ลดขนาด padding */
-            font-size: 0.9em; /* ลดขนาดตัวอักษร */
+            width: 48%;
+            padding: 8px;
+            font-size: 0.9em;
             background-color: #4CAF50;
             color: white;
             border: none;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            margin-bottom: 15px; /* เพิ่ม margin */
+            margin-bottom: 15px;
         }
 
         button:hover {
@@ -87,63 +88,61 @@
             font-weight: bold;
         }
 
-        /* Snow effect */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #1e1e1e;
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+        }
+        .navbar a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            transition: background 0.3s, color 0.3s;
+            font-weight: bold;
+        }
+        .navbar a:hover {
+            background-color: #444;
+            color: #fff;
+        }
+        /* หิมะตก */
         .snowflake {
-            position: absolute;
+            position: fixed;
             top: -10px;
             color: white;
             opacity: 0.8;
-            font-size: 10px;
             user-select: none;
             pointer-events: none;
             animation: fall linear infinite;
         }
-
         @keyframes fall {
-            to {
-                transform: translateY(100vh);
-                opacity: 0;
-            }
-        }
-
-        /* Dropdown menu styling */
-        .dropdown {
-            position: absolute;
-            top: 60px;
-            right: 10px;
-            background: white;
-            color: black;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            width: 180px;
-            display: none;  /* เริ่มต้นซ่อนไว้ */
-            flex-direction: column;
-            z-index: 1000; /* เพิ่ม z-index */
-        }
-
-        .dropdown a {
-            padding: 10px;
-            text-decoration: none;
-            color: black;
-            display: block;
-            transition: 0.3s;
-        }
-
-        .dropdown a:hover {
-            background: #ddd;
-        }
-
-        .dropdown.show {
-            display: block; /* เมื่อแสดงเมนู */
+            0% { transform: translateY(0px); opacity: 0.8; }
+            100% { transform: translateY(100vh); opacity: 0; }
         }
     </style>
 </head>
 <body>
+    <div class="navbar">
+        <a href="body.html">หน้าแรก</a>
+        <a href="rp.html">เช็คผู้เล่น FIVEM ROPLAY</a>
+        <a href="login.html">เช็คผู้เล่น FIVEM TRAINING</a>
+        <a href="https://www.facebook.com/lakksjslal.ksksiksks">แจ้งปัญหาด่วน</a>
+        <a href="index.html">ออกจากระบบ</a>
+    </div>
+
     <div class="container">
         <h1>ค้นหาผู้เล่นในเซิร์ฟเวอร์ FiveM</h1>
         <label for="server">เลือกเซิร์ฟเวอร์:</label>
         <select id="server">
-            <option value="141.98.19.62">Starcommunity 1</option>
+            <option value="">กดเพื่อเลือกเซิฟเวอร์</option>           
+            <option value="45.144.166.88">Starcommunity 1</option>
             <option value="43.229.76.102">Starcommunity 2</option>
             <option value="141.98.19.46">Starcommunity 3</option>
             <option value="45.154.27">Starcommunity 4</option>
@@ -151,9 +150,6 @@
             <option value="31.56.79.17">LAST STUDIO</option>
             <option value="146.19.69.171">WHAT TRAINING 1</option>
             <option value="146.19.69.172">WHAT TRAINING 2</option>
-            <option value="89.38.101.60">Summer</option>
-            <option value="191.96.93.37">Winter</option>
-            <option value="89.38.101.50">Hyper</option>
         </select>
 
         <label for="playerId">กรอก Player ID:</label>
@@ -162,62 +158,75 @@
         <button onclick="checkPlayer()">ค้นหา</button>
 
         <div id="result"></div>
-    </div>
+    
 
-    <script>
-        // ฟังก์ชันสร้างหิมะตก
-        function createSnowflake() {
-            const snowflake = document.createElement("div");
-            snowflake.classList.add("snowflake");
-            snowflake.innerHTML = "❄";
-            document.body.appendChild(snowflake);
-
-            let size = Math.random() * 20 + 5;
-            let left = Math.random() * window.innerWidth;
-            let duration = Math.random() * 5 + 3;
-
-            snowflake.style.left = `${left}px`;
-            snowflake.style.fontSize = `${size}px`;
-            snowflake.style.animationDuration = `${duration}s`;
-
-            setTimeout(() => {
-                snowflake.remove();
-            }, duration * 1000);
-        }
-
-        setInterval(createSnowflake, 150);
-
-        // ฟังก์ชันค้นหาผู้เล่น
-        function checkPlayer() {
-            const serverIp = document.getElementById("server").value;
-            const playerId = document.getElementById("playerId").value;
-
-            if (!playerId) {
-                alert("กรุณากรอก Player ID");
-                return;
+        <script>
+            // ฟังก์ชันสร้างหิมะตก
+            function createSnowflake() {
+                const snowflake = document.createElement("div");
+                snowflake.classList.add("snowflake");
+                snowflake.innerHTML = "❄";
+                document.body.appendChild(snowflake);
+    
+                let size = Math.random() * 20 + 5;
+                let left = Math.random() * window.innerWidth;
+                let duration = Math.random() * 5 + 3;
+    
+                snowflake.style.left = `${left}px`;
+                snowflake.style.fontSize = `${size}px`;
+                snowflake.style.animationDuration = `${duration}s`;
+    
+                setTimeout(() => {
+                    snowflake.remove();
+                }, duration * 1000);
             }
-
-            // ส่งคำขอไปยัง Backend
-            fetch(`https://bothp.onrender.com/check-player?server=${serverIp}&player=${playerId}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.name) {
-                        document.getElementById("result").innerHTML = ` 
-                            <h3>🔎 ผลลัพธ์การค้นหา</h3>
-                            <p><strong>ชื่อผู้เล่น:</strong> ${data.name}</p>
-                            <p><strong>Steam Hex:</strong> ${data.steam || "ไม่พบข้อมูล"}</p>
-                            <p><strong>Ping:</strong> ${data.ping || "ไม่พบข้อมูล"} ms</p>
-                            <p><strong>Discord:</strong> ${data.discord || "ไม่พบข้อมูล"}</p>
-                            <p><strong>สถานะ:</strong> ${data.status || "ไม่พบข้อมูล"}</p>
-                        `;
-                    } else {
-                        document.getElementById("result").innerHTML = `<p>❌ ไม่พบข้อมูลผู้เล่น</p>`;
-                    }
-                })
-                .catch(error => {
-                    document.getElementById("result").innerHTML = `<p>❌ ไม่สามารถดึงข้อมูลจากเซิร์ฟเวอร์ได้</p>`;
-                });
-        }
-    </script>
-</body>
-</html>
+    
+            setInterval(createSnowflake, 300);
+    
+            function toggleMenu() {
+                const menuContainer = document.querySelector(".menu-container");
+                const menuToggle = document.querySelector(".menu-toggle");
+                if (menuContainer.style.right === "0px") {
+                    menuContainer.style.right = "-200px";
+                    menuToggle.style.right = "0";
+                    menuToggle.innerHTML = "➡️";
+                } else {
+                    menuContainer.style.right = "0px";
+                    menuToggle.style.right = "200px";
+                    menuToggle.innerHTML = "⬅️";
+                }
+            }
+    
+            // ฟังก์ชันค้นหาผู้เล่น
+            function checkPlayer() {
+                const serverIp = document.getElementById("server").value;
+                const playerId = document.getElementById("playerId").value;
+    
+                if (!playerId) {
+                    alert("กรุณากรอก Player ID");
+                    return;
+                }
+    
+                fetch(`https://bothp.onrender.com/check-player?server=${serverIp}&player=${playerId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.name) {
+                            document.getElementById("result").innerHTML = ` 
+                                <h3>ข้อมูลผู้เล่น</h3>
+                                <p><strong>ชื่อผู้เล่น:</strong> ${data.name}</p>
+                                <p><strong>Steam Hex:</strong> ${data.steam || "ไม่พบข้อมูล"}</p>
+                                <p><strong>Ping:</strong> ${data.ping || "ไม่พบข้อมูล"} ms</p>
+                                <p><strong>Discord:</strong> ${data.discord || "ไม่พบข้อมูล"}</p>
+                                <p><strong>สถานะ:</strong> ${data.status || "ไม่พบข้อมูล"}</p>
+                            `;
+                        } else {
+                            document.getElementById("result").innerHTML = `<p>❌ ไม่พบข้อมูลผู้เล่น</p>`;
+                        }
+                    })
+                    .catch(error => {
+                        document.getElementById("result").innerHTML = `<p>❌ ไม่สามารถดึงข้อมูลจากเซิร์ฟเวอร์ได้</p>`;
+                    });
+            }
+        </script>
+    </body>
+    </html>
