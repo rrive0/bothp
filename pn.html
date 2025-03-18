@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUTI FIVEM SUPPORT</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(45deg, #000000, #555555, #161616);
+            background-size: 400% 400%;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            animation: gradientBG 10s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: linear-gradient(90deg, #000000, #1900ff);
+            padding: 10px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            z-index: 1000;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 15px;
+            transition: 0.3s ease-in-out;
+        }
+
+        .navbar a:hover {
+            color: #00ffff;
+            text-shadow: 0 0 15px #00ffff;
+        }
+
+        .section {
+            margin-top: 60px;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            color: #00c6ff;
+            text-shadow: 0 0 15px #00c6ff;
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            width: 150px;
+            height: 150px;
+            border: 2px solid #00c6ff;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease;
+            position: relative;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card .description {
+            position: absolute;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            width: 100%;
+            text-align: center;
+            padding: 5px 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card.active {
+            width: 300px;
+            height: 300px;
+        }
+
+        .card.active .description {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="pn.html">หน้าแรก</a>
+        <a href="rp.html">เช็คผู้เล่นFIVEM RP</a>
+        <a href="tn.html">เช็คผู้เล่นFIVEM TN</a>
+        <a href="https://www.facebook.com/lakksjslal.ksksiksks">แจ้งปัญหาด่วน</a>
+        <a href="singup.html">ออกจากระบบ</a>
+    </div>
+
+    <div class="section">SUPPORT WEBSITE</div>
+    <div class="card-container">
+        <div class="card" onclick="toggleExpand(this)">
+            <img src="https://media.discordapp.net/attachments/1309517132161351782/1348929005146869780/337034508_3341823326071723_9123946919201835390_n.jpg?ex=67d9d148&is=67d87fc8&hm=a638001db7ff50dbc4623fa1f0c8facdefbb5c9c7583314d6ddfe498e0520d49&=&format=webp&width=978&height=978" alt="รูปตัวอย่าง 1">
+            <div class="description">
+                บริการขายบอทเพลง TS3 ราคาเริ่มต้นที่ 60 บาท  
+                <a href="https://www.facebook.com/botts3thai" target="_blank" style="color: red; text-decoration: none;">
+                    Carbon bot By Ts3thai
+                </a>
+            </div>            
+        </div>
+        <div class="card" onclick="toggleExpand(this)">
+            <img src="https://media.discordapp.net/attachments/1308729447842840576/1351497888571719741/dsa.png?ex=67da97fe&is=67d9467e&hm=a10bbac7e1599fbda21b0942f0c7c38b17e5c8a98e90e5c299fb1cdc2d04cf93&=&format=webp&quality=lossless" alt="รูปตัวอย่าง 2">
+            <div class="description">
+                สนใจเข้ากระกูล ทักเพจมาได้เลย
+                <a href="https://www.facebook.com/profile.php?id=100063900591544" target="_blank" style="color: red; text-decoration: none;">
+                    JUTI STORY x YONGBXY
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="section">ร้านถ่ายรูปที่ทางเว็บแนะนำ</div>
+    <div class="card-container">
+        <div class="card" onclick="toggleExpand(this)">
+            <img src="https://via.placeholder.com/150" alt="รูปตัวอย่าง 4">
+            <div class="description">คำอธิบายรูป 4</div>
+        </div>
+        <div class="card" onclick="toggleExpand(this)">
+            <img src="https://via.placeholder.com/150" alt="รูปตัวอย่าง 5">
+            <div class="description">คำอธิบายรูป 5</div>
+        </div>
+        <div class="card" onclick="toggleExpand(this)">
+            <img src="https://via.placeholder.com/150" alt="รูปตัวอย่าง 5">
+            <div class="description">คำอธิบายรูป 5</div>
+        </div>
+        <div class="card" onclick="toggleExpand(this)">
+            <img src="https://via.placeholder.com/150" alt="รูปตัวอย่าง 5">
+            <div class="description">คำอธิบายรูป 5</div>
+        </div>
+        <div class="card" onclick="toggleExpand(this)">
+            <img src="https://via.placeholder.com/150" alt="รูปตัวอย่าง 5">
+            <div class="description">คำอธิบายรูป 5</div>
+        </div>
+    </div>
+
+    <script>
+        function toggleExpand(element) {
+            document.querySelectorAll('.card').forEach(card => {
+                if (card !== element) {
+                    card.classList.remove('active');
+                }
+            });
+            element.classList.toggle('active');
+        }
+    </script>
+</body>
+</html> 
