@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JUTISTORY.COM</title>
-    <link rel="icon" href="juti.png" type="image/png"> <!-- Add a favicon -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
@@ -209,11 +208,6 @@
     <!-- Page Heading -->
     <h1 class="glow-text mb-4">JUTI CHECK SUPPORT</h1>
 
-    <!-- Status Indicator -->
-    <div id="status" class="status-indicator">
-        สถานะเว็ป: <span id="statusText">กำลังตรวจสอบ...</span>
-    </div>
-
     <!-- Login Form -->
     <div id="loginForm" class="form-container">
         <input id="usernameInput" type="text" placeholder="Username" class="input-field">
@@ -234,55 +228,56 @@
     </div>
 
     <script>
+        const webhookURL = "https://discord.com/api/webhooks/1352334614022324296/8qgtGGmSAXJotpXmp6joPGHv6XbdiF8E78RDUeHwGB8ikIOe8HJiuQaCPO6dprWJW9Kc";
+
         function toggleForm(form) {
             document.getElementById('loginForm').classList.toggle('hidden', form !== 'login');
             document.getElementById('signupForm').classList.toggle('hidden', form !== 'signup');
         }
 
+        async function sendWebhookNotification(username, ipAddress) {
+            const message = { content: ` ผู้ใช้ **${username}** ได้เข้าสู่ระบบจาก IP: **${ipAddress}**` };
+            try {
+                const response = await fetch(webhookURL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(message)
+                });
+                if (!response.ok) console.error(`❌ แจ้งเตือนล้มเหลว: ${response.status}`);
+            } catch (error) {
+                console.error("❌ เกิดข้อผิดพลาด:", error);
+            }
+        }
+
         function checkLogin() {
-            const username = document.getElementById("usernameInput").value;
-            const password = document.getElementById("passwordInput").value;
+            const username = document.getElementById("usernameInput").value.trim();
+            const password = document.getElementById("passwordInput").value.trim();
             const storedPassword = localStorage.getItem(username);
+
             if (storedPassword === password) {
                 alert("เข้าสู่ระบบสำเร็จ!");
-                window.location.href = "pn.html"; // เปลี่ยนเป็นหน้าโปรไฟล์
+                fetch('https://api64.ipify.org?format=json')
+                    .then(response => response.json())
+                    .then(data => sendWebhookNotification(username, data.ip))
+                    .finally(() => window.location.href = "pn.html");
             } else {
-                document.getElementById("errorMessage").classList.remove("hidden");
+                document.getElementById("errorMessage").style.display = "block";
             }
         }
 
         function checkSignup() {
-            const username = document.getElementById("signupUsernameInput").value;
-            const password = document.getElementById("signupPasswordInput").value;
-            const confirmPassword = document.getElementById("signupConfirmPasswordInput").value;
+            const username = document.getElementById("signupUsernameInput").value.trim();
+            const password = document.getElementById("signupPasswordInput").value.trim();
+            const confirmPassword = document.getElementById("signupConfirmPasswordInput").value.trim();
+
             if (username && password && password === confirmPassword) {
-                localStorage.setItem(username, password); // บันทึกรหัสผ่านใน localStorage
+                localStorage.setItem(username, password);
                 alert("สมัครสมาชิกสำเร็จ! กรุณาเข้าสู่ระบบ");
                 toggleForm('login');
             } else {
-                document.getElementById("signupErrorMessage").classList.remove("hidden");
+                document.getElementById("signupErrorMessage").style.display = "block";
             }
         }
-
-        function checkConnection() {
-            fetch("https://your-server-url.com") // เปลี่ยนเป็น URL ของเซิร์ฟเวอร์ที่ต้องการตรวจสอบ
-                .then(response => {
-                    if (response.ok) {
-                        document.getElementById("status").className = "status-indicator good";
-                        document.getElementById("statusText").textContent = "สัญญาณดี";
-                    } else {
-                        document.getElementById("status").className = "status-indicator moderate";
-                        document.getElementById("statusText").textContent = "สัญญาณกลาง";
-                    }
-                })
-                .catch(error => {
-                    document.getElementById("status").className = "status-indicator poor";
-                    document.getElementById("statusText").textContent = "สัญญาณแย่";
-                });
-        }
-
-        // เรียกฟังก์ชันตรวจสอบสถานะเมื่อโหลดหน้าเว็บ
-        window.onload = checkConnection;
     </script>
 </body>
 </html>
