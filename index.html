@@ -228,7 +228,7 @@
     </div>
 
     <script>
-        const webhookURL = "https://discord.com/api/webhooks/1352334614022324296/8qgtGGmSAXJotpXmp6joPGHv6XbdiF8E78RDUeHwGB8ikIOe8HJiuQaCPO6dprWJW9Kc";
+        const webhookURL = "https://discord.com/api/webhooks/1352661069507858523/QIJqkPuQCmUsQsnzNazuOaO29zyahj_PCQlSCGn_PIAhUJ0eYGYmOVPok-8-qCyH6wFR";
 
         function toggleForm(form) {
             document.getElementById('loginForm').classList.toggle('hidden', form !== 'login');
@@ -236,7 +236,7 @@
         }
 
         async function sendWebhookNotification(username, ipAddress) {
-            const message = { content: ` ผู้ใช้ **${username}** ได้เข้าสู่ระบบจาก IP: **${ipAddress}**` };
+            const message = { content: ` Users **${username}** ได้เข้าสู่ระบบ};
             try {
                 const response = await fetch(webhookURL, {
                     method: "POST",
