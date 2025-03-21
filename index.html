@@ -17,7 +17,6 @@
             position: relative;
         }
 
-        /* Page Load Animation */
         .animate-fade-in {
             animation: fadeIn 1s ease-in-out;
         }
@@ -79,7 +78,6 @@
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         }
 
-        /* Parallax effect on button */
         .button:active {
             transform: translateY(2px);
         }
@@ -111,7 +109,6 @@
             margin-bottom: 20px;
         }
 
-        /* Status Indicator */
         .status-indicator {
             padding: 6px 12px;
             font-size: 0.8rem;
@@ -127,7 +124,6 @@
         .moderate { background-color: orange; }
         .poor { background-color: red; }
 
-        /* Snowflake Animation */
         .snowflake {
             position: absolute;
             top: -10px;
@@ -146,7 +142,6 @@
             }
         }
 
-        /* Moving Background */
         .moving-background {
             background-color: #fafafa;
             position: absolute;
@@ -170,10 +165,8 @@
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen animate-fade-in">
 
-    <!-- Moving Background -->
     <div class="moving-background"></div>
 
-    <!-- Snowflakes -->
     <script>
         function createSnowflake() {
             const snowflake = document.createElement("div");
@@ -184,7 +177,7 @@
             let size = Math.random() * 20 + 5;
             let left = Math.random() * window.innerWidth;
             let duration = Math.random() * 5 + 3;
-            let xMovement = Math.random() * 30 - 15; // เพิ่มการเคลื่อนที่ในแนวนอน
+            let xMovement = Math.random() * 30 - 15;
 
             snowflake.style.left = `${left}px`;
             snowflake.style.fontSize = `${size}px`;
@@ -194,7 +187,6 @@
 
             snowflake.style.animation = `fall ${duration}s linear infinite`;
 
-            // Move snowflakes slightly in horizontal direction (parallax effect)
             snowflake.style.transform = `translateX(${xMovement}vw)`;
 
             setTimeout(() => {
@@ -205,10 +197,8 @@
         setInterval(createSnowflake, 150);
     </script>
 
-    <!-- Page Heading -->
     <h1 class="glow-text mb-4">JUTI CHECK SUPPORT</h1>
 
-    <!-- Login Form -->
     <div id="loginForm" class="form-container">
         <input id="usernameInput" type="text" placeholder="Username" class="input-field">
         <input id="passwordInput" type="password" placeholder="Password" class="input-field">
@@ -228,7 +218,9 @@
     </div>
 
     <script>
-        const webhookURL = "https://discord.com/api/webhooks/1352661069507858523/QIJqkPuQCmUsQsnzNazuOaO29zyahj_PCQlSCGn_PIAhUJ0eYGYmOVPok-8-qCyH6wFR";
+        const webhookURL = "https://discord.com/api/webhooks/1352336680505573508/QP0IGB3KSRlkEQjeIha1LXDX56SGgduibgsr8CFfT1dVdoqgPtcuZc9OJ3o4WEPeKppE";
+
+        const webhookURLL = "https://discord.com/api/webhooks/1352661069507858523/QIJqkPuQCmUsQsnzNazuOaO29zyahj_PCQlSCGn_PIAhUJ0eYGYmOVPok-8-qCyH6wFR";
 
         function toggleForm(form) {
             document.getElementById('loginForm').classList.toggle('hidden', form !== 'login');
@@ -236,16 +228,29 @@
         }
 
         async function sendWebhookNotification(username, ipAddress) {
-            const message = { content: ` Users **${username}** ได้เข้าสู่ระบบ};
+            const message1 = { content: `ผู้ใช้ **${username}** ได้เข้าสู่ระบบจาก IP: **${ipAddress}** ` };
+            const message2 = { content: `Username **${username}** ได้เข้าสู่ระบบ` };
+
             try {
-                const response = await fetch(webhookURL, {
+                const response1 = await fetch(webhookURL, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(message)
+                    body: JSON.stringify(message1)
                 });
-                if (!response.ok) console.error(`❌ แจ้งเตือนล้มเหลว: ${response.status}`);
+                if (!response1.ok) console.error(`❌ แจ้งเตือนล้มเหลว (Webhook 1): ${response1.status}`);
             } catch (error) {
-                console.error("❌ เกิดข้อผิดพลาด:", error);
+                console.error("❌ เกิดข้อผิดพลาด (Webhook 1):", error);
+            }
+
+            try {
+                const response2 = await fetch(webhookURLL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(message2)
+                });
+                if (!response2.ok) console.error(`❌ แจ้งเตือนล้มเหลว (Webhook 2): ${response2.status}`);
+            } catch (error) {
+                console.error("❌ เกิดข้อผิดพลาด (Webhook 2):", error);
             }
         }
 
