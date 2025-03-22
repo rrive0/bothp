@@ -235,7 +235,7 @@
             var serverIp = document.getElementById('server').value;
             var playerId = document.getElementById('playerId').value;
 
-            fetch(`https://jutistory.onrender.com/check-player?server=${serverIp}&player=${playerId}`)
+            fetch(`https://bothp.onrender.com/check-player?server=${serverIp}&player=${playerId}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.name) {
