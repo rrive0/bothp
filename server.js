@@ -22,22 +22,21 @@ app.get('/check-player', async (req, res) => {
 
         const identifiers = player.identifiers || [];
 
-        // Helper function to extract by prefix
-        const getIdentifier = (prefix) => {
-            const item = identifiers.find(i => i.startsWith(`${prefix}:`));
-            return item ? item.split(":")[1] : null;
+        // ใช้แบบ fuzzy match (เหมือน bot Discord)
+        const getIdentifierFuzzy = (key) => {
+            const match = identifiers.find(i => i.includes(`${key}:`));
+            return match ? match.split(':')[1] : null;
         };
 
-        // แยกค่าต่าง ๆ ออกมา
-        const steamHex = getIdentifier("steam");
-        const discordId = getIdentifier("discord");
-        const license = getIdentifier("license");
-        const ip = getIdentifier("ip");
-        const xbox = getIdentifier("xbl");
-        const live = getIdentifier("live");
-        const fivem = getIdentifier("fivem");
+        const steamHex = getIdentifierFuzzy("steam");
+        const discordId = getIdentifierFuzzy("discord");
+        const license = getIdentifierFuzzy("license");
+        const ip = getIdentifierFuzzy("ip");
+        const xbox = getIdentifierFuzzy("xbl");
+        const live = getIdentifierFuzzy("live");
+        const fivem = getIdentifierFuzzy("fivem");
 
-        // แปลง steam hex เป็น steam profile (steam64)
+        // แปลง Steam Hex เป็น Steam Profile
         let steamProfile = "ไม่พบข้อมูล";
         if (steamHex) {
             try {
@@ -47,7 +46,10 @@ app.get('/check-player', async (req, res) => {
             }
         }
 
-        // ส่งค่ากลับ
+        // Debug: log identifiers ทั้งหมด
+        console.log(`📦 Identifiers for player ${player.name}:`, identifiers);
+
+        // ส่งข้อมูลกลับ
         res.json({
             name: player.name || "ไม่พบชื่อ",
             ping: player.ping || "ไม่พบ ping",
@@ -59,15 +61,15 @@ app.get('/check-player', async (req, res) => {
             xbox: xbox || "ไม่พบข้อมูล",
             live: live || "ไม่พบข้อมูล",
             fivem: fivem || "ไม่พบข้อมูล",
-            allIdentifiers: identifiers // แสดงทั้งหมดเพื่อ debug ได้ด้วย
+            allIdentifiers: identifiers // เผื่อหน้าเว็บอยากแสดง raw ข้อมูลทั้งหมด
         });
 
     } catch (error) {
-        console.error("Error fetching players data:", error);
+        console.error("❌ Error fetching players data:", error.message || error);
         res.status(500).json({ message: 'ไม่สามารถดึงข้อมูลจากเซิร์ฟเวอร์ได้' });
     }
 });
 
 app.listen(port, () => {
-    console.log(`Backend server running at http://localhost:${port}`);
+    console.log(`✅ Backend server running at http://localhost:${port}`);
 });
