@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JUTI FIVEM SUPPORT</title>
+  <link rel="icon" href="Support.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
+    }
+    body, html {
+      margin: 0; padding: 0;
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #e0f7fa;
+      overflow-x: hidden;
+    }
+
+    /* Header / Navbar */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(15, 32, 39, 0.95);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.7rem 2rem;
+      z-index: 9999;
+      backdrop-filter: blur(8px);
+    }
+    header .logo {
+      font-weight: 700;
+      font-size: 1.4rem;
+      letter-spacing: 1.3px;
+      color: #00e5ff;
+      user-select: none;
+    }
+    nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+    nav a {
+      color: #b2ebf2;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      box-shadow: 0 0 0 transparent;
+    }
+    nav a:hover {
+      background-color: #00e5ff;
+      color: #00384d;
+      box-shadow: 0 0 12px #00e5ff;
+    }
+
+    /* Main content container */
+    main {
+      max-width: 1100px;
+      margin: 100px auto 40px;
+      padding: 0 1rem;
+      text-align: center;
+      z-index: 10;
+      position: relative;
+    }
+
+    main h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #00e5ff;
+      text-shadow: 0 0 12px #00e5ff;
+    }
+    main p.subtitle {
+      font-weight: 500;
+      font-size: 1.2rem;
+      margin-bottom: 3rem;
+      color: #81d4faaa;
+    }
+
+    /* Card container */
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+
+    /* Card style */
+    .card {
+      background: rgba(0, 229, 255, 0.1);
+      border-radius: 18px;
+      box-shadow: 0 8px 20px rgba(0, 229, 255, 0.25);
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      user-select: none;
+      border: 2px solid transparent;
+      width: 100%;
+      max-width: 300px;  /* กำหนด max-width ชัดเจน */
+      margin: 0 auto;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 229, 255, 0.45);
+      border-color: #00e5ff;
+    }
+
+    /* แก้ไขตรงนี้เพื่อให้รูปเต็มกล่อง */
+    .card img {
+      width: 100%;
+      height: 200px; /* ความสูงตายตัว */
+      object-fit: cover; /* ครอบเต็มกล่องไม่บิดรูป */
+      border-radius: 18px 18px 0 0;
+      box-shadow: inset 0 0 40px rgba(0, 229, 255, 0.2);
+      transition: transform 0.3s ease;
+      display: block; /* ลบช่องว่างล่างรูป */
+      margin: 0; /* ลบ margin */
+      padding: 0; /* ลบ padding */
+      background-color: #001f2f;
+    }
+    .card:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Description box */
+    .card .description {
+      margin-top: 1rem;
+      padding: 0 1rem 1rem 1rem;
+      font-size: 1rem;
+      line-height: 1.4;
+      color: #b2ebf2;
+      user-select: text;
+    }
+    .card .description a {
+      color: #00e5ff;
+      font-weight: 700;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .card .description a:hover {
+      color: #81d4fa;
+      text-shadow: 0 0 6px #81d4fa;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 600px) {
+      main h1 {
+        font-size: 2.2rem;
+      }
+      nav {
+        gap: 1rem;
+      }
+      nav a {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+      }
+      .card img {
+        height: 150px;
+      }
+    }
+
+    /* Particles container */
+    #particles-js {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="particles-js"></div>
+
+  <header>
+    <div class="logo">JUTI STORY SUPPORT</div>
+    <nav>
+      <a href="roplay.html">FIVEM ROPLAY</a>
+      <a href="training.html">FIVEM TRAINING</a>
+      <a href="https://www.facebook.com/lakksjslal.ksksiksks" target="_blank" rel="noopener noreferrer">REPOST</a>
+      <a href="index.html">EXIT</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>SUPPORT WEBSITE</h1>
+    <p class="subtitle">ข้อมูลสนับสนุนสำหรับ JUTI STORY</p>
+
+    <div class="card-container">
+      <div class="card" tabindex="0" aria-label="สนใจเข้ากระกูล ทักเพจ JUTI STORY x YONGBXY">
+        <img src="https://img5.pic.in.th/file/secure-sv1/1-1d26803633373e3f2.png" alt="สนใจเข้ากระกูล ทักเพจ JUTI STORY x YONGBXY" />
+        <div class="description">
+          สนใจเข้ากระกูล ทักเพจมาได้เลย<br />
+          <a href="https://www.facebook.com/profile.php?id=100063900591544" target="_blank" rel="noopener noreferrer">JUTI STORY x YONGBXY</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Particle.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 60, "density": { "enable": true, "value_area": 800 }},
+        "color": { "value": "#00e5ff" },
+        "shape": { "type": "circle" },
+        "opacity": { "value": 0.5, "random": false },
+        "size": { "value": 3, "random": true },
+        "line_linked": {
+          "enable": true,
+          "distance": 120,
+          "color": "#00e5ff",
+          "opacity": 0.25,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 2,
+          "direction": "none",
+          "random": true,
+          "straight": false,
+          "out_mode": "bounce"
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": { "enable": true, "mode": "grab" },
+          "onclick": { "enable": true, "mode": "push" },
+          "resize": true
+        },
+        "modes": {
+          "grab": { "distance": 140, "line_linked": { "opacity": 0.3 }},
+          "push": { "particles_nb": 4 }
+        }
+      },
+      "retina_detect": true
+    });
+
+    // Prevent right click & F12
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('keydown', e => {
+      if (e.key === "F12" || (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i')) {
+        e.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>
