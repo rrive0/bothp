@@ -1,3 +1,4 @@
+// check-player API ที่รับ server IP และ player ID
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
@@ -22,7 +23,6 @@ app.get('/check-player', async (req, res) => {
 
         const identifiers = player.identifiers || [];
 
-        // ใช้แบบ fuzzy match (เหมือน bot Discord)
         const getIdentifierFuzzy = (key) => {
             const match = identifiers.find(i => i.includes(`${key}:`));
             return match ? match.split(':')[1] : null;
@@ -36,7 +36,6 @@ app.get('/check-player', async (req, res) => {
         const live = getIdentifierFuzzy("live");
         const fivem = getIdentifierFuzzy("fivem");
 
-        // แปลง Steam Hex เป็น Steam Profile
         let steamProfile = "ไม่พบข้อมูล";
         if (steamHex) {
             try {
@@ -46,10 +45,6 @@ app.get('/check-player', async (req, res) => {
             }
         }
 
-        // Debug: log identifiers ทั้งหมด
-        console.log(`📦 Identifiers for player ${player.name}:`, identifiers);
-
-        // ส่งข้อมูลกลับ
         res.json({
             name: player.name || "ไม่พบชื่อ",
             ping: player.ping || "ไม่พบ ping",
@@ -61,7 +56,7 @@ app.get('/check-player', async (req, res) => {
             xbox: xbox || "ไม่พบข้อมูล",
             live: live || "ไม่พบข้อมูล",
             fivem: fivem || "ไม่พบข้อมูล",
-            allIdentifiers: identifiers // เผื่อหน้าเว็บอยากแสดง raw ข้อมูลทั้งหมด
+            allIdentifiers: identifiers
         });
 
     } catch (error) {
