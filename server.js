@@ -8,6 +8,8 @@ const port = process.env.PORT || 5000;
 
 app.use(cors());
 
+const STEAM_API_KEY = '08FDCED3DCE208FE075183C6DDEC360E'; // 👈 คุณต้องไปสร้างเองที่ https://steamcommunity.com/dev/apikey
+
 app.get('/check-player', async (req, res) => {
     const serverIp = req.query.server;
     const playerId = req.query.player;
@@ -62,6 +64,37 @@ app.get('/check-player', async (req, res) => {
     } catch (error) {
         console.error("❌ Error fetching players data:", error.message || error);
         res.status(500).json({ message: 'ไม่สามารถดึงข้อมูลจากเซิร์ฟเวอร์ได้' });
+    }
+});
+
+
+// ✅ API ใหม่: ดึง avatar + ชื่อ จาก Steam ID
+app.get('/steam-avatar', async (req, res) => {
+    const steamId = req.query.id;
+    if (!steamId || !STEAM_API_KEY) {
+        return res.status(400).json({ error: 'SteamID หรือ API KEY ไม่ถูกต้อง' });
+    }
+
+    try {
+        const steamRes = await axios.get('https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/', {
+            params: {
+                key: STEAM_API_KEY,
+                steamids: steamId
+            }
+        });
+
+        const player = steamRes.data.response.players[0];
+        if (!player) return res.status(404).json({ error: 'ไม่พบข้อมูล Steam' });
+
+        res.json({
+            avatar: player.avatarfull,
+            name: player.personaname,
+            profile: player.profileurl
+        });
+
+    } catch (error) {
+        console.error("❌ Steam API Error:", error.message || error);
+        res.status(500).json({ error: 'เกิดข้อผิดพลาดขณะดึงข้อมูลจาก Steam' });
     }
 });
 
