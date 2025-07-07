@@ -1,4 +1,3 @@
-// check-player API ที่รับ server IP และ player ID
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
@@ -12,9 +11,15 @@ app.get('/check-player', async (req, res) => {
     const serverIp = req.query.server;
     const playerId = req.query.player;
 
+    if (!serverIp || !playerId) {
+        return res.status(400).json({ message: 'กรุณาระบุ server และ player ให้ครบ' });
+    }
+
     try {
-        const response = await axios.get(`http://${serverIp}:30120/players.json`);
+        const response = await axios.get(`http://${serverIp}:30120/players.json`, { timeout: 5000 });
         const players = response.data;
+
+        console.log(`Fetched ${players.length} players from ${serverIp}`);
 
         const player = players.find(p => p.id.toString() === playerId);
         if (!player) {
@@ -24,7 +29,7 @@ app.get('/check-player', async (req, res) => {
         const identifiers = player.identifiers || [];
 
         const getIdentifierFuzzy = (key) => {
-            const match = identifiers.find(i => i.includes(`${key}:`));
+            const match = identifiers.find(i => i.toLowerCase().includes(`${key.toLowerCase()}:`));
             return match ? match.split(':')[1] : null;
         };
 
@@ -39,6 +44,7 @@ app.get('/check-player', async (req, res) => {
         let steamProfile = "ไม่พบข้อมูล";
         if (steamHex) {
             try {
+                // แปลง steamHex เป็น SteamID64
                 steamProfile = `https://steamcommunity.com/profiles/${BigInt("0x" + steamHex)}`;
             } catch {
                 steamProfile = "แปลง Steam Hex ไม่สำเร็จ";
