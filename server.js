@@ -15,7 +15,7 @@ app.get('/check-player', async (req, res) => {
     const playerId = req.query.player;
 
     try {
-        const response = await axios.get(`http://${serverIp}:30120/players.json`);
+        const response = await axios.get(http://${serverIp}:30120/players.json);
         const players = response.data;
 
         const player = players.find(p => p.id.toString() === playerId);
@@ -26,7 +26,7 @@ app.get('/check-player', async (req, res) => {
         const identifiers = player.identifiers || [];
 
         const getIdentifierFuzzy = (key) => {
-            const match = identifiers.find(i => i.includes(`${key}:`));
+            const match = identifiers.find(i => i.includes(${key}:));
             return match ? match.split(':')[1] : null;
         };
 
@@ -41,7 +41,7 @@ app.get('/check-player', async (req, res) => {
         let steamProfile = "ไม่พบข้อมูล";
         if (steamHex) {
             try {
-                steamProfile = `https://steamcommunity.com/profiles/${BigInt("0x" + steamHex)}`;
+                steamProfile = https://steamcommunity.com/profiles/${BigInt("0x" + steamHex)};
             } catch {
                 steamProfile = "แปลง Steam Hex ไม่สำเร็จ";
             }
@@ -99,5 +99,7 @@ app.get('/steam-avatar', async (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`✅ Backend server running at http://localhost:${port}`);
+    console.log(✅ Backend server running at http://localhost:${port});
 });
+
+
