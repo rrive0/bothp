@@ -1,469 +1,263 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FIVEM CHECK · ROLEPLAY</title>
-  <link rel="icon" href="FiveM.png" type="image/png" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,800&display=swap" rel="stylesheet" />
-  <style>
-    /* ----- รีเซ็ตพื้นฐานและโครงสร้างหลัก ----- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FIVEM CHECK ROLEPLAY</title>
+<link rel="icon" href="FiveM.png" type="image/png" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(145deg, #0b121c 0%, #1a2635 100%);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      color: #edf2fb;
-      line-height: 1.5;
-    }
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Poppins',sans-serif;
+  min-height:100vh;
+  background: radial-gradient(circle at 20% 30%,#1a2a4f,#0a0f1f 70%);
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+}
 
-    /* ----- ส่วนหัวและเมนู (ดีไซน์โปร่งใส โมเดิร์น) ----- */
-    .navbar {
-      background: rgba(10, 20, 30, 0.85);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      padding: 1rem 2.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid rgba(0, 180, 255, 0.25);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+/* ===== HEADER ===== */
+header{
+  backdrop-filter: blur(20px);
+  background: rgba(20,30,60,.6);
+  border-bottom:1px solid rgba(0,255,255,.2);
+  padding:18px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.logo{
+  font-size:1.8rem;
+  font-weight:800;
+  background:linear-gradient(90deg,#00f2ff,#00ffae);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  letter-spacing:2px;
+}
+nav{display:flex;gap:20px}
+nav a{
+  padding:8px 16px;
+  border-radius:30px;
+  font-weight:600;
+  transition:.3s;
+}
+nav a:hover{
+  background:linear-gradient(90deg,#00f2ff,#00ffae);
+  color:#000;
+  box-shadow:0 0 15px #00ffee;
+}
 
-    .logo {
-      font-weight: 800;
-      font-size: 2rem;
-      background: linear-gradient(130deg, #80d4ff, #4da6ff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      letter-spacing: -0.5px;
-      text-shadow: 0 0 12px #4da6ff80;
-    }
+/* ===== MAIN CARD ===== */
+main{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:40px 20px;
+}
+.card{
+  width:100%;
+  max-width:750px;
+  background:rgba(20,25,45,.75);
+  backdrop-filter:blur(25px);
+  border-radius:25px;
+  padding:40px;
+  box-shadow:0 0 40px rgba(0,255,255,.15);
+  border:1px solid rgba(0,255,255,.15);
+  animation:fadeIn 1s ease;
+}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.card h1{
+  text-align:center;
+  font-size:2.2rem;
+  margin-bottom:35px;
+  background:linear-gradient(90deg,#00f2ff,#00ffae);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
 
-    .nav-links {
-      display: flex;
-      gap: 1.8rem;
-    }
+/* ===== FORM ===== */
+form{
+  display:flex;
+  flex-direction:column;
+  gap:22px;
+}
+label{
+  font-weight:600;
+  color:#a8eaff;
+}
+select,input{
+  padding:14px 18px;
+  border-radius:14px;
+  border:1px solid rgba(0,255,255,.2);
+  background:rgba(10,15,35,.9);
+  color:#fff;
+  font-size:1rem;
+  transition:.3s;
+}
+select:focus,input:focus{
+  outline:none;
+  border-color:#00ffee;
+  box-shadow:0 0 12px #00ffee;
+}
+button{
+  margin-top:10px;
+  padding:16px;
+  border:none;
+  border-radius:50px;
+  font-weight:700;
+  font-size:1.1rem;
+  cursor:pointer;
+  background:linear-gradient(90deg,#00f2ff,#00ffae);
+  color:#000;
+  transition:.3s;
+}
+button:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 25px #00ffee;
+}
 
-    .nav-links a {
-      color: #b4d0f0;
-      font-weight: 600;
-      font-size: 1rem;
-      padding: 0.5rem 1.2rem;
-      border-radius: 40px;
-      transition: all 0.2s ease;
-      background: transparent;
-      border: 1px solid transparent;
-    }
+/* ===== RESULT ===== */
+#result{
+  margin-top:35px;
+  padding:25px;
+  border-radius:18px;
+  background:rgba(0,0,0,.5);
+  border:1px solid rgba(0,255,255,.2);
+  font-size:1rem;
+  line-height:1.7;
+  animation:fadeIn .6s ease;
+}
+#result h3{
+  margin-bottom:15px;
+  color:#00ffee;
+}
+#result a{
+  color:#00ffae;
+  font-weight:600;
+}
 
-    .nav-links a:hover {
-      background: #1e3a5f;
-      color: white;
-      border-color: #0099ff;
-      box-shadow: 0 0 15px #0099ff;
-      transform: translateY(-2px);
-    }
+/* ===== FOOTER ===== */
+footer{
+  text-align:center;
+  padding:18px;
+  background:rgba(10,15,35,.8);
+  border-top:1px solid rgba(0,255,255,.15);
+  font-size:.85rem;
+  color:#aaa;
+}
 
-    /* ----- คอนเทนเนอร์หลัก (การ์ดสวยงาม) ----- */
-    .main-card {
-      flex: 1;
-      max-width: 780px;
-      margin: 3rem auto 3rem;
-      padding: 2.8rem 3rem;
-      background: rgba(18, 28, 45, 0.8);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 48px;
-      border: 1px solid rgba(0, 153, 255, 0.3);
-      box-shadow: 0 30px 50px -10px rgba(0, 100, 200, 0.5), inset 0 0 30px rgba(0, 160, 255, 0.2);
-    }
-
-    .main-title {
-      font-size: 3rem;
-      font-weight: 800;
-      text-align: center;
-      margin-bottom: 2rem;
-      background: linear-gradient(145deg, #b0e0ff, #7ac7ff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      letter-spacing: -0.5px;
-      text-transform: uppercase;
-      word-break: break-word;
-      text-shadow: 0 0 20px #0077ff;
-    }
-
-    /* ----- ฟอร์มอินพุตสุดล้ำ ----- */
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      margin-bottom: 1.8rem;
-    }
-
-    label {
-      font-weight: 600;
-      font-size: 1.1rem;
-      color: #99c6ff;
-      letter-spacing: 0.3px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    label::before {
-      content: "▹";
-      color: #00b7ff;
-      font-size: 1.4rem;
-      line-height: 1;
-    }
-
-    select, input {
-      background: rgba(0, 15, 30, 0.7);
-      border: 1.5px solid #2f4f7f;
-      border-radius: 28px;
-      padding: 1rem 1.8rem;
-      color: #f0f9ff;
-      font-size: 1rem;
-      font-weight: 500;
-      outline: none;
-      transition: all 0.25s ease;
-      backdrop-filter: blur(4px);
-    }
-
-    select {
-      appearance: none;
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%2300aaff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
-      background-repeat: no-repeat;
-      background-position: right 1.5rem center;
-      background-size: 1.4rem;
-    }
-
-    select:hover, input:hover {
-      border-color: #0088ff;
-      background: rgba(10, 30, 50, 0.9);
-    }
-
-    select:focus, input:focus {
-      border-color: #40bfff;
-      box-shadow: 0 0 0 4px rgba(0, 170, 255, 0.3);
-      background: #0a1e32;
-    }
-
-    select option {
-      background: #102433;
-      color: #e0f0ff;
-    }
-
-    /* ----- ปุ่มค้นหาสุดปัง ----- */
-    .search-btn {
-      background: linear-gradient(115deg, #0066cc, #0099ff);
-      border: none;
-      border-radius: 40px;
-      padding: 1.2rem 2rem;
-      font-weight: 700;
-      font-size: 1.6rem;
-      color: white;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      cursor: pointer;
-      box-shadow: 0 12px 25px #0066ff, 0 0 20px #00a6ff;
-      transition: 0.2s all ease;
-      margin: 1rem 0 2rem 0;
-      border: 1px solid rgba(255,255,255,0.3);
-      width: 100%;
-    }
-
-    .search-btn:hover {
-      background: linear-gradient(115deg, #0080ff, #33adff);
-      transform: scale(1.02) translateY(-3px);
-      box-shadow: 0 22px 35px #0055cc, 0 0 35px #4db8ff;
-    }
-
-    .search-btn:active {
-      transform: scale(0.98);
-      box-shadow: 0 8px 15px #003d99;
-    }
-
-    /* ----- กล่องแสดงผลลัพธ์ (ดีไซน์ไฮเทค) ----- */
-    .result-panel {
-      background: rgba(0, 20, 40, 0.7);
-      backdrop-filter: blur(6px);
-      border-radius: 32px;
-      padding: 2.2rem;
-      border: 1px solid #1e90ff;
-      box-shadow: inset 0 0 25px #002244, 0 20px 30px -8px #000f1f;
-      color: #d4edff;
-      transition: all 0.3s;
-    }
-
-    .result-panel[hidden] {
-      display: none;
-    }
-
-    .result-panel h3 {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #9acdff;
-      border-bottom: 2px dashed #3c8dbc;
-      padding-bottom: 0.8rem;
-      margin-bottom: 1.8rem;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .result-panel h3::before {
-      content: "⚡";
-      font-size: 2.2rem;
-      color: #ffd966;
-    }
-
-    .result-item {
-      display: flex;
-      flex-wrap: wrap;
-      padding: 0.8rem 1rem;
-      background: rgba(0, 45, 75, 0.5);
-      border-radius: 60px;
-      margin-bottom: 0.8rem;
-      border-left: 6px solid #2a9df4;
-      font-size: 1.1rem;
-    }
-
-    .result-item strong {
-      min-width: 130px;
-      color: #ffd966;
-    }
-
-    .result-item a {
-      color: #66d9ff;
-      text-decoration: none;
-      font-weight: 600;
-      border-bottom: 1px dotted;
-    }
-
-    .result-item a:hover {
-      color: #ffffff;
-      border-bottom-color: #ffffff;
-    }
-
-    .error-message {
-      color: #ff9999;
-      background: #4a0000b3;
-      padding: 1.5rem;
-      border-radius: 30px;
-      border: 1px solid #ff4d4d;
-      font-weight: 600;
-      text-align: center;
-    }
-
-    /* ----- ส่วนท้าย (footer) ----- */
-    .footer {
-      background: rgba(6, 16, 26, 0.95);
-      padding: 1.5rem 2.5rem;
-      text-align: center;
-      font-size: 1rem;
-      color: #6e8bb8;
-      border-top: 1px solid #1e3f60;
-      letter-spacing: 0.5px;
-    }
-
-    /* responsive สวยๆ */
-    @media (max-width: 600px) {
-      .navbar {
-        padding: 1rem 1.5rem;
-        flex-direction: column;
-        gap: 0.8rem;
-      }
-      .nav-links {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 0.8rem;
-      }
-      .main-card {
-        margin: 2rem 1rem;
-        padding: 2rem 1.5rem;
-        border-radius: 36px;
-      }
-      .main-title {
-        font-size: 2.1rem;
-      }
-      .search-btn {
-        font-size: 1.3rem;
-      }
-    }
-  </style>
+/* ===== RESPONSIVE ===== */
+@media(max-width:500px){
+  .card{padding:25px}
+  .card h1{font-size:1.6rem}
+}
+</style>
 </head>
+
 <body>
 
-  <!-- ส่วนหัวแบบ Dynamic พร้อมเมนูลอย -->
-  <header class="navbar" role="banner">
-    <div class="logo">⛓️ FIVEM CHECK</div>
-    <nav class="nav-links" aria-label="เมนูนำทาง">
-      <a href="menu.html" tabindex="0">เมนูหลัก</a>
-      <a href="training.html" tabindex="0">FIVEM TRAINING</a>
-      <a href="https://www.facebook.com/lakksjslal.ksksiksks" target="_blank" rel="noopener noreferrer" tabindex="0">รายงาน</a>
-      <a href="index.html" tabindex="0">ออกจากระบบ</a>
-    </nav>
-  </header>
+<header>
+  <div class="logo">FIVEM CHECK</div>
+  <nav>
+    <a href="menu.html">เมนูหลัก</a>
+    <a href="training.html">FIVEM TRAINING</a>
+    <a href="https://www.facebook.com/lakksjslal.ksksiksks" target="_blank">รายงาน</a>
+    <a href="index.html">ออกจากระบบ</a>
+  </nav>
+</header>
 
-  <!-- เนื้อหาหลักในรูปแบบการ์ด -->
-  <main class="main-card" role="main" aria-labelledby="title">
-    <h1 id="title" class="main-title">CHECK ROLEPLAY</h1>
+<main>
+  <div class="card">
+    <h1>CHECK ROLEPLAY FIVEM</h1>
 
-    <!-- ฟอร์มสำหรับเลือกเซิร์ฟ / กรอก ID -->
-    <form id="checkForm" onsubmit="event.preventDefault(); window.checkPlayer?.()">
-      <div class="form-group">
-        <label for="serverSelect">เลือกเซิร์ฟเวอร์</label>
-        <select id="serverSelect" aria-describedby="serverHelp">
-          <option value="">- เลือกเซิร์ฟเวอร์ -</option>
-          <option value="191.96.93.37">WINTER COMMUNITY</option>
-          <option value="146.19.69.188">WHAT UNIVERSAL</option>
-          <option value="89.38.101.60">SUMMER CITY</option>
-          <option value="103.91.190.251">LAST CITY</option>
-          <option value="89.38.101.50">HYPER TOWN</option>
-          <option value="103.91.190.87">SEOLU CITY</option>
-          <option value="89.38.101.89">CUPID ROPLAY</option>
-          <option value="103.167.193.64">MITH COMMUNITY</option>
-          <option value="191.96.92.203">SURF TOWN</option>
-          <option value="141.11.158.31">NOVA</option>
-          <option value="146.19.69.69">WHAT CITY</option>
-          <option value="nightcfx.com">night CITY</option>
-          <option value="103.91.190.40">XD SCOOL</option>
-          <option value="testtown.rebirthz.in.th">TESTTOWN</option>
-        </select>
-      </div>
+    <form id="checkForm" onsubmit="event.preventDefault(); checkPlayer();">
+      <label>เลือกเซิร์ฟเวอร์</label>
+      <select id="serverSelect">
+        <option value="">- เลือกเซิร์ฟเวอร์ -</option>
+        <option value="191.96.93.37">WINTER COMMUNITY</option>
+        <option value="146.19.69.188">WHAT UNIVERSAL</option>
+        <option value="89.38.101.60">SUMMER CITY</option>
+        <option value="103.91.190.251">LAST CITY</option>
+        <option value="89.38.101.50">HYPER TOWN</option>
+        <option value="103.91.190.87">SEOLU CITY</option>
+        <option value="89.38.101.89">CUPID ROPLAY</option>
+        <option value="103.167.193.64">MITH COMMUNITY</option>
+        <option value="191.96.92.203">SURF TOWN</option>
+        <option value="141.11.158.31">NOVA</option>
+        <option value="146.19.69.69">WHAT CITY</option>
+        <option value="nightcfx.com">night CITY</option>
+        <option value="103.91.190.40">XD SCOOL</option>
+        <option value="testtown.rebirthz.in.th">TESTTOWN</option>
+      </select>
 
-      <div class="form-group">
-        <label for="manualIp">กรอก IP เซิร์ฟเวอร์เอง</label>
-        <input type="text" id="manualIp" placeholder="เช่น 123.45.67.89 หรือ play.example.com" />
-      </div>
+      <label>กรอก IP เซิร์ฟเวอร์เอง</label>
+      <input type="text" id="manualIp" placeholder="เช่น 123.45.67.89 หรือ play.example.com" />
 
-      <div class="form-group">
-        <label for="playerIdInput">กรอก Player ID</label>
-        <input type="text" id="playerIdInput" placeholder="เช่น 1, 2, 5" required aria-required="true" />
-      </div>
+      <label>กรอก Player ID</label>
+      <input type="text" id="playerIdInput" placeholder="เช่น 1, 2, 5" required />
 
-      <button type="submit" class="search-btn" aria-label="ค้นหาข้อมูลผู้เล่น">🔍 ค้นหาข้อมูล</button>
+      <button type="submit">ค้นหาข้อมูล</button>
     </form>
 
-    <!-- พื้นที่แสดงผลลัพธ์ (ซ่อนไว้ก่อนถ้ายังไม่มีข้อมูล) -->
-    <section id="result" class="result-panel" role="region" aria-live="polite" tabindex="0" hidden></section>
-  </main>
+    <section id="result"></section>
+  </div>
+</main>
 
-  <footer class="footer" role="contentinfo">
-    © 2025 FIVEM CHECK · พัฒนาโดย JUTI STORY · สงวนลิขสิทธิ์
-  </footer>
+<footer>
+  © 2025 FIVEM CHECK - DEV JUTI STORY
+</footer>
 
-  <!-- รวม JavaScript ไว้ส่วนท้าย ปรับปรุงใหม่ ไม่มีโค้ดหาย มีลูกเล่นครบ -->
-  <script>
-    (function() {
-      // --- ฟังก์ชันหลักทั้งหมดถูกห่อใน IIFE เพื่อความปลอดภัยและความเป็นระเบียบ ---
+<script>
+  async function checkPlayer() {
+    const serverSelect = document.getElementById('serverSelect').value.trim();
+    const manualIp = document.getElementById('manualIp').value.trim();
+    const playerId = document.getElementById('playerIdInput').value.trim();
+    const resultDiv = document.getElementById('result');
 
-      // ตรวจสอบว่าเรามี element ครบ
-      const serverSelect = document.getElementById('serverSelect');
-      const manualIp = document.getElementById('manualIp');
-      const playerIdInput = document.getElementById('playerIdInput');
-      const resultDiv = document.getElementById('result');
+    const serverIp = manualIp || serverSelect;
 
-      // ฟังก์ชันสำหรับโชว์/อัปเดตผลลัพธ์ (แยกส่วน logic ออกมา)
-      async function executeCheck() {
-        // ดึงค่าและ trim
-        const selected = serverSelect.value.trim();
-        const manual = manualIp.value.trim();
-        const playerId = playerIdInput.value.trim();
+    if (!serverIp || !playerId) {
+      resultDiv.innerHTML = `<p style="color:#ff5555; font-weight:700;">กรุณาเลือกหรือกรอก IP เซิร์ฟเวอร์ และกรอก Player ID ให้ถูกต้อง</p>`;
+      resultDiv.focus();
+      return;
+    }
 
-        const serverIp = manual || selected;
+    resultDiv.innerHTML = `<p>กำลังค้นหาข้อมูลผู้เล่น ID <strong>${playerId}</strong> จากเซิร์ฟเวอร์ <strong>${serverIp}</strong>...</p>`;
 
-        // validation ง่ายๆ
-        if (!serverIp || !playerId) {
-          showError('กรุณาเลือกหรือกรอก IP เซิร์ฟเวอร์ และกรอก Player ID ให้ถูกต้อง');
-          return;
-        }
+    try {
+      const response = await fetch(`https://bothp.onrender.com/check-player?server=${serverIp}&player=${playerId}`);
+      const data = await response.json();
 
-        // แสดงสถานะกำลังโหลด
-        showLoading(serverIp, playerId);
+      if (data && data.name) {
+        const steamProfile = data.steamProfile && data.steamProfile !== "ไม่พบข้อมูล"
+          ? `<a href="${data.steamProfile}" target="_blank" rel="noopener noreferrer">${data.steamProfile}</a>`
+          : 'ไม่พบข้อมูล';
 
-        try {
-          // เรียก API
-          const response = await fetch(`https://bothp.onrender.com/check-player?server=${encodeURIComponent(serverIp)}&player=${encodeURIComponent(playerId)}`);
-          const data = await response.json();
-
-          if (data && data.name) {
-            // สร้าง steam profile link ถ้ามี
-            const steamProfile = (data.steamProfile && data.steamProfile !== "ไม่พบข้อมูล")
-              ? `<a href="${data.steamProfile}" target="_blank" rel="noopener noreferrer">${data.steamProfile}</a>`
-              : 'ไม่พบข้อมูล';
-
-            // แสดงผลด้วย innerHTML ที่สวยงาม (ตรงกับ class result-item)
-            resultDiv.innerHTML = `
-              <h3>ผู้เล่น ID ${playerId}</h3>
-              <div class="result-item"><strong>ชื่อ:</strong> ${data.name}</div>
-              <div class="result-item"><strong>Ping:</strong> ${data.ping ?? 'ไม่พบข้อมูล'} ms</div>
-              <div class="result-item"><strong>Steam Hex:</strong> ${data.steamHex ?? 'ไม่พบข้อมูล'}</div>
-              <div class="result-item"><strong>Steam Profile:</strong> ${steamProfile}</div>
-              <div class="result-item"><strong>Discord:</strong> ${data.discord ?? 'ไม่พบข้อมูล'}</div>
-              <div style="margin-top: 20px; font-style: italic; background: #003755; border-radius: 30px; padding: 10px 20px;">📡 เซิร์ฟเวอร์: ${serverIp}</div>
-            `;
-            resultDiv.hidden = false;
-          } else {
-            // ไม่พบผู้เล่น
-            resultDiv.innerHTML = `<div class="error-message">❌ ไม่พบข้อมูลผู้เล่นในเซิร์ฟเวอร์นี้ (ID: ${playerId})</div>`;
-            resultDiv.hidden = false;
-          }
-        } catch (error) {
-          // กรณี error การเชื่อมต่อ
-          resultDiv.innerHTML = `<div class="error-message">❌ เกิดข้อผิดพลาด: ไม่สามารถเชื่อมต่อ API ได้ (${error.message})</div>`;
-          resultDiv.hidden = false;
-        }
-        // เลื่อนโฟกัสไปที่ผลลัพธ์เพื่อ accessibility
-        resultDiv.focus({ preventScroll: false });
-      }
-
-      // ฟังก์ชันแสดง loading
-      function showLoading(serverIp, playerId) {
         resultDiv.innerHTML = `
-          <div style="display:flex; align-items:center; gap:20px; padding: 1rem;">
-            <span style="font-size:2rem;">⏳</span>
-            <span style="font-weight:600;">กำลังค้นหาข้อมูลผู้เล่น ID <strong>${playerId}</strong> จากเซิร์ฟเวอร์ <strong>${serverIp}</strong> ...</span>
-          </div>
+         ข้อมูลจากเซิฟเวอร์ <strong>${serverIp}</strong>
+          <h3>ข้อมูลผู้เล่น</h3>
+          <p><strong>ชื่อ:</strong> ${data.name}</p>
+          <p><strong>Ping:</strong> ${data.ping ?? 'ไม่พบข้อมูล'} ms</p>
+          <p><strong>Steam Hex:</strong> ${data.steamHex ?? 'ไม่พบข้อมูล'}</p>
+          <p><strong>Steam Profile:</strong> ${steamProfile}</p>
+          <p><strong>Discord:</strong> ${data.discord ?? 'ไม่พบข้อมูล'}</p>
         `;
-        resultDiv.hidden = false;
+      } else {
+        resultDiv.innerHTML = `<p style="color:#ff5555; font-weight:700;">❌ ไม่พบข้อมูลผู้เล่นในเซิร์ฟเวอร์นี้</p>`;
       }
+      resultDiv.focus();
+    } catch (error) {
+      resultDiv.innerHTML = `<p style="color:#ff5555; font-weight:700;">❌ เกิดข้อผิดพลาด: ไม่สามารถเชื่อมต่อ API ได้ (${error.message})</p>`;
+      resultDiv.focus();
+    }
+  }
+</script>
 
-      // ฟังก์ชันแสดง error เบื้องต้น
-      function showError(msg) {
-        resultDiv.innerHTML = `<div class="error-message">⚠️ ${msg}</div>`;
-        resultDiv.hidden = false;
-        resultDiv.focus();
-      }
-
-      // กำหนดให้ checkPlayer อยู่บน window (เผื่อ form เรียก)
-      window.checkPlayer = executeCheck;
-
-      // เพิ่มการกด Enter ในฟอร์มก็ให้ทำงาน (แต่ form ก็มี onsubmit อยู่แล้ว)
-      document.getElementById('checkForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-        executeCheck();
-      });
-
-      // initial ให้ result ซ่อนไว้ก่อน (อาจมี attribute hidden อยู่แล้ว)
-      // แต่ถ้าไม่มี hidden ให้ซ่อนด้วย style เผื่อ
-      if (!resultDiv.hasAttribute('hidden')) {
-        resultDiv.hidden = true;
-      }
-    })();
-  </script>
 </body>
 </html>
