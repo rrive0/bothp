@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>JUTI FIVEM CHECK PLAYER</title>
+  <title>JUTI FIVEM SUPPORT</title>
   <link rel="icon" href="Support.png" type="image/png" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 
   <style>
     /* Reset & base */
@@ -20,14 +19,6 @@
       background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
       color: #e0f7fa;
       overflow-x: hidden;
-    }
-
-    /* Particles container */
-    #particles-js {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      z-index: 0;
-      pointer-events: none;
     }
 
     /* Header / Navbar */
@@ -72,8 +63,8 @@
 
     /* Main content container */
     main {
-      max-width: 800px;
-      margin: 120px auto 40px;
+      max-width: 1100px;
+      margin: 100px auto 40px;
       padding: 0 1rem;
       text-align: center;
       z-index: 10;
@@ -81,196 +72,17 @@
     }
 
     main h1 {
-      font-size: 2.8rem;
+      font-size: 3rem;
       font-weight: 700;
-      margin-bottom: 0.5rem;
+      margin-bottom: 1rem;
       color: #00e5ff;
       text-shadow: 0 0 12px #00e5ff;
     }
     main p.subtitle {
       font-weight: 500;
-      font-size: 1.1rem;
-      margin-bottom: 2rem;
+      font-size: 1.2rem;
+      margin-bottom: 3rem;
       color: #81d4faaa;
-    }
-
-    /* Search Form */
-    .search-form {
-      background: rgba(0, 229, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border-radius: 30px;
-      padding: 2.5rem 2rem;
-      margin-bottom: 2rem;
-      border: 2px solid rgba(0, 229, 255, 0.3);
-      box-shadow: 0 8px 30px rgba(0, 229, 255, 0.2);
-    }
-
-    .form-group {
-      margin-bottom: 1.5rem;
-      text-align: left;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 0.5rem;
-      color: #00e5ff;
-      font-weight: 600;
-      font-size: 1rem;
-    }
-
-    .form-group label i {
-      margin-right: 8px;
-      width: 20px;
-    }
-
-    select, input {
-      width: 100%;
-      padding: 1rem 1.2rem;
-      background: rgba(0, 0, 0, 0.4);
-      border: 2px solid #00e5ff;
-      border-radius: 15px;
-      color: white;
-      font-family: 'Poppins', sans-serif;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-    }
-
-    select {
-      cursor: pointer;
-    }
-
-    select option {
-      background: #1a3a4a;
-      color: white;
-    }
-
-    select:hover, input:hover {
-      background: rgba(0, 229, 255, 0.1);
-      box-shadow: 0 0 15px #00e5ff;
-    }
-
-    select:focus, input:focus {
-      outline: none;
-      box-shadow: 0 0 20px #00e5ff;
-      background: rgba(0, 0, 0, 0.6);
-    }
-
-    .search-btn {
-      width: 100%;
-      padding: 1.2rem;
-      background: linear-gradient(45deg, #00e5ff, #0066ff);
-      border: none;
-      border-radius: 15px;
-      color: white;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 700;
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      border: 2px solid transparent;
-    }
-
-    .search-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 30px #00e5ff;
-      border-color: white;
-    }
-
-    .search-btn i {
-      font-size: 1.2rem;
-    }
-
-    /* Result Card */
-    .result-card {
-      background: rgba(0, 229, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border-radius: 30px;
-      padding: 2rem;
-      border: 2px solid rgba(0, 229, 255, 0.3);
-      margin-top: 2rem;
-      text-align: left;
-    }
-
-    .result-card h3 {
-      color: #00e5ff;
-      font-size: 1.8rem;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border-bottom: 2px solid rgba(0, 229, 255, 0.3);
-      padding-bottom: 1rem;
-    }
-
-    .player-info {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-    }
-
-    .info-item {
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 15px;
-      padding: 1rem;
-      border-left: 4px solid #00e5ff;
-    }
-
-    .info-item.full-width {
-      grid-column: span 2;
-    }
-
-    .info-label {
-      color: #81d4fa;
-      font-size: 0.9rem;
-      margin-bottom: 0.3rem;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .info-value {
-      color: white;
-      font-weight: 600;
-      font-size: 1.1rem;
-      word-break: break-word;
-    }
-
-    .info-value a {
-      color: #00e5ff;
-      text-decoration: none;
-    }
-
-    .info-value a:hover {
-      text-decoration: underline;
-    }
-
-    .loading {
-      text-align: center;
-      padding: 2rem;
-    }
-
-    .loading i {
-      font-size: 2rem;
-      color: #00e5ff;
-      animation: spin 2s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .error-message {
-      background: rgba(255, 0, 0, 0.2);
-      border: 2px solid #ff4444;
-      border-radius: 15px;
-      padding: 1.5rem;
-      text-align: center;
-      color: #ff4444;
     }
 
     /* Card container */
@@ -278,7 +90,6 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 2rem;
-      margin-top: 3rem;
     }
 
     /* Card style */
@@ -295,7 +106,7 @@
       user-select: none;
       border: 2px solid transparent;
       width: 100%;
-      max-width: 300px;
+      max-width: 300px;  /* กำหนด max-width ชัดเจน */
       margin: 0 auto;
     }
     .card:hover {
@@ -304,22 +115,24 @@
       border-color: #00e5ff;
     }
 
+    /* แก้ไขตรงนี้เพื่อให้รูปเต็มกล่อง */
     .card img {
       width: 100%;
-      height: 200px;
-      object-fit: cover;
+      height: 200px; /* ความสูงตายตัว */
+      object-fit: cover; /* ครอบเต็มกล่องไม่บิดรูป */
       border-radius: 18px 18px 0 0;
       box-shadow: inset 0 0 40px rgba(0, 229, 255, 0.2);
       transition: transform 0.3s ease;
-      display: block;
-      margin: 0;
-      padding: 0;
+      display: block; /* ลบช่องว่างล่างรูป */
+      margin: 0; /* ลบ margin */
+      padding: 0; /* ลบ padding */
       background-color: #001f2f;
     }
     .card:hover img {
       transform: scale(1.05);
     }
 
+    /* Description box */
     .card .description {
       margin-top: 1rem;
       padding: 0 1rem 1rem 1rem;
@@ -339,27 +152,29 @@
       text-shadow: 0 0 6px #81d4fa;
     }
 
-    /* Responsive */
+    /* Responsive tweaks */
     @media (max-width: 600px) {
       main h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
       }
       nav {
-        gap: 0.5rem;
+        gap: 1rem;
       }
       nav a {
-        font-size: 0.8rem;
-        padding: 0.4rem 0.6rem;
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
       }
-      .player-info {
-        grid-template-columns: 1fr;
+      .card img {
+        height: 150px;
       }
-      .info-item.full-width {
-        grid-column: span 1;
-      }
-      .search-form {
-        padding: 1.5rem;
-      }
+    }
+
+    /* Particles container */
+    #particles-js {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 0;
+      pointer-events: none;
     }
   </style>
 </head>
@@ -369,66 +184,20 @@
   <header>
     <div class="logo">JUTI STORY SUPPORT</div>
     <nav>
-      <a href="#"><i class="fas fa-home"></i> หน้าแรก</a>
-      <a href="#"><i class="fas fa-gamepad"></i> FIVEM ROPLAY</a>
-      <a href="#"><i class="fas fa-graduation-cap"></i> TRAINING</a>
-      <a href="https://www.facebook.com/lakksjslal.ksksiksks" target="_blank" rel="noopener noreferrer"><i class="fas fa-flag"></i> REPOST</a>
-      <a href="#"><i class="fas fa-sign-out-alt"></i> EXIT</a>
+      <a href="roplay.html">FIVEM ROPLAY</a>
+      <a href="training.html">FIVEM TRAINING</a>
+      <a href="https://www.facebook.com/lakksjslal.ksksiksks" target="_blank" rel="noopener noreferrer">REPOST</a>
+      <a href="index.html">EXIT</a>
     </nav>
   </header>
 
   <main>
-    <h1><i class="fas fa-search"></i> CHECK PLAYER</h1>
-    <p class="subtitle">ระบบค้นหาข้อมูลผู้เล่น FIVEM</p>
+    <h1>SUPPORT WEBSITE</h1>
+    <p class="subtitle">ข้อมูลสนับสนุนสำหรับ JUTI STORY</p>
 
-    <!-- Search Form -->
-    <div class="search-form">
-      <form id="checkForm">
-        <div class="form-group">
-          <label><i class="fas fa-server"></i> เลือกเซิร์ฟเวอร์</label>
-          <select id="serverSelect">
-            <option value="">- เลือกเซิร์ฟเวอร์ -</option>
-            <option value="191.96.93.37">WINTER COMMUNITY</option>
-            <option value="146.19.69.188">WHAT UNIVERSAL</option>
-            <option value="89.38.101.60">SUMMER CITY</option>
-            <option value="103.91.190.251">LAST CITY</option>
-            <option value="89.38.101.50">HYPER TOWN</option>
-            <option value="103.91.190.87">SEOLU CITY</option>
-            <option value="89.38.101.89">CUPID ROPLAY</option>
-            <option value="103.167.193.64">MITH COMMUNITY</option>
-            <option value="191.96.92.203">SURF TOWN</option>
-            <option value="141.11.158.31">NOVA</option>
-            <option value="146.19.69.69">WHAT CITY</option>
-            <option value="nightcfx.com">night CITY</option>
-            <option value="103.91.190.40">XD SCOOL</option>
-            <option value="testtown.rebirthz.in.th">TESTTOWN</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label><i class="fas fa-network-wired"></i> กรอก IP เซิร์ฟเวอร์เอง</label>
-          <input type="text" id="manualIp" placeholder="เช่น 123.45.67.89 หรือ play.example.com" />
-        </div>
-
-        <div class="form-group">
-          <label><i class="fas fa-id-card"></i> กรอก Player ID</label>
-          <input type="text" id="playerIdInput" placeholder="เช่น 1, 2, 5" required />
-        </div>
-
-        <button type="submit" class="search-btn">
-          <i class="fas fa-search"></i>
-          <span>ค้นหาข้อมูลผู้เล่น</span>
-        </button>
-      </form>
-    </div>
-
-    <!-- Result Section -->
-    <div id="resultContainer" style="display: none;"></div>
-
-    <!-- Support Cards -->
     <div class="card-container">
       <div class="card" tabindex="0" aria-label="สนใจเข้ากระกูล ทักเพจ JUTI STORY x YONGBXY">
-        <img src="https://img5.pic.in.th/file/secure-sv1/1-1d26803633373e3f2.png" alt="สนใจเข้ากระกูล" />
+        <img src="https://img5.pic.in.th/file/secure-sv1/1-1d26803633373e3f2.png" alt="สนใจเข้ากระกูล ทักเพจ JUTI STORY x YONGBXY" />
         <div class="description">
           สนใจเข้ากระกูล ทักเพจมาได้เลย<br />
           <a href="https://www.facebook.com/profile.php?id=100063900591544" target="_blank" rel="noopener noreferrer">JUTI STORY x YONGBXY</a>
@@ -437,10 +206,9 @@
     </div>
   </main>
 
-  <!-- Particle.js -->
+  <!-- Particle.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script>
-    // Initialize particles
     particlesJS("particles-js", {
       "particles": {
         "number": { "value": 60, "density": { "enable": true, "value_area": 800 }},
@@ -479,105 +247,10 @@
       "retina_detect": true
     });
 
-    // Main check function
-    async function checkPlayer() {
-      const serverSelect = document.getElementById('serverSelect').value.trim();
-      const manualIp = document.getElementById('manualIp').value.trim();
-      const playerId = document.getElementById('playerIdInput').value.trim();
-      const resultContainer = document.getElementById('resultContainer');
-
-      const serverIp = manualIp || serverSelect;
-
-      if (!serverIp || !playerId) {
-        showError('กรุณาเลือกหรือกรอก IP เซิร์ฟเวอร์ และกรอก Player ID');
-        return;
-      }
-
-      // Show loading
-      resultContainer.style.display = 'block';
-      resultContainer.innerHTML = `
-        <div class="result-card">
-          <div class="loading">
-            <i class="fas fa-spinner"></i>
-            <p style="margin-top: 1rem;">กำลังค้นหาข้อมูลผู้เล่น ID ${playerId}...</p>
-          </div>
-        </div>
-      `;
-
-      try {
-        const response = await fetch(`https://bothp.onrender.com/check-player?server=${encodeURIComponent(serverIp)}&player=${encodeURIComponent(playerId)}`);
-        const data = await response.json();
-
-        if (data && data.name) {
-          const steamProfile = data.steamProfile && data.steamProfile !== "ไม่พบข้อมูล" 
-            ? `<a href="${data.steamProfile}" target="_blank" rel="noopener noreferrer"><i class="fab fa-steam"></i> ดูโปรไฟล์</a>` 
-            : 'ไม่พบข้อมูล';
-
-          resultContainer.innerHTML = `
-            <div class="result-card">
-              <h3>
-                <i class="fas fa-user-check"></i>
-                พบข้อมูลผู้เล่น
-              </h3>
-              <div class="player-info">
-                <div class="info-item">
-                  <div class="info-label"><i class="fas fa-user"></i> ชื่อผู้เล่น</div>
-                  <div class="info-value">${data.name}</div>
-                </div>
-                <div class="info-item">
-                  <div class="info-label"><i class="fas fa-signal"></i> Ping</div>
-                  <div class="info-value">${data.ping || 'ไม่พบข้อมูล'} ms</div>
-                </div>
-                <div class="info-item full-width">
-                  <div class="info-label"><i class="fas fa-hashtag"></i> Steam Hex</div>
-                  <div class="info-value">${data.steamHex || 'ไม่พบข้อมูล'}</div>
-                </div>
-                <div class="info-item full-width">
-                  <div class="info-label"><i class="fab fa-steam"></i> Steam Profile</div>
-                  <div class="info-value">${steamProfile}</div>
-                </div>
-                <div class="info-item full-width">
-                  <div class="info-label"><i class="fab fa-discord"></i> Discord</div>
-                  <div class="info-value">${data.discord || 'ไม่พบข้อมูล'}</div>
-                </div>
-                <div class="info-item full-width">
-                  <div class="info-label"><i class="fas fa-server"></i> เซิร์ฟเวอร์</div>
-                  <div class="info-value">${serverIp} (ID: ${playerId})</div>
-                </div>
-              </div>
-            </div>
-          `;
-        } else {
-          showError(`ไม่พบข้อมูลผู้เล่น ID ${playerId} ในเซิร์ฟเวอร์นี้`);
-        }
-      } catch (error) {
-        showError(`เกิดข้อผิดพลาด: ไม่สามารถเชื่อมต่อ API ได้ (${error.message})`);
-      }
-    }
-
-    function showError(message) {
-      const resultContainer = document.getElementById('resultContainer');
-      resultContainer.style.display = 'block';
-      resultContainer.innerHTML = `
-        <div class="result-card">
-          <div class="error-message">
-            <i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem;"></i>
-            <p>${message}</p>
-          </div>
-        </div>
-      `;
-    }
-
-    // Event listener
-    document.getElementById('checkForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      checkPlayer();
-    });
-
     // Prevent right click & F12
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.addEventListener('keydown', e => {
-      if (e.key === "F12" || (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i') || (e.ctrlKey && e.key.toLowerCase() === 'u')) {
+      if (e.key === "F12" || (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i')) {
         e.preventDefault();
       }
     });
