@@ -2,693 +2,505 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FIVEM PLAYER CHECK · JUTI STORY</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JUTI FIVEM CHECK PLAYER</title>
   <link rel="icon" href="Support.png" type="image/png" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-  
+
   <style>
+    /* Reset & base */
     * {
-      margin: 0;
-      padding: 0;
       box-sizing: border-box;
     }
-
-    body {
-      font-family: 'Rajdhani', sans-serif;
-      background: #0a0c0f;
-      color: #fff;
-      min-height: 100vh;
-      position: relative;
+    body, html {
+      margin: 0; padding: 0;
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #e0f7fa;
       overflow-x: hidden;
     }
 
-    /* Animated Background */
-    .cyber-bg {
+    /* Particles container */
+    #particles-js {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 0;
+      pointer-events: none;
     }
 
-    .grid-overlay {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background-image: 
-        linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
-      background-size: 50px 50px;
-      animation: gridMove 20s linear infinite;
-    }
-
-    @keyframes gridMove {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(50px, 50px); }
-    }
-
-    .glow-sphere {
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle at center, rgba(0, 229, 255, 0.15) 0%, transparent 70%);
-      border-radius: 50%;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      filter: blur(60px);
-      animation: pulseGlow 8s ease-in-out infinite;
-    }
-
-    @keyframes pulseGlow {
-      0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
-      50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.2); }
-    }
-
-    /* Header */
+    /* Header / Navbar */
     header {
       position: fixed;
-      top: 20px;
-      left: 20px;
-      right: 20px;
-      background: rgba(10, 20, 30, 0.8);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      border: 1px solid rgba(0, 229, 255, 0.3);
-      border-radius: 50px;
-      padding: 0.8rem 2rem;
+      top: 0; left: 0; right: 0;
+      background: rgba(15, 32, 39, 0.95);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.7);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      z-index: 1000;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      animation: slideDown 0.8s ease-out;
+      padding: 0.7rem 2rem;
+      z-index: 9999;
+      backdrop-filter: blur(8px);
     }
-
-    @keyframes slideDown {
-      from { transform: translateY(-100%); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+    header .logo {
+      font-weight: 700;
+      font-size: 1.4rem;
+      letter-spacing: 1.3px;
+      color: #00e5ff;
+      user-select: none;
     }
-
-    .logo {
+    nav {
       display: flex;
-      align-items: center;
-      gap: 15px;
+      gap: 1.5rem;
     }
-
-    .logo-icon {
-      width: 45px;
-      height: 45px;
-      background: linear-gradient(135deg, #00e5ff, #0066ff);
-      border-radius: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      transform: rotate(45deg);
-      transition: all 0.3s ease;
-    }
-
-    .logo:hover .logo-icon {
-      transform: rotate(0deg) scale(1.1);
-      box-shadow: 0 0 30px #00e5ff;
-    }
-
-    .logo-text {
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 800;
-      font-size: 1.6rem;
-      background: linear-gradient(135deg, #fff, #00e5ff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      letter-spacing: 1px;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 10px;
-    }
-
-    .nav-link {
-      color: #b0e0ff;
+    nav a {
+      color: #b2ebf2;
       text-decoration: none;
       font-weight: 600;
-      padding: 0.6rem 1.5rem;
-      border-radius: 40px;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      border: 1px solid transparent;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      box-shadow: 0 0 0 transparent;
+    }
+    nav a:hover {
+      background-color: #00e5ff;
+      color: #00384d;
+      box-shadow: 0 0 12px #00e5ff;
     }
 
-    .nav-link::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.2), transparent);
-      transition: left 0.5s ease;
-    }
-
-    .nav-link:hover::before {
-      left: 100%;
-    }
-
-    .nav-link:hover {
-      color: #00e5ff;
-      border-color: #00e5ff;
-      box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
-      transform: translateY(-2px);
-    }
-
-    /* Main Container */
+    /* Main content container */
     main {
-      max-width: 1200px;
-      margin: 120px auto 50px;
-      padding: 0 20px;
-      position: relative;
+      max-width: 800px;
+      margin: 120px auto 40px;
+      padding: 0 1rem;
+      text-align: center;
       z-index: 10;
-    }
-
-    /* Hero Section */
-    .hero {
-      text-align: center;
-      margin-bottom: 60px;
-      animation: fadeInUp 1s ease-out;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .hero h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 4rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      margin-bottom: 20px;
       position: relative;
-      display: inline-block;
     }
 
-    .glitch {
-      position: relative;
-      color: #fff;
-      text-shadow: 0.05em 0 0 #00e5ff, -0.05em -0.025em 0 #ff00c1;
-      animation: glitch 725ms infinite;
-    }
-
-    .glitch span {
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-
-    @keyframes glitch {
-      0%, 100% { text-shadow: 0.05em 0 0 #00e5ff, -0.05em -0.025em 0 #ff00c1; }
-      25% { text-shadow: -0.05em -0.025em 0 #00e5ff, 0.025em 0.05em 0 #ff00c1; }
-      50% { text-shadow: 0.025em 0.05em 0 #00e5ff, 0.05em 0 0 #ff00c1; }
-      75% { text-shadow: -0.025em 0 0 #00e5ff, -0.025em -0.05em 0 #ff00c1; }
-    }
-
-    .hero-subtitle {
-      font-size: 1.2rem;
-      color: #a0c0e0;
-      max-width: 600px;
-      margin: 20px auto;
-      padding: 15px;
-      border: 1px solid rgba(0, 229, 255, 0.3);
-      border-radius: 50px;
-      background: rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(10px);
-    }
-
-    /* Search Card */
-    .search-card {
-      background: rgba(20, 30, 50, 0.7);
-      backdrop-filter: blur(15px);
-      border-radius: 60px;
-      padding: 50px;
-      margin-bottom: 50px;
-      border: 1px solid rgba(0, 229, 255, 0.3);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 229, 255, 0.2);
-      animation: fadeInScale 0.8s ease-out;
-    }
-
-    @keyframes fadeInScale {
-      from {
-        opacity: 0;
-        transform: scale(0.9);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    .search-title {
-      font-size: 2rem;
+    main h1 {
+      font-size: 2.8rem;
       font-weight: 700;
-      margin-bottom: 30px;
+      margin-bottom: 0.5rem;
       color: #00e5ff;
-      text-align: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 15px;
+      text-shadow: 0 0 12px #00e5ff;
+    }
+    main p.subtitle {
+      font-weight: 500;
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      color: #81d4faaa;
     }
 
-    .search-title i {
-      font-size: 2.5rem;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 30px;
-      margin-bottom: 30px;
+    /* Search Form */
+    .search-form {
+      background: rgba(0, 229, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 30px;
+      padding: 2.5rem 2rem;
+      margin-bottom: 2rem;
+      border: 2px solid rgba(0, 229, 255, 0.3);
+      box-shadow: 0 8px 30px rgba(0, 229, 255, 0.2);
     }
 
     .form-group {
-      position: relative;
-    }
-
-    .form-group.full-width {
-      grid-column: span 2;
+      margin-bottom: 1.5rem;
+      text-align: left;
     }
 
     .form-group label {
       display: block;
-      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      color: #00e5ff;
       font-weight: 600;
-      color: #a0c0e0;
-      margin-bottom: 10px;
-      margin-left: 15px;
+      font-size: 1rem;
     }
 
-    .form-group i {
-      position: absolute;
-      left: 20px;
-      bottom: 18px;
-      color: #00e5ff;
-      font-size: 1.2rem;
-      z-index: 1;
+    .form-group label i {
+      margin-right: 8px;
+      width: 20px;
     }
 
     select, input {
       width: 100%;
-      padding: 18px 25px 18px 50px;
-      background: rgba(0, 0, 0, 0.5);
-      border: 2px solid rgba(0, 229, 255, 0.3);
-      border-radius: 50px;
-      color: #fff;
+      padding: 1rem 1.2rem;
+      background: rgba(0, 0, 0, 0.4);
+      border: 2px solid #00e5ff;
+      border-radius: 15px;
+      color: white;
+      font-family: 'Poppins', sans-serif;
       font-size: 1rem;
-      font-family: 'Rajdhani', sans-serif;
-      font-weight: 600;
       transition: all 0.3s ease;
-      appearance: none;
     }
 
     select {
       cursor: pointer;
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2300e5ff' stroke-width='2'><polyline points='6 9 12 15 18 9'/></svg>");
-      background-repeat: no-repeat;
-      background-position: right 20px center;
-      background-size: 16px;
+    }
+
+    select option {
+      background: #1a3a4a;
+      color: white;
     }
 
     select:hover, input:hover {
-      border-color: #00e5ff;
-      box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+      background: rgba(0, 229, 255, 0.1);
+      box-shadow: 0 0 15px #00e5ff;
     }
 
     select:focus, input:focus {
       outline: none;
-      border-color: #00e5ff;
-      box-shadow: 0 0 30px rgba(0, 229, 255, 0.5);
-      background: rgba(0, 20, 40, 0.8);
+      box-shadow: 0 0 20px #00e5ff;
+      background: rgba(0, 0, 0, 0.6);
     }
 
-    option {
-      background: #0a1a2a;
-      color: #fff;
-    }
-
-    /* Search Button */
     .search-btn {
       width: 100%;
-      padding: 20px;
-      background: linear-gradient(135deg, #00e5ff, #0066ff);
+      padding: 1.2rem;
+      background: linear-gradient(45deg, #00e5ff, #0066ff);
       border: none;
-      border-radius: 50px;
-      color: #fff;
-      font-size: 1.5rem;
+      border-radius: 15px;
+      color: white;
+      font-family: 'Poppins', sans-serif;
       font-weight: 700;
-      font-family: 'Orbitron', sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 2px;
+      font-size: 1.2rem;
       cursor: pointer;
-      position: relative;
-      overflow: hidden;
       transition: all 0.3s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 15px;
-    }
-
-    .search-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: left 0.5s ease;
-    }
-
-    .search-btn:hover::before {
-      left: 100%;
+      gap: 10px;
+      border: 2px solid transparent;
     }
 
     .search-btn:hover {
       transform: translateY(-3px);
-      box-shadow: 0 20px 40px rgba(0, 229, 255, 0.4);
+      box-shadow: 0 10px 30px #00e5ff;
+      border-color: white;
     }
 
-    .search-btn:active {
-      transform: translateY(0);
+    .search-btn i {
+      font-size: 1.2rem;
     }
 
     /* Result Card */
     .result-card {
-      background: rgba(20, 30, 50, 0.8);
-      backdrop-filter: blur(15px);
-      border-radius: 50px;
-      padding: 40px;
-      border: 1px solid rgba(0, 229, 255, 0.3);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-      margin-top: 40px;
-      transition: all 0.3s ease;
+      background: rgba(0, 229, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 30px;
+      padding: 2rem;
+      border: 2px solid rgba(0, 229, 255, 0.3);
+      margin-top: 2rem;
+      text-align: left;
     }
 
-    .result-card.hidden {
-      display: none;
-    }
-
-    .result-header {
+    .result-card h3 {
+      color: #00e5ff;
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
       display: flex;
       align-items: center;
-      gap: 20px;
-      margin-bottom: 30px;
-      padding-bottom: 20px;
+      gap: 10px;
       border-bottom: 2px solid rgba(0, 229, 255, 0.3);
+      padding-bottom: 1rem;
     }
 
-    .result-header i {
-      font-size: 3rem;
-      color: #00e5ff;
-      animation: spin 10s linear infinite;
-    }
-
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    .result-header h2 {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .result-grid {
+    .player-info {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
+      gap: 1rem;
     }
 
-    .result-item {
+    .info-item {
       background: rgba(0, 0, 0, 0.3);
-      border-radius: 30px;
-      padding: 20px;
-      border-left: 5px solid #00e5ff;
-      transition: all 0.3s ease;
+      border-radius: 15px;
+      padding: 1rem;
+      border-left: 4px solid #00e5ff;
     }
 
-    .result-item:hover {
-      transform: translateX(10px);
-      background: rgba(0, 229, 255, 0.1);
+    .info-item.full-width {
+      grid-column: span 2;
     }
 
-    .result-label {
+    .info-label {
+      color: #81d4fa;
       font-size: 0.9rem;
-      color: #a0c0e0;
-      margin-bottom: 5px;
+      margin-bottom: 0.3rem;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 5px;
     }
 
-    .result-value {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: #fff;
+    .info-value {
+      color: white;
+      font-weight: 600;
+      font-size: 1.1rem;
       word-break: break-word;
     }
 
-    .result-value a {
+    .info-value a {
       color: #00e5ff;
       text-decoration: none;
-      transition: all 0.3s ease;
     }
 
-    .result-value a:hover {
-      color: #fff;
-      text-shadow: 0 0 10px #00e5ff;
+    .info-value a:hover {
+      text-decoration: underline;
     }
 
-    /* Loading Animation */
     .loading {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 15px;
-      padding: 40px;
-    }
-
-    .loading-dot {
-      width: 20px;
-      height: 20px;
-      background: #00e5ff;
-      border-radius: 50%;
-      animation: loadingBounce 1.4s infinite ease-in-out both;
-    }
-
-    .loading-dot:nth-child(1) { animation-delay: -0.32s; }
-    .loading-dot:nth-child(2) { animation-delay: -0.16s; }
-
-    @keyframes loadingBounce {
-      0%, 80%, 100% { transform: scale(0); }
-      40% { transform: scale(1); }
-    }
-
-    /* Footer */
-    footer {
-      margin-top: 80px;
-      padding: 30px;
       text-align: center;
-      background: rgba(10, 20, 30, 0.8);
-      backdrop-filter: blur(10px);
-      border-top: 1px solid rgba(0, 229, 255, 0.3);
+      padding: 2rem;
     }
 
-    .footer-text {
-      color: #a0c0e0;
+    .loading i {
+      font-size: 2rem;
+      color: #00e5ff;
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .error-message {
+      background: rgba(255, 0, 0, 0.2);
+      border: 2px solid #ff4444;
+      border-radius: 15px;
+      padding: 1.5rem;
+      text-align: center;
+      color: #ff4444;
+    }
+
+    /* Card container */
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    /* Card style */
+    .card {
+      background: rgba(0, 229, 255, 0.1);
+      border-radius: 18px;
+      box-shadow: 0 8px 20px rgba(0, 229, 255, 0.25);
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      user-select: none;
+      border: 2px solid transparent;
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 229, 255, 0.45);
+      border-color: #00e5ff;
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 18px 18px 0 0;
+      box-shadow: inset 0 0 40px rgba(0, 229, 255, 0.2);
+      transition: transform 0.3s ease;
+      display: block;
+      margin: 0;
+      padding: 0;
+      background-color: #001f2f;
+    }
+    .card:hover img {
+      transform: scale(1.05);
+    }
+
+    .card .description {
+      margin-top: 1rem;
+      padding: 0 1rem 1rem 1rem;
       font-size: 1rem;
+      line-height: 1.4;
+      color: #b2ebf2;
+      user-select: text;
+    }
+    .card .description a {
+      color: #00e5ff;
+      font-weight: 700;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .card .description a:hover {
+      color: #81d4fa;
+      text-shadow: 0 0 6px #81d4fa;
     }
 
     /* Responsive */
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        gap: 15px;
-        padding: 15px;
+    @media (max-width: 600px) {
+      main h1 {
+        font-size: 2rem;
       }
-
-      .hero h1 {
-        font-size: 2.5rem;
+      nav {
+        gap: 0.5rem;
       }
-
-      .form-grid {
+      nav a {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.6rem;
+      }
+      .player-info {
         grid-template-columns: 1fr;
       }
-
-      .form-group.full-width {
+      .info-item.full-width {
         grid-column: span 1;
       }
-
-      .result-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .search-card {
-        padding: 30px;
+      .search-form {
+        padding: 1.5rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="cyber-bg">
-    <div class="grid-overlay"></div>
-    <div class="glow-sphere"></div>
-  </div>
+  <div id="particles-js"></div>
 
   <header>
-    <div class="logo">
-      <div class="logo-icon">
-        <i class="fas fa-shield-halos"></i>
-      </div>
-      <span class="logo-text">JUTI CHECKER</span>
-    </div>
-    <nav class="nav-links">
-      <a href="#" class="nav-link"><i class="fas fa-home"></i> หน้าแรก</a>
-      <a href="#" class="nav-link"><i class="fas fa-users"></i> FIVEM ROPLAY</a>
-      <a href="#" class="nav-link"><i class="fas fa-graduation-cap"></i> TRAINING</a>
-      <a href="https://www.facebook.com/lakksjslal.ksksiksks" target="_blank" class="nav-link"><i class="fas fa-flag"></i> REPOST</a>
-      <a href="#" class="nav-link"><i class="fas fa-sign-out-alt"></i> EXIT</a>
+    <div class="logo">JUTI STORY SUPPORT</div>
+    <nav>
+      <a href="#"><i class="fas fa-home"></i> หน้าแรก</a>
+      <a href="#"><i class="fas fa-gamepad"></i> FIVEM ROPLAY</a>
+      <a href="#"><i class="fas fa-graduation-cap"></i> TRAINING</a>
+      <a href="https://www.facebook.com/lakksjslal.ksksiksks" target="_blank" rel="noopener noreferrer"><i class="fas fa-flag"></i> REPOST</a>
+      <a href="#"><i class="fas fa-sign-out-alt"></i> EXIT</a>
     </nav>
   </header>
 
   <main>
-    <section class="hero">
-      <h1 class="glitch">
-        FIVEM CHECKER
-        <span aria-hidden="true">FIVEM CHECKER</span>
-        <span aria-hidden="true">FIVEM CHECKER</span>
-      </h1>
-      <p class="hero-subtitle">
-        <i class="fas fa-shield-alt"></i> ระบบค้นหาข้อมูลผู้เล่น FIVEM อันดับ 1 ของไทย
-      </p>
-    </section>
+    <h1><i class="fas fa-search"></i> CHECK PLAYER</h1>
+    <p class="subtitle">ระบบค้นหาข้อมูลผู้เล่น FIVEM</p>
 
-    <div class="search-card">
-      <div class="search-title">
-        <i class="fas fa-search"></i>
-        <span>ค้นหาข้อมูลผู้เล่น</span>
-        <i class="fas fa-gamepad"></i>
-      </div>
-
+    <!-- Search Form -->
+    <div class="search-form">
       <form id="checkForm">
-        <div class="form-grid">
-          <div class="form-group">
-            <label><i class="fas fa-server"></i> เลือกเซิร์ฟเวอร์</label>
-            <i class="fas fa-chevron-down"></i>
-            <select id="serverSelect">
-              <option value="">- เลือกเซิร์ฟเวอร์ -</option>
-              <option value="191.96.93.37">WINTER COMMUNITY</option>
-              <option value="146.19.69.188">WHAT UNIVERSAL</option>
-              <option value="89.38.101.60">SUMMER CITY</option>
-              <option value="103.91.190.251">LAST CITY</option>
-              <option value="89.38.101.50">HYPER TOWN</option>
-              <option value="103.91.190.87">SEOLU CITY</option>
-              <option value="89.38.101.89">CUPID ROPLAY</option>
-              <option value="103.167.193.64">MITH COMMUNITY</option>
-              <option value="191.96.92.203">SURF TOWN</option>
-              <option value="141.11.158.31">NOVA</option>
-              <option value="146.19.69.69">WHAT CITY</option>
-              <option value="nightcfx.com">night CITY</option>
-              <option value="103.91.190.40">XD SCOOL</option>
-              <option value="testtown.rebirthz.in.th">TESTTOWN</option>
-            </select>
-          </div>
+        <div class="form-group">
+          <label><i class="fas fa-server"></i> เลือกเซิร์ฟเวอร์</label>
+          <select id="serverSelect">
+            <option value="">- เลือกเซิร์ฟเวอร์ -</option>
+            <option value="191.96.93.37">WINTER COMMUNITY</option>
+            <option value="146.19.69.188">WHAT UNIVERSAL</option>
+            <option value="89.38.101.60">SUMMER CITY</option>
+            <option value="103.91.190.251">LAST CITY</option>
+            <option value="89.38.101.50">HYPER TOWN</option>
+            <option value="103.91.190.87">SEOLU CITY</option>
+            <option value="89.38.101.89">CUPID ROPLAY</option>
+            <option value="103.167.193.64">MITH COMMUNITY</option>
+            <option value="191.96.92.203">SURF TOWN</option>
+            <option value="141.11.158.31">NOVA</option>
+            <option value="146.19.69.69">WHAT CITY</option>
+            <option value="nightcfx.com">night CITY</option>
+            <option value="103.91.190.40">XD SCOOL</option>
+            <option value="testtown.rebirthz.in.th">TESTTOWN</option>
+          </select>
+        </div>
 
-          <div class="form-group">
-            <label><i class="fas fa-network-wired"></i> IP เซิร์ฟเวอร์</label>
-            <i class="fas fa-globe"></i>
-            <input type="text" id="manualIp" placeholder="เช่น 123.45.67.89" />
-          </div>
+        <div class="form-group">
+          <label><i class="fas fa-network-wired"></i> กรอก IP เซิร์ฟเวอร์เอง</label>
+          <input type="text" id="manualIp" placeholder="เช่น 123.45.67.89 หรือ play.example.com" />
+        </div>
 
-          <div class="form-group full-width">
-            <label><i class="fas fa-id-card"></i> Player ID</label>
-            <i class="fas fa-hashtag"></i>
-            <input type="text" id="playerIdInput" placeholder="กรอก Player ID (เช่น 1, 2, 5)" required />
-          </div>
+        <div class="form-group">
+          <label><i class="fas fa-id-card"></i> กรอก Player ID</label>
+          <input type="text" id="playerIdInput" placeholder="เช่น 1, 2, 5" required />
         </div>
 
         <button type="submit" class="search-btn">
           <i class="fas fa-search"></i>
-          <span>ค้นหาข้อมูล</span>
-          <i class="fas fa-arrow-right"></i>
+          <span>ค้นหาข้อมูลผู้เล่น</span>
         </button>
       </form>
+    </div>
 
-      <!-- Result Section -->
-      <div id="result" class="result-card hidden">
-        <div class="result-header">
-          <i class="fas fa-user-astronaut"></i>
-          <h2>ผลการค้นหา</h2>
-        </div>
-        <div id="resultContent" class="result-grid">
-          <!-- Results will be inserted here -->
+    <!-- Result Section -->
+    <div id="resultContainer" style="display: none;"></div>
+
+    <!-- Support Cards -->
+    <div class="card-container">
+      <div class="card" tabindex="0" aria-label="สนใจเข้ากระกูล ทักเพจ JUTI STORY x YONGBXY">
+        <img src="https://img5.pic.in.th/file/secure-sv1/1-1d26803633373e3f2.png" alt="สนใจเข้ากระกูล" />
+        <div class="description">
+          สนใจเข้ากระกูล ทักเพจมาได้เลย<br />
+          <a href="https://www.facebook.com/profile.php?id=100063900591544" target="_blank" rel="noopener noreferrer">JUTI STORY x YONGBXY</a>
         </div>
       </div>
     </div>
   </main>
 
-  <footer>
-    <p class="footer-text">
-      <i class="fas fa-copyright"></i> 2025 JUTI STORY · พัฒนาโดยทีมงาน JUTI · สงวนลิขสิทธิ์
-    </p>
-  </footer>
-
+  <!-- Particle.js -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script>
+    // Initialize particles
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 60, "density": { "enable": true, "value_area": 800 }},
+        "color": { "value": "#00e5ff" },
+        "shape": { "type": "circle" },
+        "opacity": { "value": 0.5, "random": false },
+        "size": { "value": 3, "random": true },
+        "line_linked": {
+          "enable": true,
+          "distance": 120,
+          "color": "#00e5ff",
+          "opacity": 0.25,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 2,
+          "direction": "none",
+          "random": true,
+          "straight": false,
+          "out_mode": "bounce"
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": { "enable": true, "mode": "grab" },
+          "onclick": { "enable": true, "mode": "push" },
+          "resize": true
+        },
+        "modes": {
+          "grab": { "distance": 140, "line_linked": { "opacity": 0.3 }},
+          "push": { "particles_nb": 4 }
+        }
+      },
+      "retina_detect": true
+    });
+
     // Main check function
     async function checkPlayer() {
       const serverSelect = document.getElementById('serverSelect').value.trim();
       const manualIp = document.getElementById('manualIp').value.trim();
       const playerId = document.getElementById('playerIdInput').value.trim();
-      const resultDiv = document.getElementById('result');
-      const resultContent = document.getElementById('resultContent');
+      const resultContainer = document.getElementById('resultContainer');
 
       const serverIp = manualIp || serverSelect;
 
       if (!serverIp || !playerId) {
-        showResult({
-          error: true,
-          message: 'กรุณาเลือกหรือกรอก IP เซิร์ฟเวอร์ และกรอก Player ID ให้ถูกต้อง'
-        });
+        showError('กรุณาเลือกหรือกรอก IP เซิร์ฟเวอร์ และกรอก Player ID');
         return;
       }
 
       // Show loading
-      resultDiv.classList.remove('hidden');
-      resultContent.innerHTML = `
-        <div class="loading" style="grid-column: span 2;">
-          <div class="loading-dot"></div>
-          <div class="loading-dot"></div>
-          <div class="loading-dot"></div>
-          <span style="margin-left: 15px; color: #00e5ff;">กำลังค้นหาข้อมูล...</span>
+      resultContainer.style.display = 'block';
+      resultContainer.innerHTML = `
+        <div class="result-card">
+          <div class="loading">
+            <i class="fas fa-spinner"></i>
+            <p style="margin-top: 1rem;">กำลังค้นหาข้อมูลผู้เล่น ID ${playerId}...</p>
+          </div>
         </div>
       `;
 
@@ -701,74 +513,62 @@
             ? `<a href="${data.steamProfile}" target="_blank" rel="noopener noreferrer"><i class="fab fa-steam"></i> ดูโปรไฟล์</a>` 
             : 'ไม่พบข้อมูล';
 
-          showResult({
-            name: data.name,
-            ping: data.ping || 'ไม่พบข้อมูล',
-            steamHex: data.steamHex || 'ไม่พบข้อมูล',
-            steamProfile: steamProfile,
-            discord: data.discord || 'ไม่พบข้อมูล',
-            server: serverIp,
-            playerId: playerId
-          });
+          resultContainer.innerHTML = `
+            <div class="result-card">
+              <h3>
+                <i class="fas fa-user-check"></i>
+                พบข้อมูลผู้เล่น
+              </h3>
+              <div class="player-info">
+                <div class="info-item">
+                  <div class="info-label"><i class="fas fa-user"></i> ชื่อผู้เล่น</div>
+                  <div class="info-value">${data.name}</div>
+                </div>
+                <div class="info-item">
+                  <div class="info-label"><i class="fas fa-signal"></i> Ping</div>
+                  <div class="info-value">${data.ping || 'ไม่พบข้อมูล'} ms</div>
+                </div>
+                <div class="info-item full-width">
+                  <div class="info-label"><i class="fas fa-hashtag"></i> Steam Hex</div>
+                  <div class="info-value">${data.steamHex || 'ไม่พบข้อมูล'}</div>
+                </div>
+                <div class="info-item full-width">
+                  <div class="info-label"><i class="fab fa-steam"></i> Steam Profile</div>
+                  <div class="info-value">${steamProfile}</div>
+                </div>
+                <div class="info-item full-width">
+                  <div class="info-label"><i class="fab fa-discord"></i> Discord</div>
+                  <div class="info-value">${data.discord || 'ไม่พบข้อมูล'}</div>
+                </div>
+                <div class="info-item full-width">
+                  <div class="info-label"><i class="fas fa-server"></i> เซิร์ฟเวอร์</div>
+                  <div class="info-value">${serverIp} (ID: ${playerId})</div>
+                </div>
+              </div>
+            </div>
+          `;
         } else {
-          showResult({
-            error: true,
-            message: `❌ ไม่พบข้อมูลผู้เล่น ID ${playerId} ในเซิร์ฟเวอร์นี้`
-          });
+          showError(`ไม่พบข้อมูลผู้เล่น ID ${playerId} ในเซิร์ฟเวอร์นี้`);
         }
       } catch (error) {
-        showResult({
-          error: true,
-          message: `❌ เกิดข้อผิดพลาด: ไม่สามารถเชื่อมต่อ API ได้ (${error.message})`
-        });
+        showError(`เกิดข้อผิดพลาด: ไม่สามารถเชื่อมต่อ API ได้ (${error.message})`);
       }
     }
 
-    function showResult(data) {
-      const resultDiv = document.getElementById('result');
-      const resultContent = document.getElementById('resultContent');
-
-      if (data.error) {
-        resultContent.innerHTML = `
-          <div style="grid-column: span 2; text-align: center; padding: 40px; background: rgba(255, 0, 0, 0.1); border-radius: 30px; border: 1px solid #ff4444;">
-            <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #ff4444; margin-bottom: 15px;"></i>
-            <p style="color: #ff4444; font-size: 1.2rem;">${data.message}</p>
+    function showError(message) {
+      const resultContainer = document.getElementById('resultContainer');
+      resultContainer.style.display = 'block';
+      resultContainer.innerHTML = `
+        <div class="result-card">
+          <div class="error-message">
+            <i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+            <p>${message}</p>
           </div>
-        `;
-      } else {
-        resultContent.innerHTML = `
-          <div class="result-item">
-            <div class="result-label"><i class="fas fa-user"></i> ชื่อผู้เล่น</div>
-            <div class="result-value">${data.name}</div>
-          </div>
-          <div class="result-item">
-            <div class="result-label"><i class="fas fa-signal"></i> Ping</div>
-            <div class="result-value">${data.ping} ms</div>
-          </div>
-          <div class="result-item">
-            <div class="result-label"><i class="fas fa-hashtag"></i> Steam Hex</div>
-            <div class="result-value">${data.steamHex}</div>
-          </div>
-          <div class="result-item">
-            <div class="result-label"><i class="fab fa-steam"></i> Steam Profile</div>
-            <div class="result-value">${data.steamProfile}</div>
-          </div>
-          <div class="result-item">
-            <div class="result-label"><i class="fab fa-discord"></i> Discord</div>
-            <div class="result-value">${data.discord}</div>
-          </div>
-          <div class="result-item" style="grid-column: span 2;">
-            <div class="result-label"><i class="fas fa-server"></i> เซิร์ฟเวอร์</div>
-            <div class="result-value">${data.server} (ID: ${data.playerId})</div>
-          </div>
-        `;
-      }
-
-      resultDiv.classList.remove('hidden');
-      resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        </div>
+      `;
     }
 
-    // Event Listeners
+    // Event listener
     document.getElementById('checkForm').addEventListener('submit', (e) => {
       e.preventDefault();
       checkPlayer();
@@ -777,13 +577,10 @@
     // Prevent right click & F12
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.addEventListener('keydown', e => {
-      if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I') || (e.ctrlKey && e.key === 'U')) {
+      if (e.key === "F12" || (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i') || (e.ctrlKey && e.key.toLowerCase() === 'u')) {
         e.preventDefault();
       }
     });
-
-    // Dynamic year
-    document.querySelector('.footer-text').innerHTML = document.querySelector('.footer-text').innerHTML.replace('2025', new Date().getFullYear());
   </script>
 </body>
 </html>
