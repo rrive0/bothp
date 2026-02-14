@@ -1,143 +1,164 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FIVEM CHECK ROLEPLAY</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FIVEM CHECK ROLEPLAY</title>
 
-<link rel="icon" href="FiveM.png" type="image/png">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="FiveM.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 
-<style>
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:'Poppins',sans-serif;
-  background:#0f1c2d;
-  color:#e0e6f1;
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-}
+  <style>
+    /* ================= RESET ================= */
+    * {
+      box-sizing: border-box;
+    }
 
-/* ===== HEADER ===== */
-header{
-  background:#152a45;
-  padding:18px 32px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  box-shadow:0 4px 15px rgba(0,0,0,.6);
-}
-.logo{
-  font-size:1.7rem;
-  font-weight:700;
-  color:#00aaff;
-  letter-spacing:2px;
-}
-nav{
-  display:flex;
-  gap:16px;
-}
-nav a{
-  color:#e0e6f1;
-  padding:8px 14px;
-  border-radius:8px;
-  font-weight:600;
-  transition:.25s;
-}
-nav a:hover{
-  background:#00aaff;
-  color:#0f1c2d;
-}
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: #0f1c2d;
+      color: #e0e6f1;
+      display: flex;
+      flex-direction: column;
+    }
 
-/* ===== MAIN ===== */
-main{
-  flex:1;
-  max-width:720px;
-  margin:40px auto;
-  background:#1e2f4f;
-  padding:32px;
-  border-radius:16px;
-  box-shadow:0 0 35px rgba(0,95,187,.6);
-}
-main h1{
-  text-align:center;
-  color:#00aaff;
-  margin-bottom:28px;
-  font-size:2.2rem;
-}
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
-/* ===== FORM ===== */
-form{
-  display:flex;
-  flex-direction:column;
-  gap:20px;
-}
-label{
-  font-weight:600;
-  color:#a8b8d9;
-}
-select,input{
-  padding:14px 16px;
-  border-radius:12px;
-  border:none;
-  background:#11253b;
-  color:#fff;
-  font-size:1rem;
-}
-select:focus,input:focus{
-  outline:none;
-  box-shadow:0 0 10px #00aaff;
-}
-button{
-  margin-top:10px;
-  padding:15px;
-  font-size:1.2rem;
-  font-weight:700;
-  border:none;
-  border-radius:30px;
-  background:linear-gradient(90deg,#00b4ff,#0077cc);
-  color:#fff;
-  cursor:pointer;
-  transition:.25s;
-}
-button:hover{
-  transform:scale(1.04);
-  box-shadow:0 0 25px #00aaff;
-}
+    /* ================= HEADER ================= */
+    header {
+      background: #152a45;
+      padding: 20px 40px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-/* ===== RESULT ===== */
-#result{
-  margin-top:30px;
-  background:#122a53;
-  border-radius:14px;
-  padding:22px;
-  line-height:1.7;
-}
-#result h3{
-  color:#00c3ff;
-}
-#result a{
-  color:#66ccff;
-  font-weight:600;
-}
+    .logo {
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: #00aaff;
+      letter-spacing: 2px;
+    }
 
-/* ===== FOOTER ===== */
-footer{
-  background:#152a45;
-  text-align:center;
-  padding:16px;
-  font-size:.9rem;
-  color:#8ea6c1;
-}
+    nav {
+      display: flex;
+      gap: 25px;
+    }
 
-/* MOBILE */
-@media(max-width:480px){
-  main{margin:20px;padding:24px}
-  main h1{font-size:1.7rem}
-}
-</style>
+    nav a {
+      font-weight: 600;
+      padding: 10px 15px;
+      border-radius: 8px;
+      transition: 0.25s;
+    }
+
+    nav a:hover {
+      background: #00aaff;
+      color: #0f1c2d;
+    }
+
+    /* ================= MAIN ================= */
+    main {
+      flex-grow: 1;
+      max-width: 720px;
+      margin: 50px auto;
+      padding: 30px 40px;
+      background: #1e2f4f;
+      border-radius: 15px;
+      box-shadow: 0 0 40px rgba(0, 95, 187, 0.5);
+    }
+
+    main h1 {
+      text-align: center;
+      color: #00aaff;
+      margin-bottom: 30px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    label {
+      font-weight: 600;
+      color: #a8b8d9;
+    }
+
+    select,
+    input {
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: none;
+      background: #11253b;
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    select:focus,
+    input:focus {
+      outline: none;
+      box-shadow: 0 0 10px #00aaff;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 15px;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+      background: linear-gradient(90deg, #00b4ff, #0077cc);
+      color: #fff;
+      transition: 0.25s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    /* ================= RESULT ================= */
+    #result {
+      margin-top: 40px;
+      background: #122a53;
+      border-radius: 16px;
+      padding: 25px 30px;
+      box-shadow: 0 0 25px rgba(0, 119, 255, 0.5);
+      line-height: 1.7;
+    }
+
+    #result h3 {
+      color: #00c3ff;
+    }
+
+    #result a {
+      color: #66ccff;
+      font-weight: 600;
+    }
+
+    footer {
+      background: #152a45;
+      padding: 20px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #8ea6c1;
+    }
+
+    @media (max-width: 480px) {
+      main {
+        margin: 20px;
+        padding: 20px;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -158,78 +179,78 @@ footer{
   <form onsubmit="event.preventDefault(); checkPlayer();">
     <label>เลือกเซิร์ฟเวอร์</label>
     <select id="serverSelect">
-      <option value="">-- เลือกจากลิสต์ --</option>
+      <option value="">-- เลือกเซิร์ฟเวอร์ --</option>
       <option value="103.91.190.236">Starcommunity 1</option>
       <option value="103.91.190.107">Starcommunity 2</option>
       <option value="103.208.27.135">Starcommunity 3</option>
-      <option value="45.154.27.198">Starcommunity 4</option>
-      <option value="43.229.151.105">Starcommunity 5</option>
-      <option value="146.19.69.171">WHAT TRAINING 1</option>
-      <option value="146.19.69.172">WHAT TRAINING 2</option>
-      <option value="103.91.190.242">Glorious Community</option>
-      <option value="31.56.79.17">LAST STUDIO</option>
     </select>
 
     <label>หรือกรอก IP เอง</label>
-    <input id="manualIp" placeholder="เช่น 123.45.67.89">
+    <input type="text" id="manualIp" placeholder="เช่น 123.45.67.89" />
 
     <label>Player ID</label>
-    <input id="playerId" placeholder="เช่น 1" required>
+    <input type="text" id="playerIdInput" placeholder="เช่น 1" required />
 
     <button type="submit">ค้นหาข้อมูล</button>
   </form>
 
-  <div id="result"></div>
+  <section id="result"></section>
 </main>
 
 <footer>
-  © 2025 FIVEM CHECK – DEV JUTI STORY
+  &copy; 2025 FIVEM CHECK - DEV JUTI STORY
 </footer>
 
 <script>
-async function checkPlayer(){
-  const server =
-    document.getElementById("manualIp").value.trim() ||
-    document.getElementById("serverSelect").value.trim();
+async function checkPlayer() {
+  const serverSelect = document.getElementById('serverSelect').value.trim();
+  const manualIp = document.getElementById('manualIp').value.trim();
+  const playerId = document.getElementById('playerIdInput').value.trim();
+  const resultDiv = document.getElementById('result');
 
-  const playerId = document.getElementById("playerId").value.trim();
-  const result = document.getElementById("result");
+  const serverIp = manualIp || serverSelect;
 
-  if(!server || !playerId){
-    result.innerHTML = `<p style="color:#ff6666;font-weight:700">
-      กรุณากรอก Server และ Player ID
-    </p>`;
+  if (!serverIp || !playerId) {
+    resultDiv.innerHTML = `
+      <p style="color:#ff5555;font-weight:700;">
+        กรุณากรอกข้อมูลให้ครบ
+      </p>`;
     return;
   }
 
-  result.innerHTML = `<p>🔍 กำลังค้นหาข้อมูล...</p>`;
+  resultDiv.innerHTML = `
+    <p>🔍 กำลังค้นหาข้อมูล...</p>
+  `;
 
-  try{
-    const res = await fetch(
-      `https://bothp.onrender.com/check-player?server=${encodeURIComponent(server)}&player=${encodeURIComponent(playerId)}`
+  try {
+    const response = await fetch(
+      `https://bothp.onrender.com/check-player?server=${encodeURIComponent(serverIp)}&player=${encodeURIComponent(playerId)}`
     );
 
-    if(!res.ok) throw new Error("API Error");
+    const data = await response.json();
 
-    const data = await res.json();
+    if (!data || !data.name) {
+      throw new Error("ไม่พบข้อมูลผู้เล่น");
+    }
 
-    result.innerHTML = `
+    const steamProfile =
+      data.steamProfile && data.steamProfile !== "ไม่พบข้อมูล"
+        ? `<a href="${data.steamProfile}" target="_blank">เปิดโปรไฟล์</a>`
+        : "ไม่พบข้อมูล";
+
+    resultDiv.innerHTML = `
       <h3>ข้อมูลผู้เล่น</h3>
       <p><strong>ชื่อ:</strong> ${data.name}</p>
-      <p><strong>Ping:</strong> ${data.ping} ms</p>
-      <p><strong>Steam Hex:</strong> ${data.steamHex}</p>
-      <p><strong>Steam:</strong> ${
-        data.steamProfile !== "ไม่พบข้อมูล"
-        ? `<a href="${data.steamProfile}" target="_blank">${data.steamProfile}</a>`
-        : "ไม่พบข้อมูล"
-      }</p>
-      <p><strong>Discord:</strong> ${data.discord}</p>
+      <p><strong>Ping:</strong> ${data.ping ?? '-'} ms</p>
+      <p><strong>Steam Hex:</strong> ${data.steamHex ?? '-'}</p>
+      <p><strong>Steam Profile:</strong> ${steamProfile}</p>
+      <p><strong>Discord:</strong> ${data.discord ?? '-'}</p>
     `;
-  }
-  catch(e){
-    result.innerHTML = `<p style="color:#ff6666;font-weight:700">
-      ❌ ไม่สามารถดึงข้อมูลได้
-    </p>`;
+  } catch (error) {
+    resultDiv.innerHTML = `
+      <p style="color:#ff5555;font-weight:700;">
+        ❌ ${error.message}
+      </p>`;
   }
 }
 </script>
