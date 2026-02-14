@@ -1,932 +1,284 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>FIVEM CHECK ULTIMATE | NEXT GEN</title>
-    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/194/194279.png" type="image/png" />
-    
-    <!-- Fonts & Libraries -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FIVEM CHECK ROLEPLAY</title>
+<link rel="icon" href="FiveM.png" type="image/png" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+  /* Reset & base */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0; padding: 0;
+    min-height: 100vh;
+    background: #0f1c2d;
+    color: #e0e6f1;
+    display: flex;
+    flex-direction: column;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 
-        body {
-            font-family: 'Rajdhani', sans-serif;
-            background: #0a0a1a;
-            color: #fff;
-            overflow-x: hidden;
-            position: relative;
-            min-height: 100vh;
-        }
+  /* Header / Navbar */
+  header {
+    background: #152a45;
+    padding: 20px 40px;
+    box-shadow: 0 2px 10px rgb(0 0 0 / 0.6);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo {
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: #00aaff;
+    letter-spacing: 2px;
+    user-select: none;
+  }
 
-        /* Cyber Grid Background */
-        #cyber-grid {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
-            pointer-events: none;
-            z-index: -1;
-            animation: gridMove 20s linear infinite;
-        }
+  nav {
+    display: flex;
+    gap: 25px;
+  }
+  nav a {
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: background-color 0.25s, color 0.25s;
+  }
+  nav a:hover {
+    background: #00aaff;
+    color: #0f1c2d;
+    box-shadow: 0 0 8px #00aaffaa;
+  }
 
-        @keyframes gridMove {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(50px); }
-        }
+  /* Main container */
+  main {
+    flex-grow: 1;
+    max-width: 720px;
+    margin: 50px auto 70px auto;
+    padding: 30px 40px;
+    background: #1e2f4f;
+    border-radius: 15px;
+    box-shadow: 0 0 40px #005fbb88;
+  }
 
-        /* Particles Container */
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-        }
+  main h1 {
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #00aaff;
+    text-align: center;
+    letter-spacing: 1.5px;
+    user-select: none;
+  }
 
-        /* 3D Background Animation */
-        #canvas-3d {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -3;
-            opacity: 0.3;
-        }
+  /* Form layout */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+  label {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #a8b8d9;
+  }
+  select, input[type="text"] {
+    padding: 14px 18px;
+    border-radius: 12px;
+    border: none;
+    background: #11253b;
+    color: #e0e6f1;
+    font-size: 1rem;
+    box-shadow: inset 0 0 6px #004e88aa;
+    transition: box-shadow 0.3s ease;
+  }
+  select:focus, input[type="text"]:focus {
+    outline: none;
+    box-shadow: 0 0 10px #00aaffcc;
+  }
+  select option {
+    color: #000;
+  }
 
-        /* Header - Glassmorphism */
-        .glass-header {
-            background: rgba(10, 20, 40, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 255, 255, 0.3);
-            padding: 20px 40px;
-            position: relative;
-            z-index: 100;
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
-        }
+  /* Button */
+  button {
+    margin-top: 10px;
+    padding: 16px 0;
+    background: linear-gradient(90deg, #00b4ff, #0077cc);
+    font-weight: 700;
+    font-size: 1.3rem;
+    border: none;
+    border-radius: 30px;
+    color: #f0f8ff;
+    cursor: pointer;
+    box-shadow: 0 6px 20px #0099ffbb;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  button:hover {
+    background: linear-gradient(90deg, #0099ff, #005fa3);
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px #00aaffcc;
+  }
+  button:active {
+    transform: scale(0.97);
+  }
 
-        .header-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+  /* Result card */
+  #result {
+    margin-top: 40px;
+    background: #122a53;
+    border-radius: 16px;
+    padding: 25px 30px;
+    box-shadow: 0 0 25px #0077ff88;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #cce4ff;
+  }
+  #result h3 {
+    color: #00c3ff;
+    margin-bottom: 18px;
+    font-weight: 700;
+    user-select: none;
+  }
+  #result a {
+    color: #66ccff;
+    font-weight: 600;
+    text-decoration: underline;
+  }
 
-        .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
-            font-weight: 900;
-            background: linear-gradient(45deg, #00ffff, #ff00ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
-            letter-spacing: 4px;
-            position: relative;
-        }
+  /* Footer */
+  footer {
+    background: #152a45;
+    padding: 20px 40px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #8ea6c1;
+    user-select: none;
+  }
 
-        .logo::before {
-            content: 'FIVEM CHECK';
-            position: absolute;
-            left: 0;
-            top: 0;
-            background: linear-gradient(45deg, #ff00ff, #00ffff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: blur(10px);
-            opacity: 0.5;
-            z-index: -1;
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-item {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1rem;
-            font-weight: 600;
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 20px;
-            border: 1px solid transparent;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .nav-item:hover::before {
-            left: 100%;
-        }
-
-        .nav-item:hover {
-            border-color: #00ffff;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
-            text-shadow: 0 0 10px #00ffff;
-        }
-
-        /* Main Container */
-        .main-container {
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 0 20px;
-            position: relative;
-            z-index: 10;
-        }
-
-        /* Holographic Card */
-        .hologram-card {
-            background: rgba(20, 30, 50, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 
-                0 0 30px rgba(0, 255, 255, 0.3),
-                inset 0 0 30px rgba(0, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hologram-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(
-                from 0deg,
-                transparent,
-                rgba(0, 255, 255, 0.3),
-                transparent,
-                rgba(255, 0, 255, 0.3),
-                transparent
-            );
-            animation: rotate 10s linear infinite;
-            z-index: -1;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* Title */
-        .cyber-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3rem;
-            font-weight: 900;
-            text-align: center;
-            margin-bottom: 40px;
-            position: relative;
-            animation: glitch 5s infinite;
-        }
-
-        .cyber-title span {
-            color: #00ffff;
-            text-shadow: 
-                0 0 10px #00ffff,
-                0 0 20px #00ffff,
-                0 0 40px #00ffff;
-        }
-
-        @keyframes glitch {
-            0%, 100% { transform: skew(0deg, 0deg); opacity: 1; }
-            95% { transform: skew(0deg, 0deg); opacity: 1; }
-            96% { transform: skew(5deg, 0deg); opacity: 0.8; }
-            97% { transform: skew(-5deg, 0deg); opacity: 0.9; }
-            98% { transform: skew(3deg, 0deg); opacity: 0.8; }
-            99% { transform: skew(0deg, 0deg); opacity: 1; }
-        }
-
-        /* Form Section */
-        .cyber-form {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .input-group {
-            position: relative;
-            margin-bottom: 30px;
-        }
-
-        .input-group.full-width {
-            grid-column: span 2;
-        }
-
-        .cyber-input {
-            width: 100%;
-            padding: 15px 20px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 2px solid rgba(0, 255, 255, 0.3);
-            border-radius: 10px;
-            color: #fff;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-        }
-
-        .cyber-input:focus {
-            outline: none;
-            border-color: #00ffff;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
-        }
-
-        .input-label {
-            position: absolute;
-            left: 20px;
-            top: -10px;
-            background: rgba(0, 255, 255, 0.2);
-            padding: 0 10px;
-            font-size: 0.9rem;
-            color: #00ffff;
-            border-radius: 5px;
-            backdrop-filter: blur(5px);
-            pointer-events: none;
-        }
-
-        /* Select Styled */
-        .cyber-select {
-            width: 100%;
-            padding: 15px 20px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 2px solid rgba(0, 255, 255, 0.3);
-            border-radius: 10px;
-            color: #fff;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.1rem;
-            appearance: none;
-            cursor: pointer;
-        }
-
-        .select-arrow {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #00ffff;
-            pointer-events: none;
-        }
-
-        /* Scan Button */
-        .scan-button {
-            grid-column: span 2;
-            padding: 20px;
-            background: transparent;
-            border: 2px solid #00ffff;
-            border-radius: 50px;
-            color: #00ffff;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .scan-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.3), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .scan-button:hover::before {
-            left: 100%;
-        }
-
-        .scan-button:hover {
-            background: #00ffff;
-            color: #000;
-            box-shadow: 0 0 50px #00ffff;
-            transform: scale(1.05);
-        }
-
-        /* Loading Animation */
-        .scanning-animation {
-            display: none;
-            text-align: center;
-            padding: 40px;
-        }
-
-        .scanner-line {
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #00ffff, transparent);
-            animation: scan 2s linear infinite;
-        }
-
-        @keyframes scan {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        /* Result Card - Holographic */
-        .result-hologram {
-            margin-top: 40px;
-            padding: 30px;
-            background: rgba(0, 255, 255, 0.05);
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            border-radius: 20px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.5s ease;
-        }
-
-        .result-hologram.active {
-            box-shadow: 0 0 50px rgba(0, 255, 255, 0.5);
-        }
-
-        .hologram-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.1), transparent);
-            pointer-events: none;
-        }
-
-        /* Player Profile 3D Card */
-        .player-profile {
-            display: grid;
-            grid-template-columns: 200px 1fr;
-            gap: 30px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .player-avatar-3d {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #00ffff, #ff00ff);
-            padding: 3px;
-            position: relative;
-            animation: pulse 2s ease infinite;
-        }
-
-        .avatar-inner {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: #0a0a1a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: #00ffff;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 30px #00ffff; }
-            50% { transform: scale(1.05); box-shadow: 0 0 50px #ff00ff; }
-        }
-
-        .player-info-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        .info-item {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            border-radius: 10px;
-            padding: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .info-item:hover {
-            border-color: #00ffff;
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0, 255, 255, 0.3);
-        }
-
-        .info-label {
-            font-size: 0.9rem;
-            color: #00ffff;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 5px;
-        }
-
-        .info-value {
-            font-size: 1.2rem;
-            font-weight: 600;
-            word-break: break-all;
-        }
-
-        .info-value a {
-            color: #00ffff;
-            text-decoration: none;
-            border-bottom: 1px solid #00ffff;
-        }
-
-        /* Stats Chart */
-        .stats-container {
-            margin-top: 30px;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-        }
-
-        /* Voice Button */
-        .voice-button {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: #00ffff;
-            border: none;
-            color: #000;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 0 20px #00ffff;
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-
-        .voice-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 40px #00ffff;
-        }
-
-        .voice-button.listening {
-            animation: listening 1s infinite;
-        }
-
-        @keyframes listening {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 20px #00ffff; }
-            50% { transform: scale(1.2); box-shadow: 0 0 40px #ff00ff; }
-        }
-
-        /* Toast Notification */
-        .cyber-toast {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 25px;
-            background: rgba(0, 255, 255, 0.9);
-            color: #000;
-            border-radius: 10px;
-            font-weight: 600;
-            transform: translateX(400px);
-            transition: transform 0.3s ease;
-            z-index: 2000;
-        }
-
-        .cyber-toast.show {
-            transform: translateX(0);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .cyber-form {
-                grid-template-columns: 1fr;
-            }
-            
-            .input-group.full-width,
-            .scan-button {
-                grid-column: span 1;
-            }
-            
-            .player-profile {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            
-            .player-avatar-3d {
-                margin: 0 auto;
-            }
-            
-            .nav-menu {
-                display: none;
-            }
-        }
-    </style>
+  /* Responsive */
+  @media (max-width: 480px) {
+    main {
+      margin: 30px 15px 50px;
+      padding: 20px 25px;
+    }
+    main h1 {
+      font-size: 1.8rem;
+    }
+    button {
+      font-size: 1.1rem;
+      padding: 14px 0;
+    }
+  }
+</style>
 </head>
 <body>
-    <!-- 3D Background -->
-    <div id="canvas-3d"></div>
-    
-    <!-- Particles Background -->
-    <div id="particles-js"></div>
-    
-    <!-- Cyber Grid -->
-    <div id="cyber-grid"></div>
 
-    <!-- Header -->
-    <header class="glass-header">
-        <div class="header-content">
-            <div class="logo">FIVEM CHECK</div>
-            <nav class="nav-menu">
-                <a href="#" class="nav-item"><i class="fas fa-home"></i> HOME</a>
-                <a href="#" class="nav-item"><i class="fas fa-chart-line"></i> ANALYTICS</a>
-                <a href="#" class="nav-item"><i class="fas fa-users"></i> COMMUNITY</a>
-                <a href="#" class="nav-item"><i class="fas fa-cog"></i> SETTINGS</a>
-            </nav>
-        </div>
-    </header>
+<header role="banner">
+  <div class="logo">FIVEM CHECK</div>
+  <nav role="navigation" aria-label="เมนูหลัก">
+    <a href="menu.html" tabindex="0">เมนูหลัก</a>
+    <a href="training.html" tabindex="0">FIVEM TRAINING</a>
+    <a href="https://www.facebook.com/lakksjslal.ksksiksks" target="_blank" rel="noopener noreferrer" tabindex="0">รายงาน</a>
+    <a href="index.html" tabindex="0">ออกจากระบบ</a>
+  </nav>
+</header>
 
-    <!-- Main Container -->
-    <div class="main-container">
-        <!-- Hologram Card -->
-        <div class="hologram-card">
-            <h1 class="cyber-title">
-                <span>NEXT</span> GEN <span>SCANNER</span>
-            </h1>
+<main role="main" aria-labelledby="main-title">
+  <h1 id="main-title">CHECK ROLEPLAY FIVEM</h1>
 
-            <!-- Search Form -->
-            <div class="cyber-form">
-                <div class="input-group">
-                    <span class="input-label">SERVER SELECT</span>
-                    <select id="serverSelect" class="cyber-select">
-                        <option value="">SELECT SERVER</option>
-                        <option value="191.96.93.37">WINTER COMMUNITY</option>
-                        <option value="146.19.69.188">WHAT UNIVERSAL</option>
-                        <option value="89.38.101.60">SUMMER CITY</option>
-                        <option value="103.91.190.251">LAST CITY</option>
-                        <option value="89.38.101.50">HYPER TOWN</option>
-                        <option value="103.91.190.87">SEOLU CITY</option>
-                        <option value="89.38.101.89">CUPID ROPLAY</option>
-                        <option value="103.167.193.64">MITH COMMUNITY</option>
-                        <option value="191.96.92.203">SURF TOWN</option>
-                        <option value="141.11.158.31">NOVA</option>
-                        <option value="146.19.69.69">WHAT CITY</option>
-                        <option value="nightcfx.com">NIGHT CITY</option> 
-                        <option value="103.91.190.40">XD SCHOOL</option>
-                        <option value="testtown.rebirthz.in.th">TESTTOWN</option>
-                    </select>
-                    <i class="fas fa-chevron-down select-arrow"></i>
-                </div>
+  <form id="checkForm" onsubmit="event.preventDefault(); checkPlayer();">
+    <label for="serverSelect">เลือกเซิร์ฟเวอร์</label>
+    <select id="serverSelect" aria-required="false" aria-describedby="serverHelp">
+      <option value="">- เลือกเซิร์ฟเวอร์ -</option>
+      <option value="191.96.93.37">WINTER COMMUNITY</option>
+      <option value="146.19.69.188">WHAT UNIVERSAL</option>
+      <option value="89.38.101.60">SUMMER CITY</option>
+      <option value="103.91.190.251">LAST CITY</option>
+      <option value="89.38.101.50">HYPER TOWN</option>
+      <option value="103.91.190.87">SEOLU CITY</option>
+      <option value="89.38.101.89">CUPID ROPLAY</option>
+      <option value="103.167.193.64">MITH COMMUNITY</option>
+      <option value="191.96.92.203">SURF TOWN</option>
+      <option value="141.11.158.31">NOVA</option>
+      <option value="146.19.69.69">WHAT CITY</option>
+      <option value="nightcfx.com">night CITY</option> 
+      <option value="103.91.190.40">XD SCOOL</option>
+      <option value="testtown.rebirthz.in.th">TESTTOWN</option>
+    </select>
 
-                <div class="input-group">
-                    <span class="input-label">CUSTOM IP</span>
-                    <input type="text" id="manualIp" class="cyber-input" placeholder="123.45.67.89">
-                </div>
+    <label for="manualIp">กรอก IP เซิร์ฟเวอร์เอง</label>
+    <input type="text" id="manualIp" placeholder="เช่น 123.45.67.89 หรือ play.example.com" aria-describedby="manualIpHelp" />
 
-                <div class="input-group full-width">
-                    <span class="input-label">PLAYER ID</span>
-                    <input type="text" id="playerIdInput" class="cyber-input" placeholder="ENTER PLAYER ID" required>
-                </div>
+    <label for="playerIdInput">กรอก Player ID</label>
+    <input type="text" id="playerIdInput" placeholder="เช่น 1, 2, 5" required aria-required="true" />
 
-                <button id="scanBtn" class="scan-button">
-                    <i class="fas fa-search"></i> INITIATE SCAN
-                </button>
-            </div>
+    <button type="submit" aria-label="ค้นหาข้อมูลผู้เล่น">ค้นหาข้อมูล</button>
+  </form>
 
-            <!-- Scanning Animation -->
-            <div id="scanningAnimation" class="scanning-animation">
-                <div class="scanner-line"></div>
-                <p style="margin-top: 20px; color: #00ffff;">SCANNING DATABASE...</p>
-            </div>
+  <section id="result" role="region" aria-live="polite" tabindex="0"></section>
+</main>
 
-            <!-- Result Section -->
-            <div id="result" class="result-hologram">
-                <div class="hologram-overlay"></div>
-                <!-- Results will be dynamically inserted here -->
-            </div>
-        </div>
-    </div>
+<footer role="contentinfo">
+  &copy; 2025 FIVEM CHECK - DEV JUTI STORY
+</footer>
 
-    <!-- Voice Command Button -->
-    <button id="voiceBtn" class="voice-button">
-        <i class="fas fa-microphone"></i>
-    </button>
+<script>
+  async function checkPlayer() {
+    const serverSelect = document.getElementById('serverSelect').value.trim();
+    const manualIp = document.getElementById('manualIp').value.trim();
+    const playerId = document.getElementById('playerIdInput').value.trim();
+    const resultDiv = document.getElementById('result');
 
-    <!-- Toast Notification -->
-    <div id="toast" class="cyber-toast">
-        <i class="fas fa-info-circle"></i> <span id="toastMessage"></span>
-    </div>
+    const serverIp = manualIp || serverSelect;
 
-    <script>
-        // Three.js 3D Background
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas-3d'), alpha: true });
-        
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        
-        // Create floating cubes
-        const cubes = [];
-        const cubeCount = 50;
-        
-        for (let i = 0; i < cubeCount; i++) {
-            const geometry = new THREE.BoxGeometry(1, 1, 1);
-            const material = new THREE.MeshBasicMaterial({ 
-                color: Math.random() * 0x00ffff,
-                wireframe: true,
-                transparent: true,
-                opacity: 0.1
-            });
-            const cube = new THREE.Mesh(geometry, material);
-            
-            cube.position.x = (Math.random() - 0.5) * 100;
-            cube.position.y = (Math.random() - 0.5) * 100;
-            cube.position.z = (Math.random() - 0.5) * 100;
-            
-            cube.rotation.x = Math.random() * Math.PI;
-            cube.rotation.y = Math.random() * Math.PI;
-            
-            cubes.push(cube);
-            scene.add(cube);
-        }
-        
-        camera.position.z = 50;
-        
-        function animate3D() {
-            requestAnimationFrame(animate3D);
-            
-            cubes.forEach(cube => {
-                cube.rotation.x += 0.001;
-                cube.rotation.y += 0.002;
-            });
-            
-            renderer.render(scene, camera);
-        }
-        
-        animate3D();
+    if (!serverIp || !playerId) {
+      resultDiv.innerHTML = `<p style="color:#ff5555; font-weight:700;">กรุณาเลือกหรือกรอก IP เซิร์ฟเวอร์ และกรอก Player ID ให้ถูกต้อง</p>`;
+      resultDiv.focus();
+      return;
+    }
 
-        // Particles.js Configuration
-        particlesJS('particles-js', {
-            particles: {
-                number: { value: 80, density: { enable: true, value_area: 800 } },
-                color: { value: '#00ffff' },
-                shape: { type: 'circle' },
-                opacity: { value: 0.5, random: true },
-                size: { value: 3, random: true },
-                line_linked: {
-                    enable: true,
-                    distance: 150,
-                    color: '#00ffff',
-                    opacity: 0.2,
-                    width: 1
-                },
-                move: {
-                    enable: true,
-                    speed: 2,
-                    direction: 'none',
-                    random: true,
-                    straight: false,
-                    out_mode: 'out',
-                    bounce: false
-                }
-            },
-            interactivity: {
-                detect_on: 'canvas',
-                events: {
-                    onhover: { enable: true, mode: 'repulse' },
-                    onclick: { enable: true, mode: 'push' },
-                    resize: true
-                }
-            },
-            retina_detect: true
-        });
+    resultDiv.innerHTML = `<p>กำลังค้นหาข้อมูลผู้เล่น ID <strong>${playerId}</strong> จากเซิร์ฟเวอร์ <strong>${serverIp}</strong>...</p>`;
 
-        // Voice Commands
-        const voiceBtn = document.getElementById('voiceBtn');
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        
-        if (SpeechRecognition) {
-            const recognition = new SpeechRecognition();
-            recognition.continuous = true;
-            recognition.lang = 'th-TH';
-            
-            voiceBtn.addEventListener('click', () => {
-                voiceBtn.classList.toggle('listening');
-                
-                if (voiceBtn.classList.contains('listening')) {
-                    recognition.start();
-                    showToast('กำลังฟังคำสั่งเสียง...');
-                } else {
-                    recognition.stop();
-                }
-            });
-            
-            recognition.onresult = (event) => {
-                const command = event.results[event.results.length - 1][0].transcript.toLowerCase();
-                processVoiceCommand(command);
-            };
-            
-            function processVoiceCommand(command) {
-                showToast(`รับคำสั่ง: ${command}`);
-                
-                if (command.includes('ค้นหา') || command.includes('scan')) {
-                    const playerId = command.match(/\d+/)?.[0];
-                    if (playerId) {
-                        document.getElementById('playerIdInput').value = playerId;
-                        checkPlayer();
-                    }
-                } else if (command.includes('เซิร์ฟเวอร์') || command.includes('server')) {
-                    const serverNames = {
-                        'winter': '191.96.93.37',
-                        'what': '146.19.69.188',
-                        'summer': '89.38.101.60'
-                    };
-                    
-                    for (let [name, ip] of Object.entries(serverNames)) {
-                        if (command.includes(name)) {
-                            document.getElementById('manualIp').value = ip;
-                            showToast(`เลือกเซิร์ฟเวอร์: ${name}`);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
+    try {
+      const response = await fetch(`https://bothp.onrender.com/check-player?server=${serverIp}&player=${playerId}`);
+      const data = await response.json();
 
-        // Toast Notification
-        function showToast(message, duration = 3000) {
-            const toast = document.getElementById('toast');
-            const toastMessage = document.getElementById('toastMessage');
-            
-            toastMessage.textContent = message;
-            toast.classList.add('show');
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, duration);
-        }
+      if (data && data.name) {
+        const steamProfile = data.steamProfile && data.steamProfile !== "ไม่พบข้อมูล"
+          ? `<a href="${data.steamProfile}" target="_blank" rel="noopener noreferrer">${data.steamProfile}</a>`
+          : 'ไม่พบข้อมูล';
 
-        // Main Check Function
-        async function checkPlayer() {
-            const serverSelect = document.getElementById('serverSelect').value.trim();
-            const manualIp = document.getElementById('manualIp').value.trim();
-            const playerId = document.getElementById('playerIdInput').value.trim();
-            const resultDiv = document.getElementById('result');
-            const scanBtn = document.getElementById('scanBtn');
-            const scanningAnimation = document.getElementById('scanningAnimation');
+        resultDiv.innerHTML = `
+         ข้อมูลจากเซิฟเวอร์ <strong>${serverIp}</strong>
+          <h3>ข้อมูลผู้เล่น</h3>
+          <p><strong>ชื่อ:</strong> ${data.name}</p>
+          <p><strong>Ping:</strong> ${data.ping ?? 'ไม่พบข้อมูล'} ms</p>
+          <p><strong>Steam Hex:</strong> ${data.steamHex ?? 'ไม่พบข้อมูล'}</p>
+          <p><strong>Steam Profile:</strong> ${steamProfile}</p>
+          <p><strong>Discord:</strong> ${data.discord ?? 'ไม่พบข้อมูล'}</p>
+        `;
+      } else {
+        resultDiv.innerHTML = `<p style="color:#ff5555; font-weight:700;">❌ ไม่พบข้อมูลผู้เล่นในเซิร์ฟเวอร์นี้</p>`;
+      }
+      resultDiv.focus();
+    } catch (error) {
+      resultDiv.innerHTML = `<p style="color:#ff5555; font-weight:700;">❌ เกิดข้อผิดพลาด: ไม่สามารถเชื่อมต่อ API ได้ (${error.message})</p>`;
+      resultDiv.focus();
+    }
+  }
+</script>
 
-            const serverIp = manualIp || serverSelect;
-
-            if (!serverIp || !playerId) {
-                showToast('⚠️ กรุณากรอกข้อมูลให้ครบถ้วน');
-                return;
-            }
-
-            // Show scanning animation
-            scanBtn.disabled = true;
-            scanningAnimation.style.display = 'block';
-            resultDiv.innerHTML = '';
-
-            try {
-                const response = await fetch(`https://bothp.onrender.com/check-player?server=${serverIp}&player=${playerId}`);
-                const data = await response.json();
-
-                setTimeout(() => {
-                    scanningAnimation.style.display = 'none';
-                    
-                    if (data && data.name) {
-                        const steamProfile = data.steamProfile && data.steamProfile !== "ไม่พบข้อมูล"
-                            ? `<a href="${data.steamProfile}" target="_blank" rel="noopener noreferrer">${data.steamProfile}</a>`
-                            : 'ไม่พบข้อมูล';
-
-                        // Create 3D style result
-                        resultDiv.innerHTML = `
-                            <div class="player-profile">
-                                <div class="player-avatar-3d">
-                                    <div class="avatar-inner">
-                                        <i class="fas fa-user-astronaut"></i>
-                                    </div>
-                                </div>
-                                <div class="player-info-grid">
-                                    <div class="info-item">
-                                        <div class="info-label">PLAYER NAME</div>
-                                        <div class="info-value">${data.name}</div>
-                                    </div>
-                                    <div class="info-item">
-                                        <div class="info-label">PING</div>
-                                        <div class="info-value">${data.ping ?? 'N/A'} ms</div>
-                                    </div>
-                                    <div class="info-item">
-                                        <div class="info-label">STEAM HEX</div>
-                                        <div class="info-value">${data.steamHex ?? 'N/A'}</div>
-                                    </div>
-                                    <div class="info-item">
-                                        <div class="info-label">STEAM PROFILE</div>
-                                        <div class="info-value">${steamProfile}</div>
-                                    </div>
-                                    <div class="info-item">
-                                        <div class="info-label">DISCORD ID</div>
-                                        <div class="info-value">${data.discord ?? 'N/A'}</div>
-                                    </div>
-                                    <div class="info-item">
-                                        <div class="info-label">SERVER</div>
-                                        <div class="info-value">${serverIp}</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="stats-container">
-                                <canvas id="playerStatsChart"></canvas>
-                            </div>
-                        `;
-
-                        // Create mini chart
-                        const ctx = document.getElementById('playerStatsChart').getContext('2d');
-                        new Chart(ctx, {
-                            type: 'radar',
-                            data: {
-                                labels: ['Activity', 'Reliability', 'Experience', 'Social', 'Performance'],
-                                datasets: [{
-                                    label: 'Player Stats',
-                                    data: [
-                                        Math.random() * 100,
-                                        Math.random() * 100,
-                                        Math.random() * 100,
-                                        Math.random() * 100,
-                                        Math.random() * 100
-                                    ],
-                                    backgroundColor: 'rgba(0, 255, 255, 0.2)',
-                                    borderColor: '#00ffff',
-                                    pointBackgroundColor: '#00ffff',
-                                    pointBorderColor: '#fff'
-                                }]
-                            },
-                            options: {
-                                scales: {
-                                    r: {
-                                        grid: { color: 'rgba(0, 255, 255, 0.2)' },
-                                        pointLabels: { color: '#fff' }
-                                    }
-                                }
-                            }
-                        });
-
-                        resultDiv.classList.add('active');
-                        showToast('✅ พบข้อมูลผู้เล่นแล้ว');
-                    } else {
-                        resultDiv.innerHTML = '<div style="text-align: center; padding: 40px; color: #ff00ff;">🔍 ไม่พบข้อมูลผู้เล่นในระบบ</div>';
-                    }
-                    
-                    scanBtn.disabled = false;
-                }, 2000); // Simulate scanning time
-
-            } catch (error) {
-                scanningAnimation.style.display = 'none';
-                resultDiv.innerHTML = `<div style="text-align: center; padding: 40px; color: #ff00ff;">⚠️ ERROR: ${error.message}</div>`;
-                scanBtn.disabled = false;
-                showToast('❌ เกิดข้อผิดพลาดในการเชื่อมต่อ');
-            }
-        }
-
-        // Event Listeners
-        document.getElementById('scanBtn').addEventListener('click', checkPlayer);
-        
-        // Enter key press
-        document.getElementById('playerIdInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') checkPlayer();
-        });
-
-        // Window resize handler
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-
-        // Initial showToast
-        showToast('🚀 ระบบพร้อมทำงาน', 2000);
-    </script>
 </body>
 </html>
+
+
