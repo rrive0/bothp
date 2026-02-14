@@ -3,257 +3,425 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>JUTI FIVEM SUPPORT</title>
-  <link rel="icon" href="Support.png" type="image/png" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
-
+  <title>JUTI FIVEM SUPPORT · EVOLUTION</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%2300e5ff'><circle cx='50' cy='50' r='45' stroke='white' stroke-width='6' /></svg>" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    /* Reset & base */
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
     }
-    body, html {
-      margin: 0; padding: 0;
-      height: 100%;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      color: #e0f7fa;
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at 30% 10%, #0b1c2f, #030812);
+      color: #edf2fb;
+      min-height: 100vh;
       overflow-x: hidden;
     }
 
-    /* Header / Navbar */
-    header {
+    /* พื้นหลังเคลื่อนไหว (particles) */
+    #particles-js {
       position: fixed;
-      top: 0; left: 0; right: 0;
-      background: rgba(15, 32, 39, 0.95);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ===== HEADER ล้ำ ๆ ===== */
+    .glass-header {
+      position: fixed;
+      top: 18px;
+      left: 20px;
+      right: 20px;
+      background: rgba(8, 28, 48, 0.5);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(0, 229, 255, 0.35);
+      border-radius: 60px;
+      padding: 0.6rem 2rem;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 0.7rem 2rem;
-      z-index: 9999;
-      backdrop-filter: blur(8px);
+      justify-content: space-between;
+      box-shadow: 0 20px 40px -10px rgba(0, 200, 255, 0.3), 0 0 0 1px rgba(0, 255, 255, 0.2) inset;
+      z-index: 10000;
+      transition: 0.3s;
     }
-    header .logo {
-      font-weight: 700;
-      font-size: 1.4rem;
-      letter-spacing: 1.3px;
-      color: #00e5ff;
-      user-select: none;
-    }
-    nav {
+
+    .logo-area {
       display: flex;
-      gap: 1.5rem;
+      align-items: center;
+      gap: 14px;
     }
-    nav a {
-      color: #b2ebf2;
+
+    .neon-logo {
+      font-weight: 800;
+      font-size: 1.9rem;
+      background: linear-gradient(130deg, #a5f0ff, #4effe0);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+      text-shadow: 0 0 10px #00ffff, 0 0 20px #00b3ff;
+    }
+
+    .badge-new {
+      background: #003d66;
+      color: #9ef0ff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.3rem 0.9rem;
+      border-radius: 40px;
+      border: 1px solid cyan;
+      box-shadow: 0 0 10px cyan;
+      letter-spacing: 0.5px;
+    }
+
+    /* เมนูหลัก (อยู่เหนือโลโก้เดิม) */
+    .nav-menu {
+      display: flex;
+      gap: 0.8rem;
+      align-items: center;
+    }
+
+    /* ปุ่มสุดล้ำ */
+    .menu-item {
+      position: relative;
+      color: #fff;
       text-decoration: none;
       font-weight: 600;
       font-size: 1rem;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      box-shadow: 0 0 0 transparent;
-    }
-    nav a:hover {
-      background-color: #00e5ff;
-      color: #00384d;
-      box-shadow: 0 0 12px #00e5ff;
-    }
-
-    /* Main content container */
-    main {
-      max-width: 1100px;
-      margin: 100px auto 40px;
-      padding: 0 1rem;
-      text-align: center;
-      z-index: 10;
-      position: relative;
-    }
-
-    main h1 {
-      font-size: 3rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      color: #00e5ff;
-      text-shadow: 0 0 12px #00e5ff;
-    }
-    main p.subtitle {
-      font-weight: 500;
-      font-size: 1.2rem;
-      margin-bottom: 3rem;
-      color: #81d4faaa;
-    }
-
-    /* Card container */
-    .card-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2rem;
-    }
-
-    /* Card style */
-    .card {
-      background: rgba(0, 229, 255, 0.1);
-      border-radius: 18px;
-      box-shadow: 0 8px 20px rgba(0, 229, 255, 0.25);
-      cursor: pointer;
-      overflow: hidden;
-      transition: transform 0.35s ease, box-shadow 0.35s ease;
-      display: flex;
-      flex-direction: column;
+      padding: 0.7rem 1.5rem;
+      border-radius: 40px;
+      background: rgba(0, 150, 255, 0.1);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(0, 229, 255, 0.3);
+      box-shadow: 0 5px 15px rgba(0, 200, 255, 0.2);
+      transition: 0.2s;
+      display: inline-flex;
       align-items: center;
-      user-select: none;
-      border: 2px solid transparent;
-      width: 100%;
-      max-width: 300px;  /* กำหนด max-width ชัดเจน */
+      gap: 8px;
+      letter-spacing: 0.3px;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    .menu-item i {
+      font-size: 1.2rem;
+      color: #00ffff;
+      filter: drop-shadow(0 0 5px cyan);
+    }
+
+    .menu-item::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 40px;
+      padding: 2px;
+      background: linear-gradient(145deg, #00e5ff, #a06eff);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0.6;
+    }
+
+    .menu-item:hover {
+      background: rgba(0, 229, 255, 0.25);
+      border-color: #00ffff;
+      box-shadow: 0 0 25px #00e5ff, 0 8px 20px rgba(0,255,255,0.4);
+      transform: scale(1.05) translateY(-2px);
+    }
+
+    .menu-item:active {
+      transform: scale(0.98);
+    }
+
+    /* ปุ่ม EXIT พิเศษ */
+    .menu-item.exit {
+      background: rgba(255, 50, 100, 0.15);
+      border-color: #ff4d7a;
+    }
+    .menu-item.exit i {
+      color: #ff9eb5;
+    }
+    .menu-item.exit:hover {
+      background: rgba(255, 70, 120, 0.3);
+      box-shadow: 0 0 25px #ff4d7a;
+    }
+
+    /* main content */
+    .hero {
+      position: relative;
+      z-index: 5;
+      max-width: 1300px;
       margin: 0 auto;
-    }
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 40px rgba(0, 229, 255, 0.45);
-      border-color: #00e5ff;
+      padding: 150px 20px 60px;
+      text-align: center;
     }
 
-    /* แก้ไขตรงนี้เพื่อให้รูปเต็มกล่อง */
-    .card img {
+    .hero h1 {
+      font-size: 5rem;
+      font-weight: 800;
+      background: linear-gradient(to right, #b3f0ff, #50e0ff, #80ffdb);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 40px #00b7ff, 0 0 100px #0077ff;
+      letter-spacing: -1px;
+      margin-bottom: 10px;
+      animation: glowPulse 3s infinite alternate;
+    }
+
+    @keyframes glowPulse {
+      0% { text-shadow: 0 0 30px #00a6ff, 0 0 70px #003cff; }
+      100% { text-shadow: 0 0 60px #00f2ff, 0 0 110px #6e4aff; }
+    }
+
+    .subtitle-neon {
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: #c3e8ff;
+      text-shadow: 0 0 15px cyan;
+      margin-bottom: 40px;
+      backdrop-filter: blur(2px);
+    }
+
+    /* Card container — ล้ำมาก */
+    .card-grid {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 50px;
+      margin-top: 40px;
+    }
+
+    /* การ์ดสุดล้ำ  */
+    .hyper-card {
+      width: 380px;
+      background: rgba(0, 40, 60, 0.25);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(0, 255, 255, 0.5);
+      border-radius: 48px;
+      padding: 25px 20px 30px;
+      box-shadow: 0 30px 50px -20px #00ffff80, 0 0 0 2px rgba(0, 255, 255, 0.3) inset;
+      transition: 0.3s;
+      cursor: pointer;
+      transform-style: preserve-3d;
+    }
+
+    .hyper-card:hover {
+      transform: translateY(-20px) scale(1.02);
+      box-shadow: 0 40px 70px -10px #0af, 0 0 0 3px #80ffff inset;
+    }
+
+    .card-media {
       width: 100%;
-      height: 200px; /* ความสูงตายตัว */
-      object-fit: cover; /* ครอบเต็มกล่องไม่บิดรูป */
-      border-radius: 18px 18px 0 0;
-      box-shadow: inset 0 0 40px rgba(0, 229, 255, 0.2);
-      transition: transform 0.3s ease;
-      display: block; /* ลบช่องว่างล่างรูป */
-      margin: 0; /* ลบ margin */
-      padding: 0; /* ลบ padding */
-      background-color: #001f2f;
-    }
-    .card:hover img {
-      transform: scale(1.05);
+      border-radius: 36px;
+      overflow: hidden;
+      border: 3px solid cyan;
+      box-shadow: 0 0 40px cyan;
+      margin-bottom: 20px;
     }
 
-    /* Description box */
-    .card .description {
-      margin-top: 1rem;
-      padding: 0 1rem 1rem 1rem;
-      font-size: 1rem;
-      line-height: 1.4;
-      color: #b2ebf2;
-      user-select: text;
+    .card-media img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      transition: 0.5s;
     }
-    .card .description a {
-      color: #00e5ff;
+
+    .hyper-card:hover .card-media img {
+      transform: scale(1.1);
+    }
+
+    .card-content {
+      text-align: center;
+    }
+
+    .card-content p {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: #e6f7ff;
+      margin-bottom: 20px;
+      text-shadow: 0 0 8px lightblue;
+    }
+
+    .btn-glow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(0, 200, 255, 0.12);
+      border: 2px solid #00ffff;
+      color: white;
       font-weight: 700;
+      font-size: 1.2rem;
+      padding: 12px 32px;
+      border-radius: 60px;
       text-decoration: none;
-      transition: color 0.3s ease;
-    }
-    .card .description a:hover {
-      color: #81d4fa;
-      text-shadow: 0 0 6px #81d4fa;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 25px #00e0ff;
+      transition: 0.2s;
     }
 
-    /* Responsive tweaks */
-    @media (max-width: 600px) {
-      main h1 {
-        font-size: 2.2rem;
+    .btn-glow i {
+      color: #00ffff;
+      font-size: 1.5rem;
+      filter: drop-shadow(0 0 8px white);
+    }
+
+    .btn-glow:hover {
+      background: #00ffff30;
+      box-shadow: 0 0 45px cyan, 0 0 90px #0044ff;
+      border-color: white;
+    }
+
+    /* โครงสร้างเมนูล้ำๆ : hamburger เผื่อไว้ (แต่ยังไม่ต้องใช้) */
+    @media (max-width: 800px) {
+      .glass-header {
+        flex-direction: column;
+        align-items: start;
+        border-radius: 40px;
+        gap: 10px;
       }
-      nav {
-        gap: 1rem;
+      .nav-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
       }
-      nav a {
-        font-size: 0.9rem;
-        padding: 0.4rem 0.8rem;
-      }
-      .card img {
-        height: 150px;
+      .hero h1 {
+        font-size: 3.5rem;
       }
     }
 
-    /* Particles container */
-    #particles-js {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      z-index: 0;
-      pointer-events: none;
+    /* footer / เอฟเฟกต์เพิ่มเติม */
+    .floating-footer {
+      text-align: center;
+      padding: 30px;
+      color: #8ad4ff;
+      z-index: 5;
+      position: relative;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
     }
   </style>
 </head>
 <body>
   <div id="particles-js"></div>
 
-  <header>
-    <div class="logo">JUTI STORY SUPPORT</div>
-    <nav>
-      <a href="roplay.html">FIVEM ROPLAY</a>
-      <a href="training.html">FIVEM TRAINING</a>
-      <a href="https://www.facebook.com/lakksjslal.ksksiksks" target="_blank" rel="noopener noreferrer">REPOST</a>
-      <a href="index.html">EXIT</a>
+  <!-- HEADER ดีไซน์ใหม่ พร้อมปุ่มเหนือโลโก้ -->
+  <header class="glass-header">
+    <div class="logo-area">
+      <span class="neon-logo">JUTI·EVO</span>
+      <span class="badge-new">FIVEM SUPPORT</span>
+    </div>
+    <!-- เมนูล้ำๆ: ปุ่มทุกปุ่มอยู่เหนือโลโก้เดิม -->
+    <nav class="nav-menu">
+      <a href="roplay.html" class="menu-item"><i class="fas fa-dice-d6"></i> ROPLAY</a>
+      <a href="training.html" class="menu-item"><i class="fas fa-bolt"></i> TRAINING</a>
+      <a href="https://www.facebook.com/lakksjslal.ksksiksks" target="_blank" rel="noopener noreferrer" class="menu-item"><i class="fab fa-facebook"></i> REPOST</a>
+      <a href="index.html" class="menu-item exit"><i class="fas fa-power-off"></i> EXIT</a>
     </nav>
   </header>
 
-  <main>
+  <main class="hero">
     <h1>SUPPORT WEBSITE</h1>
-    <p class="subtitle">ข้อมูลสนับสนุนสำหรับ JUTI STORY</p>
+    <div class="subtitle-neon">
+      <i class="fas fa-shield-alt" style="margin-right: 10px;"></i> ข้อมูลสนับสนุนสำหรับ JUTI STORY <i class="fas fa-crown" style="margin-left: 10px;"></i>
+    </div>
 
-    <div class="card-container">
-      <div class="card" tabindex="0" aria-label="สนใจเข้ากระกูล ทักเพจ JUTI STORY x YONGBXY">
-        <img src="https://img5.pic.in.th/file/secure-sv1/1-1d26803633373e3f2.png" alt="สนใจเข้ากระกูล ทักเพจ JUTI STORY x YONGBXY" />
-        <div class="description">
-          สนใจเข้ากระกูล ทักเพจมาได้เลย<br />
-          <a href="https://www.facebook.com/profile.php?id=100063900591544" target="_blank" rel="noopener noreferrer">JUTI STORY x YONGBXY</a>
+    <!-- การ์ดใบเดียว แต่ล้ำกระจาย -->
+    <div class="card-grid">
+      <!-- การ์ดหลัก megacard -->
+      <div class="hyper-card" tabindex="0" aria-label="สนใจเข้ากระกูล ทักเพจ JUTI STORY x YONGBXY">
+        <div class="card-media">
+          <img src="https://img5.pic.in.th/file/secure-sv1/1-1d26803633373e3f2.png" alt="JUTI STORY x YONGBXY">
         </div>
+        <div class="card-content">
+          <p><i class="fas fa-user-astronaut" style="margin-right: 8px;"></i> สนใจเข้ากระกูล ทักเพจมาได้เลย</p>
+          <a href="https://www.facebook.com/profile.php?id=100063900591544" target="_blank" rel="noopener noreferrer" class="btn-glow">
+            <i class="fab fa-facebook-messenger"></i> JUTI STORY x YONGBXY
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- เพิ่มระบบเมนูล้ำๆ: ฟีเจอร์ QUICK MENU ลอย (บทใหม่) -->
+    <div style="margin: 70px auto 20px; display: flex; justify-content: center; gap: 35px; flex-wrap: wrap;">
+      <div class="menu-item" style="cursor: default; background: rgba(0, 150, 255, 0.2); gap: 10px; padding: 0.8rem 2rem;">
+        <i class="fas fa-gamepad"></i> <span>FIVEM READY</span>
+      </div>
+      <div class="menu-item" style="cursor: default; background: rgba(255, 100, 150, 0.2); gap: 10px; padding: 0.8rem 2rem;">
+        <i class="fas fa-microchip"></i> <span>CYBER MODE</span>
+      </div>
+      <div class="menu-item" style="cursor: default; background: rgba(0, 255, 200, 0.15); gap: 10px; padding: 0.8rem 2rem;">
+        <i class="fas fa-globe"></i> <span>LIVE • 24/7</span>
       </div>
     </div>
   </main>
 
-  <!-- Particle.js CDN -->
+  <div class="floating-footer">
+    <i class="fas fa-copyright"></i> JUTI STORY · SUPPORT EVOLUTION — ล้ำกว่าที่เคย
+  </div>
+
+  <!-- particles และ script ป้องกัน -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script>
     particlesJS("particles-js", {
-      "particles": {
-        "number": { "value": 60, "density": { "enable": true, "value_area": 800 }},
-        "color": { "value": "#00e5ff" },
-        "shape": { "type": "circle" },
-        "opacity": { "value": 0.5, "random": false },
-        "size": { "value": 3, "random": true },
-        "line_linked": {
-          "enable": true,
-          "distance": 120,
-          "color": "#00e5ff",
-          "opacity": 0.25,
-          "width": 1
+      particles: {
+        number: { value: 90, density: { enable: true, value_area: 1000 } },
+        color: { value: "#00ffff" },
+        shape: { type: "circle" },
+        opacity: { value: 0.4, random: true },
+        size: { value: 4, random: true },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: "#00e5ff",
+          opacity: 0.2,
+          width: 1.5
         },
-        "move": {
-          "enable": true,
-          "speed": 2,
-          "direction": "none",
-          "random": true,
-          "straight": false,
-          "out_mode": "bounce"
+        move: {
+          enable: true,
+          speed: 2,
+          direction: "none",
+          random: true,
+          straight: false,
+          out_mode: "bounce"
         }
       },
-      "interactivity": {
-        "detect_on": "canvas",
-        "events": {
-          "onhover": { "enable": true, "mode": "grab" },
-          "onclick": { "enable": true, "mode": "push" },
-          "resize": true
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "grab" },
+          onclick: { enable: true, mode: "push" }
         },
-        "modes": {
-          "grab": { "distance": 140, "line_linked": { "opacity": 0.3 }},
-          "push": { "particles_nb": 4 }
+        modes: {
+          grab: { distance: 180, line_linked: { opacity: 0.6 } },
+          push: { particles_nb: 5 }
         }
       },
-      "retina_detect": true
+      retina_detect: true
     });
 
-    // Prevent right click & F12
+    // block devtools / F12
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.addEventListener('keydown', e => {
       if (e.key === "F12" || (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i')) {
         e.preventDefault();
       }
     });
+
+    // เอฟเฟกต์เพิ่มความล้ำ: ตัวหนังสือสั่นเบาๆ
+    console.log('✨ JUTI EVOLUTION — ล้ำระดับจักรวาล ✨');
   </script>
 </body>
 </html>
