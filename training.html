@@ -1,151 +1,164 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>FIVEM SMART CHECK</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FIVEM CHECK ROLEPLAY</title>
 
+<link rel="icon" href="FiveM.png" type="image/png">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-
+*{box-sizing:border-box}
 body{
+  margin:0;
   font-family:'Poppins',sans-serif;
-  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  background:#0f1c2d;
+  color:#e0e6f1;
   min-height:100vh;
   display:flex;
-  justify-content:center;
+  flex-direction:column;
+}
+
+/* ===== HEADER ===== */
+header{
+  background:#152a45;
+  padding:18px 32px;
+  display:flex;
+  justify-content:space-between;
   align-items:center;
-  color:#fff;
+  box-shadow:0 4px 15px rgba(0,0,0,.6);
+}
+.logo{
+  font-size:1.7rem;
+  font-weight:700;
+  color:#00aaff;
+  letter-spacing:2px;
+}
+nav{
+  display:flex;
+  gap:16px;
+}
+nav a{
+  color:#e0e6f1;
+  padding:8px 14px;
+  border-radius:8px;
+  font-weight:600;
+  transition:.25s;
+}
+nav a:hover{
+  background:#00aaff;
+  color:#0f1c2d;
 }
 
-.container{
-  width:100%;
-  max-width:700px;
-  padding:40px;
-  border-radius:25px;
-  backdrop-filter:blur(20px);
-  background:rgba(255,255,255,0.08);
-  box-shadow:0 0 60px rgba(0,180,255,0.4);
-  animation:fadeIn 0.6s ease;
+/* ===== MAIN ===== */
+main{
+  flex:1;
+  max-width:720px;
+  margin:40px auto;
+  background:#1e2f4f;
+  padding:32px;
+  border-radius:16px;
+  box-shadow:0 0 35px rgba(0,95,187,.6);
 }
-
-h1{
+main h1{
   text-align:center;
+  color:#00aaff;
+  margin-bottom:28px;
   font-size:2.2rem;
-  margin-bottom:30px;
-  background:linear-gradient(90deg,#00f2ff,#00b4ff);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
 }
 
+/* ===== FORM ===== */
+form{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
 label{
   font-weight:600;
-  font-size:0.95rem;
-  opacity:0.9;
+  color:#a8b8d9;
 }
-
 select,input{
-  width:100%;
-  padding:14px;
-  margin-top:8px;
-  margin-bottom:20px;
-  border:none;
+  padding:14px 16px;
   border-radius:12px;
-  background:rgba(255,255,255,0.15);
+  border:none;
+  background:#11253b;
   color:#fff;
   font-size:1rem;
-  outline:none;
-  transition:0.3s;
 }
-
 select:focus,input:focus{
-  background:rgba(255,255,255,0.25);
-  box-shadow:0 0 15px #00b4ff;
+  outline:none;
+  box-shadow:0 0 10px #00aaff;
 }
-
 button{
-  width:100%;
+  margin-top:10px;
   padding:15px;
+  font-size:1.2rem;
+  font-weight:700;
   border:none;
   border-radius:30px;
-  font-size:1.1rem;
-  font-weight:700;
+  background:linear-gradient(90deg,#00b4ff,#0077cc);
+  color:#fff;
   cursor:pointer;
-  background:linear-gradient(90deg,#00f2ff,#00b4ff);
-  color:#000;
-  transition:0.3s;
+  transition:.25s;
 }
-
 button:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 25px #00f2ff;
+  transform:scale(1.04);
+  box-shadow:0 0 25px #00aaff;
 }
 
-button:disabled{
-  opacity:0.6;
-  cursor:not-allowed;
-}
-
+/* ===== RESULT ===== */
 #result{
   margin-top:30px;
-  padding:20px;
-  border-radius:15px;
-  background:rgba(0,0,0,0.4);
-  min-height:60px;
-  animation:fadeIn 0.4s ease;
+  background:#122a53;
+  border-radius:14px;
+  padding:22px;
+  line-height:1.7;
 }
-
-.player-card{
-  animation:slideUp 0.4s ease;
+#result h3{
+  color:#00c3ff;
 }
-
-.player-card h3{
-  margin-bottom:10px;
-  color:#00f2ff;
-}
-
-.loading{
-  text-align:center;
-  animation:pulse 1s infinite;
-}
-
-.error{
-  color:#ff6b6b;
+#result a{
+  color:#66ccff;
   font-weight:600;
 }
 
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(10px)}
-  to{opacity:1;transform:translateY(0)}
+/* ===== FOOTER ===== */
+footer{
+  background:#152a45;
+  text-align:center;
+  padding:16px;
+  font-size:.9rem;
+  color:#8ea6c1;
 }
 
-@keyframes slideUp{
-  from{opacity:0;transform:translateY(20px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
-@keyframes pulse{
-  0%{opacity:0.5}
-  50%{opacity:1}
-  100%{opacity:0.5}
-}
-
-@media(max-width:600px){
-  .container{padding:25px}
-  h1{font-size:1.6rem}
+/* MOBILE */
+@media(max-width:480px){
+  main{margin:20px;padding:24px}
+  main h1{font-size:1.7rem}
 }
 </style>
 </head>
+
 <body>
 
-<div class="container">
-  <h1>FIVEM SMART CHECK</h1>
+<header>
+  <div class="logo">FIVEM CHECK</div>
+  <nav>
+    <a href="menu.html">เมนูหลัก</a>
+    <a href="roplay.html">FIVEM ROLEPLAY</a>
+    <a href="https://www.facebook.com/lakksjslal.ksksiksks" target="_blank">รายงาน</a>
+    <a href="index.html">ออกจากระบบ</a>
+  </nav>
+</header>
 
-  <label>เลือกเซิร์ฟเวอร์</label>
-  <select id="serverSelect">
-    <option value="">-- เลือกเซิร์ฟเวอร์ --</option>
+<main>
+  <h1>CHECK TRAINING FIVEM</h1>
+
+  <form onsubmit="event.preventDefault(); checkPlayer();">
+    <label>เลือกเซิร์ฟเวอร์</label>
+    <select id="serverSelect">
+      <option value="">-- เลือกจากลิสต์ --</option>
       <option value="103.91.190.236">Starcommunity 1</option>
       <option value="103.91.190.107">Starcommunity 2</option>
       <option value="103.208.27.135">Starcommunity 3</option>
@@ -155,75 +168,69 @@ button:disabled{
       <option value="146.19.69.172">WHAT TRAINING 2</option>
       <option value="103.91.190.242">Glorious Community</option>
       <option value="31.56.79.17">LAST STUDIO</option>
-  </select>
+    </select>
 
-  <label>หรือกรอก IP เอง</label>
-  <input type="text" id="manualIp" placeholder="เช่น 123.45.67.89">
+    <label>หรือกรอก IP เอง</label>
+    <input id="manualIp" placeholder="เช่น 123.45.67.89">
 
-  <label>ค้นหา (ID / ชื่อ / Steam / Discord)</label>
-  <input type="text" id="searchInput" placeholder="พิมพ์ข้อมูลที่ต้องการค้นหา">
+    <label>Player ID</label>
+    <input id="playerId" placeholder="เช่น 1" required>
 
-  <button id="searchBtn" onclick="checkPlayer()">ค้นหา</button>
+    <button type="submit">ค้นหาข้อมูล</button>
+  </form>
 
   <div id="result"></div>
-</div>
+</main>
+
+<footer>
+  © 2025 FIVEM CHECK – DEV JUTI STORY
+</footer>
 
 <script>
 async function checkPlayer(){
+  const server =
+    document.getElementById("manualIp").value.trim() ||
+    document.getElementById("serverSelect").value.trim();
 
-  const serverSelect=document.getElementById('serverSelect').value.trim();
-  const manualIp=document.getElementById('manualIp').value.trim();
-  const search=document.getElementById('searchInput').value.trim();
-  const result=document.getElementById('result');
-  const btn=document.getElementById('searchBtn');
+  const playerId = document.getElementById("playerId").value.trim();
+  const result = document.getElementById("result");
 
-  const server=manualIp||serverSelect;
-
-  if(!server||!search){
-    result.innerHTML=`<div class="error">กรุณาเลือก Server และกรอกข้อมูลค้นหา</div>`;
+  if(!server || !playerId){
+    result.innerHTML = `<p style="color:#ff6666;font-weight:700">
+      กรุณากรอก Server และ Player ID
+    </p>`;
     return;
   }
 
-  btn.disabled=true;
-  result.innerHTML=`<div class="loading">กำลังค้นหา...</div>`;
-
-  let query=`?server=${encodeURIComponent(server)}`;
-
-  if(/^\d+$/.test(search) && search.length<=3){
-    query+=`&player=${search}`;
-  }else if(search.startsWith("110000")){
-    query+=`&steam=${search}`;
-  }else if(/^\d{17,}$/.test(search)){
-    query+=`&discord=${search}`;
-  }else{
-    query+=`&name=${encodeURIComponent(search)}`;
-  }
+  result.innerHTML = `<p>🔍 กำลังค้นหาข้อมูล...</p>`;
 
   try{
-    const res=await fetch(`https://bothp.onrender.com/check-player${query}`);
-    const data=await res.json();
+    const res = await fetch(
+      `https://bothp.onrender.com/check-player?server=${encodeURIComponent(server)}&player=${encodeURIComponent(playerId)}`
+    );
 
-    if(!data||!data.name){
-      result.innerHTML=`<div class="error">❌ ไม่พบข้อมูล</div>`;
-      btn.disabled=false;
-      return;
-    }
+    if(!res.ok) throw new Error("API Error");
 
-    result.innerHTML=`
-      <div class="player-card">
-        <h3>${data.name}</h3>
-        <p><b>Ping:</b> ${data.ping ?? '-'} ms</p>
-        <p><b>Steam:</b> ${data.steamHex ?? '-'}</p>
-        <p><b>Discord:</b> ${data.discord ?? '-'}</p>
-        <p><b>License:</b> ${data.license ?? '-'}</p>
-      </div>
+    const data = await res.json();
+
+    result.innerHTML = `
+      <h3>ข้อมูลผู้เล่น</h3>
+      <p><strong>ชื่อ:</strong> ${data.name}</p>
+      <p><strong>Ping:</strong> ${data.ping} ms</p>
+      <p><strong>Steam Hex:</strong> ${data.steamHex}</p>
+      <p><strong>Steam:</strong> ${
+        data.steamProfile !== "ไม่พบข้อมูล"
+        ? `<a href="${data.steamProfile}" target="_blank">${data.steamProfile}</a>`
+        : "ไม่พบข้อมูล"
+      }</p>
+      <p><strong>Discord:</strong> ${data.discord}</p>
     `;
-
-  }catch(err){
-    result.innerHTML=`<div class="error">❌ ไม่สามารถเชื่อมต่อ API ได้</div>`;
   }
-
-  btn.disabled=false;
+  catch(e){
+    result.innerHTML = `<p style="color:#ff6666;font-weight:700">
+      ❌ ไม่สามารถดึงข้อมูลได้
+    </p>`;
+  }
 }
 </script>
 
