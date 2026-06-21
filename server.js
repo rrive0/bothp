@@ -1,92 +1,33 @@
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
-const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
 const http = require('http');
 const https = require('https');
 
 const app = express();
+const port = process.env.PORT || 5000;
+
+app.use(cors());
 
 // ============================
-// CONFIGURATION (Hardcoded)
-// ============================
-const PORT = process.env.PORT || 5000;
-const CONFIG = {
-    cacheDuration: 5000, // 5 วินาที
-    timeout: 5000, // 5 วินาที
-    maxCacheSize: 100, // จำกัด cache 100 รายการ
-    nodeEnv: process.env.NODE_ENV || 'production'
-};
-
-// ============================
-// SECURITY MIDDLEWARE
-// ============================
-app.use(helmet({
-    crossOriginResourcePolicy: { policy: "cross-origin" }
-}));
-app.use(cors({
-    origin: '*', // เปิดให้ทุก domain เข้าถึง (สำหรับ Netlify)
-    methods: ['GET'],
-    allowedHeaders: ['Content-Type']
-}));
-
-// ============================
-// RATE LIMITING
-// ============================
-const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 นาที
-    max: 100, // จำกัด 100 requests ต่อ IP
-    message: { 
-        success: false,
-        message: "Too many requests, please try again later." 
-    },
-    standardHeaders: true,
-    legacyHeaders: false,
-});
-app.use('/check-player', limiter);
-
-// ============================
-// LOGGER (Simple)
-// ============================
-const logger = {
-    info: (msg) => console.log(`[${new Date().toISOString()}] ℹ️ ${msg}`),
-    error: (msg) => console.error(`[${new Date().toISOString()}] ❌ ${msg}`),
-    warn: (msg) => console.warn(`[${new Date().toISOString()}] ⚠️ ${msg}`),
-    debug: (msg) => {
-        if (CONFIG.nodeEnv === 'development') {
-            console.debug(`[${new Date().toISOString()}] 🔍 ${msg}`);
-        }
-    }
-};
-
-// ============================
-// AXIOS INSTANCE
+// AXIOS OPTIMIZED INSTANCE
 // ============================
 const axiosInstance = axios.create({
-    timeout: CONFIG.timeout,
-    httpAgent: new http.Agent({ 
-        keepAlive: true,
-        maxSockets: 50,
-        maxFreeSockets: 10
-    }),
-    httpsAgent: new https.Agent({ 
-        keepAlive: true,
-        maxSockets: 50,
-        maxFreeSockets: 10
-    })
+    timeout: 5000,
+    httpAgent: new http.Agent({ keepAlive: true }),
+    httpsAgent: new https.Agent({ keepAlive: true })
 });
 
 // ============================
-// MEMORY CACHE
+// SIMPLE MEMORY CACHE (5 วิ)
 // ============================
 const cache = {};
+const CACHE_DURATION = 5000;
 
 function getCached(serverIp) {
     const item = cache[serverIp];
     if (!item) return null;
-    
-    if (Date.now() - item.timestamp > CONFIG.cacheDuration) {
+    if (Date.now() - item.timestamp > CACHE_DURATION) {
         delete cache[serverIp];
         return null;
     }
@@ -94,196 +35,95 @@ function getCached(serverIp) {
 }
 
 function setCache(serverIp, data) {
-    const keys = Object.keys(cache);
-    if (keys.length >= CONFIG.maxCacheSize) {
-        const oldestKey = keys.reduce((a, b) => 
-            cache[a].timestamp < cache[b].timestamp ? a : b
-        );
-        delete cache[oldestKey];
-    }
-    
     cache[serverIp] = {
         data,
         timestamp: Date.now()
     };
 }
 
-function clearExpiredCache() {
-    const now = Date.now();
-    let count = 0;
-    for (const key in cache) {
-        if (now - cache[key].timestamp > CONFIG.cacheDuration) {
-            delete cache[key];
-            count++;
-        }
-    }
-    if (count > 0 && CONFIG.nodeEnv === 'development') {
-        logger.debug(`Cleared ${count} expired cache entries`);
-    }
-}
-
-// Clear cache every minute
-setInterval(clearExpiredCache, 60000);
-
 // ============================
-// VALIDATION FUNCTIONS
+// SAFE SERVER VALIDATION
 // ============================
 function isValidServer(server) {
-    const ipPattern = /^(\d{1,3}\.){3}\d{1,3}$/;
-    const domainPattern = /^[a-zA-Z0-9][a-zA-Z0-9.-]+[a-zA-Z0-9]$/;
-    return ipPattern.test(server) || domainPattern.test(server);
-}
-
-function isValidPlayerId(id) {
-    return id && /^[a-zA-Z0-9\-_]+$/.test(String(id));
-}
-
-function isValidPlayerName(name) {
-    return name && name.length > 0 && name.length <= 100;
+    return /^[a-zA-Z0-9\.\-]+$/.test(server);
 }
 
 // ============================
-// FIND PLAYER FUNCTION
-// ============================
-function findPlayer(players, playerId, playerName) {
-    let player = null;
-    let searchMethod = 'none';
-
-    // Search by ID
-    if (playerId) {
-        player = players.find(p => String(p.id) === String(playerId));
-        if (player) {
-            searchMethod = 'id';
-            return { player, searchMethod };
-        }
-    }
-
-    // Search by name
-    if (playerName && !player) {
-        const searchKey = playerName.toLowerCase();
-        
-        // Exact match first
-        player = players.find(p => 
-            p.name && p.name.toLowerCase() === searchKey
-        );
-        if (player) {
-            searchMethod = 'name_exact';
-            return { player, searchMethod };
-        }
-        
-        // Partial match
-        player = players.find(p => 
-            p.name && p.name.toLowerCase().includes(searchKey)
-        );
-        searchMethod = 'name_partial';
-    }
-
-    return { player, searchMethod };
-}
-
-// ============================
-// MAIN API ENDPOINT
+// CHECK PLAYER API
 // ============================
 app.get('/check-player', async (req, res) => {
-    const startTime = Date.now();
-    
+    const serverIp = (req.query.server || "").trim();
+    const playerId = (req.query.player || "").trim();
+    const playerName = (req.query.name || "").trim().toLowerCase();
+
+    // ตรวจสอบค่าที่ส่งมา
+    console.log(`🔍 Request: server=${serverIp}, id=${playerId}, name=${playerName}`);
+
+    if (!serverIp || (!playerId && !playerName)) {
+        return res.status(400).json({ 
+            success: false,
+            message: "กรุณาระบุ server และ player ID หรือ name" 
+        });
+    }
+
+    if (!isValidServer(serverIp)) {
+        return res.status(400).json({ 
+            success: false,
+            message: "Server IP ไม่ถูกต้อง" 
+        });
+    }
+
     try {
-        const serverIp = (req.query.server || "").trim();
-        const playerId = (req.query.player || "").trim();
-        const playerName = (req.query.name || "").trim().toLowerCase();
-
-        // Validate required fields
-        if (!serverIp || (!playerId && !playerName)) {
-            return res.status(400).json({ 
-                success: false,
-                message: "กรุณาระบุ server และ player ID หรือ name" 
-            });
-        }
-
-        // Validate data
-        if (!isValidServer(serverIp)) {
-            return res.status(400).json({ 
-                success: false,
-                message: "Server IP หรือ Domain ไม่ถูกต้อง" 
-            });
-        }
-
-        if (playerId && !isValidPlayerId(playerId)) {
-            return res.status(400).json({ 
-                success: false,
-                message: "Player ID ไม่ถูกต้อง" 
-            });
-        }
-
-        if (playerName && !isValidPlayerName(playerName)) {
-            return res.status(400).json({ 
-                success: false,
-                message: "Player Name ไม่ถูกต้อง" 
-            });
-        }
-
-        logger.info(`Request: server=${serverIp}, id=${playerId || 'none'}, name=${playerName || 'none'}`);
-
-        // ============================
-        // GET DATA FROM CACHE OR SERVER
-        // ============================
+        // ดึงข้อมูลจาก Cache หรือ Server
         let players = getCached(serverIp);
-        let fromCache = true;
 
         if (!players) {
-            fromCache = false;
-            logger.debug(`Fetching players from server: ${serverIp}`);
+            console.log(`📡 Fetching from: http://${serverIp}:30120/players.json`);
             
-            try {
-                const response = await axiosInstance.get(`http://${serverIp}:30120/players.json`, {
-                    timeout: CONFIG.timeout
-                });
-                
-                if (response.status !== 200) {
-                    return res.status(response.status).json({ 
-                        success: false,
-                        message: `Server responded with status ${response.status}` 
-                    });
-                }
-                
-                players = response.data;
-                
-                if (!Array.isArray(players) || players.length === 0) {
-                    return res.status(404).json({ 
-                        success: false,
-                        message: "ไม่พบผู้เล่นในเซิร์ฟเวอร์" 
-                    });
-                }
-                
+            const response = await axiosInstance.get(`http://${serverIp}:30120/players.json`);
+            players = response.data;
+            
+            console.log(`✅ Got ${Array.isArray(players) ? players.length : 'invalid'} players`);
+            
+            // บันทึก Cache เฉพาะเมื่อเป็น Array
+            if (Array.isArray(players)) {
                 setCache(serverIp, players);
-                logger.debug(`Fetched ${players.length} players from server`);
-            } catch (error) {
-                if (error.code === 'ECONNREFUSED') {
-                    return res.status(503).json({ 
-                        success: false,
-                        message: "ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้ (Connection Refused)" 
-                    });
-                }
-                if (error.code === 'ECONNABORTED') {
-                    return res.status(504).json({ 
-                        success: false,
-                        message: "เซิร์ฟเวอร์ตอบสนองช้าเกินไป (Timeout)" 
-                    });
-                }
-                if (error.code === 'ENOTFOUND') {
-                    return res.status(404).json({ 
-                        success: false,
-                        message: "ไม่พบเซิร์ฟเวอร์ (Host not found)" 
-                    });
-                }
-                throw error;
             }
         }
 
-        // ============================
-        // FIND PLAYER
-        // ============================
-        const { player, searchMethod } = findPlayer(players, playerId, playerName);
+        // ตรวจสอบว่าเป็น Array หรือไม่
+        if (!Array.isArray(players)) {
+            console.log(`❌ players is not array:`, typeof players);
+            return res.status(500).json({ 
+                success: false,
+                message: "ข้อมูล players.json ไม่ถูกต้อง" 
+            });
+        }
+
+        if (players.length === 0) {
+            return res.status(404).json({ 
+                success: false,
+                message: "ไม่พบผู้เล่นในเซิร์ฟเวอร์นี้" 
+            });
+        }
+
+        // ค้นหาผู้เล่น
+        let player = null;
+        let searchMethod = 'none';
+
+        if (playerId) {
+            player = players.find(p => String(p.id) === String(playerId));
+            if (player) searchMethod = 'id';
+            console.log(`🔍 Search by ID: ${playerId} -> ${player ? 'found' : 'not found'}`);
+        }
+
+        if (!player && playerName) {
+            player = players.find(p =>
+                p.name && p.name.toLowerCase().includes(playerName)
+            );
+            if (player) searchMethod = 'name';
+            console.log(`🔍 Search by Name: ${playerName} -> ${player ? 'found' : 'not found'}`);
+        }
 
         if (!player) {
             return res.status(404).json({ 
@@ -292,9 +132,7 @@ app.get('/check-player', async (req, res) => {
             });
         }
 
-        // ============================
-        // EXTRACT IDENTIFIERS
-        // ============================
+        // ดึงข้อมูล identifiers
         const identifiers = player.identifiers || [];
 
         const getIdentifier = (prefix) => {
@@ -310,22 +148,16 @@ app.get('/check-player', async (req, res) => {
         const live = getIdentifier("live");
         const fivem = getIdentifier("fivem");
 
-        // Convert Steam Hex
         let steamProfile = "ไม่พบข้อมูล";
         if (steamHex) {
             try {
-                const steamId64 = BigInt("0x" + steamHex);
-                steamProfile = `https://steamcommunity.com/profiles/${steamId64}`;
-            } catch (error) {
+                steamProfile = `https://steamcommunity.com/profiles/${BigInt("0x" + steamHex)}`;
+            } catch {
                 steamProfile = "แปลง Steam Hex ไม่สำเร็จ";
             }
         }
 
-        // ============================
-        // RESPONSE
-        // ============================
-        const responseTime = Date.now() - startTime;
-        
+        // ส่ง Response
         res.json({
             success: true,
             data: {
@@ -343,47 +175,56 @@ app.get('/check-player', async (req, res) => {
                 allIdentifiers: identifiers
             },
             meta: {
-                fromCache: fromCache,
                 searchMethod: searchMethod,
                 totalPlayers: players.length,
-                responseTime: responseTime + 'ms',
                 timestamp: new Date().toISOString()
             }
         });
 
-        logger.info(`Response: ${responseTime}ms, ${fromCache ? 'cache' : 'fresh'}, method: ${searchMethod}`);
+        console.log(`✅ Response: ${player.name} (ID: ${player.id})`);
 
     } catch (error) {
-        logger.error(`Error: ${error.message}`);
-        
-        res.status(500).json({
+        console.error("❌ Error:", error.message);
+        console.error("📝 Full error:", error);
+
+        if (error.code === 'ECONNABORTED') {
+            return res.status(504).json({ 
+                success: false,
+                message: "Server ตอบสนองช้าเกินไป" 
+            });
+        }
+
+        if (error.code === 'ECONNREFUSED') {
+            return res.status(503).json({ 
+                success: false,
+                message: "ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้ (ปิดหรือไม่พร้อม)" 
+            });
+        }
+
+        if (error.response) {
+            return res.status(error.response.status).json({ 
+                success: false,
+                message: `Server ตอบกลับด้วย status ${error.response.status}` 
+            });
+        }
+
+        return res.status(500).json({
             success: false,
-            message: "เกิดข้อผิดพลาดในการดึงข้อมูลจากเซิร์ฟเวอร์",
-            timestamp: new Date().toISOString()
+            message: "ไม่สามารถดึงข้อมูลจากเซิร์ฟเวอร์ได้",
+            error: error.message
         });
     }
 });
 
 // ============================
-// HEALTH CHECK ENDPOINT
+// HEALTH CHECK
 // ============================
 app.get('/health', (req, res) => {
-    const cacheSize = Object.keys(cache).length;
-    const memoryUsage = process.memoryUsage();
-    
     res.json({
         status: 'OK',
         uptime: process.uptime(),
-        cacheSize: cacheSize,
-        cacheDuration: CONFIG.cacheDuration + 'ms',
-        maxCacheSize: CONFIG.maxCacheSize,
-        memoryUsage: {
-            rss: Math.round(memoryUsage.rss / 1024 / 1024) + ' MB',
-            heapTotal: Math.round(memoryUsage.heapTotal / 1024 / 1024) + ' MB',
-            heapUsed: Math.round(memoryUsage.heapUsed / 1024 / 1024) + ' MB'
-        },
-        timestamp: new Date().toISOString(),
-        environment: CONFIG.nodeEnv
+        cacheSize: Object.keys(cache).length,
+        timestamp: new Date().toISOString()
     });
 });
 
@@ -393,62 +234,21 @@ app.get('/health', (req, res) => {
 app.get('/', (req, res) => {
     res.json({
         name: 'FiveM Player Checker API',
-        version: '2.0.0',
-        description: 'API for checking FiveM players',
+        version: '1.0.0',
         endpoints: {
             checkPlayer: '/check-player?server=IP&player=ID&name=NAME',
             health: '/health'
-        },
-        status: 'online'
-    });
-});
-
-// ============================
-// 404 HANDLER
-// ============================
-app.use((req, res) => {
-    res.status(404).json({
-        success: false,
-        message: 'Endpoint not found'
-    });
-});
-
-// ============================
-// ERROR HANDLER
-// ============================
-app.use((err, req, res, next) => {
-    logger.error(`Unhandled error: ${err.message}`);
-    
-    res.status(500).json({
-        success: false,
-        message: 'Internal server error'
+        }
     });
 });
 
 // ============================
 // START SERVER
 // ============================
-app.listen(PORT, '0.0.0.0', () => {
+app.listen(port, '0.0.0.0', () => {
     console.log(`========================================`);
-    console.log(`🚀 FiveM Player Checker API`);
-    console.log(`📡 Running on port: ${PORT}`);
-    console.log(`🌐 Environment: ${CONFIG.nodeEnv}`);
-    console.log(`⏱️  Cache duration: ${CONFIG.cacheDuration}ms`);
-    console.log(`📊 Max cache size: ${CONFIG.maxCacheSize}`);
+    console.log(`✅ Backend server running`);
+    console.log(`📡 Port: ${port}`);
+    console.log(`🌐 URL: http://localhost:${port}`);
     console.log(`========================================`);
 });
-
-// ============================
-// GRACEFUL SHUTDOWN
-// ============================
-process.on('SIGTERM', () => {
-    logger.info('SIGTERM received - shutting down gracefully');
-    process.exit(0);
-});
-
-process.on('SIGINT', () => {
-    logger.info('SIGINT received - shutting down gracefully');
-    process.exit(0);
-});
-
-module.exports = app;
