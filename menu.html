@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JUTI FIVEM SUPPORT · EVOLUTION</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%2338bdf8'><circle cx='50' cy='50' r='45' stroke='white' stroke-width='6' /></svg>" />
+  
+  <!-- โหลด Font คุมโทนพรีเมียมเทค -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-dark: #060913;
+      --card-bg: rgba(13, 19, 33, 0.45);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --cyber-cyan: #38bdf8;
+      --cyber-glow: rgba(56, 189, 248, 0.15);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --radius-full: 999px;
+      --radius-card: 28px;
+      --radius-inner: 16px;
+    }
+
+    body {
+      font-family: 'Inter', 'Noto Sans Thai', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* แสง Ambient ลอยหลังพาร์ทิเคิลเพิ่มมิติ */
+    .bg-glow {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, transparent 70%);
+      top: -200px;
+      left: -100px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* ===== MODERN GLASS HEADER ===== */
+    .glass-header {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      background: rgba(6, 9, 19, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-inner);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      z-index: 10000;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .neon-logo {
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: 0.5px;
+      background: linear-gradient(to right, #fff, var(--cyber-cyan));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .badge-new {
+      background: rgba(56, 189, 248, 0.06);
+      color: var(--cyber-cyan);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      letter-spacing: 0.5px;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .menu-item {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .menu-item i {
+      font-size: 0.95rem;
+      transition: transform 0.2s ease;
+    }
+
+    .menu-item:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .menu-item:hover i {
+      transform: translateY(-1px);
+      color: var(--cyber-cyan);
+    }
+
+    /* ปุ่ม EXIT สไตล์ Soft-Danger */
+    .menu-item.exit {
+      color: #f87171;
+    }
+    .menu-item.exit:hover {
+      background: rgba(239, 68, 68, 0.08);
+      color: #ef4444;
+    }
+
+    /* ===== MAIN HERO SECTION ===== */
+    .hero {
+      flex: 1;
+      position: relative;
+      z-index: 5;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 160px 20px 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+      background: linear-gradient(to bottom, #ffffff 40%, var(--text-muted));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle-neon {
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      margin-bottom: 44px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .subtitle-neon i {
+      color: var(--cyber-cyan);
+    }
+
+    /* ===== PREMIUM HYPER CARD ===== */
+    .card-grid {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .hyper-card {
+      width: 100%;
+      max-width: 440px;
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-card);
+      padding: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hyper-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(56, 189, 248, 0.25);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 40px var(--cyber-glow);
+    }
+
+    .card-media {
+      width: 100%;
+      border-radius: var(--radius-inner);
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      margin-bottom: 20px;
+      background: #000;
+    }
+
+    .card-media img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hyper-card:hover .card-media img {
+      transform: scale(1.04);
+    }
+
+    .card-content p {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--text-main);
+      margin-bottom: 20px;
+    }
+    .card-content p i {
+      color: var(--cyber-cyan);
+      margin-right: 6px;
+    }
+
+    .btn-glow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--cyber-cyan);
+      color: #060913;
+      weight: 600;
+      font-weight: 700;
+      font-size: 0.95rem;
+      width: 100%;
+      padding: 14px;
+      border-radius: var(--radius-inner);
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
+    }
+
+    .btn-glow:hover {
+      background: #7dd3fc;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4);
+    }
+
+    /* ===== SYSTEM STATUS INFOBAR ===== */
+    .status-panel-row {
+      margin: 56px auto 0;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .status-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+    }
+    .status-indicator i {
+      font-size: 0.85rem;
+    }
+    .status-indicator.cyan-ready i { color: #38bdf8; }
+    .status-indicator.pink-cyber i { color: #f472b6; }
+    .status-indicator.green-live i { color: #34d399; }
+
+    /* ===== FOOTER ===== */
+    .floating-footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: rgba(255, 255, 255, 0.25);
+      z-index: 5;
+      position: relative;
+      font-size: 0.8rem;
+      letter-spacing: 0.5px;
+      border-top: 1px solid var(--card-border);
+      background: rgba(6, 9, 19, 0.5);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 800px) {
+      .glass-header {
+        top: 12px; left: 12px; right: 12px;
+        padding: 10px 16px;
+        border-radius: 12px;
+      }
+      .neon-logo, .badge-new { display: none; }
+      .nav-menu { width: 100%; justify-content: space-between; }
+      .menu-item { padding: 6px 10px; font-size: 0.8rem; gap: 4px; }
+      .hero { padding-top: 130px; }
+      .hero h1 { font-size: 2.2rem; }
+      .hyper-card { padding: 18px; }
+      .card-media img { height: 180px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-glow"></div>
+  <div id="particles-js"></div>
+
+  <!-- HEADER NAVIGATION -->
+  <header class="glass-header">
+    <div class="logo-area">
+      <span class="neon-logo">JUTI·EVO</span>
+      <span class="badge-new">FIVEM SUPPORT</span>
+    </div>
+    <nav class="nav-menu">
+      <a href="roplay.html" class="menu-item"><i class="fas fa-dice-d6"></i> ROPLAY</a>
+      <a href="training.html" class="menu-item"><i class="fas fa-bolt"></i> TRAINING</a>
+      <a href="https://www.facebook.com/lakksjslal.ksksiksks" target="_blank" rel="noopener noreferrer" class="menu-item"><i class="fab fa-facebook"></i> REPOST</a>
+      <a href="index.html" class="menu-item exit"><i class="fas fa-power-off"></i> EXIT</a>
+    </nav>
+  </header>
+
+  <!-- MAIN ZONE -->
+  <main class="hero">
+    <h1>SUPPORT WEBSITE</h1>
+    <div class="subtitle-neon">
+      <i class="fas fa-shield-alt"></i> ข้อมูลสนับสนุนสำหรับ JUTI STORY <i class="fas fa-crown"></i>
+    </div>
+
+    <!-- MAIN CLUSTER CARD -->
+    <div class="card-grid">
+      <div class="hyper-card" tabindex="0" aria-label="สนใจเข้าตระกูล ติดต่อเพจ JUTI STORY x YONGBXY">
+        <div class="card-media">
+          <img src="https://img5.pic.in.th/file/secure-sv1/1-1d26803633373e3f2.png" alt="JUTI STORY x YONGBXY">
+        </div>
+        <div class="card-content">
+          <p><i class="fas fa-user-astronaut"></i> สนใจเข้าตระกูล สามารถติดต่อทางเพจได้ทันที</p>
+          <a href="https://www.facebook.com/profile.php?id=100063900591544" target="_blank" rel="noopener noreferrer" class="btn-glow">
+            <i class="fab fa-facebook-messenger"></i> ติดต่อ JUTI STORY x YONGBXY
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUICK SYSTEM INFOBAR -->
+    <div class="status-panel-row">
+      <div class="status-indicator cyan-ready">
+        <i class="fas fa-gamepad"></i> <span>FIVEM READY</span>
+      </div>
+      <div class="status-indicator pink-cyber">
+        <i class="fas fa-microchip"></i> <span>CYBER MODE</span>
+      </div>
+      <div class="status-indicator green-live">
+        <i class="fas fa-globe"></i> <span>LIVE • 24/7</span>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <div class="floating-footer">
+    © 2026 JUTI STORY &middot; SUPPORT EVOLUTION
+  </div>
+
+  <!-- PARTICLES & SECURITY ENGINE -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 60, density: { enable: true, value_area: 1000 } },
+        color: { value: "#38bdf8" },
+        shape: { type: "circle" },
+        opacity: { value: 0.25, random: true },
+        size: { value: 3, random: true },
+        line_linked: {
+          enable: true,
+          distance: 140,
+          color: "#38bdf8",
+          opacity: 0.12,
+          width: 1
+        },
+        move: {
+          enable: true,
+          speed: 1.5,
+          direction: "none",
+          random: true,
+          straight: false,
+          out_mode: "out"
+        }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "grab" },
+          onclick: { enable: true, mode: "push" }
+        },
+        modes: {
+          grab: { distance: 160, line_linked: { opacity: 0.4 } },
+          push: { particles_nb: 3 }
+        }
+      },
+      retina_detect: true
+    });
+
+    // DevTools & Protection Hooks
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('keydown', e => {
+      if (e.key === "F12" || (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i')) {
+        e.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>
