@@ -1,0 +1,30 @@
+{
+  "name": "fivem-player-checker-backend",
+  "version": "2.0.0",
+  "description": "FiveM Player Checker API - Deployable on Render, Netlify, GitHub",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "axios": "^1.6.0",
+    "cors": "^2.8.5",
+    "helmet": "^7.1.0",
+    "express-rate-limit": "^7.1.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "fivem",
+    "player-checker",
+    "api",
+    "express",
+    "render",
+    "netlify"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
